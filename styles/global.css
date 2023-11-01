@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "mtl-Thin";
+  src: url("/fonts/mtl/mtl-Thin.ttf") format("opentype");
+}
+@font-face {
+  font-family: "mtl-Book";
+  src: url("/fonts/mtl/mtl-Book.ttf") format("opentype");
+}
+@font-face {
+  font-family: "mtl-Regular";
+  src: url("/fonts/mtl/mtl-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "mtl-Medium";
+  src: url("/fonts/mtl/mtl-Medium.ttf") format("opentype");
+}
+@font-face {
+  font-family: "mtl-Light";
+  src: url("/fonts/mtl/mtl-Light.ttf") format("opentype");
+}
+@font-face {
+  font-family: "mtl-Bold";
+  src: url("/fonts/mtl/mtl-Bold.ttf") format("opentype");
+}
+
+
+@font-face {
+  font-family: "edi-Ultralight";
+  src: url("/fonts/edi/edi-Ultralight.ttf") format("opentype");
+}
+@font-face {
+  font-family: "edi-Thin";
+  src: url("/fonts/edi/edi-Thin.ttf") format("opentype");
+}
+@font-face {
+  font-family: "edi-Regular";
+  src: url("/fonts/edi/edi-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "edi-Bold";
+  src: url("/fonts/edi/edi-Bold.ttf") format("opentype");
+}
+@font-face {
+  font-family: "edi-Heavy";
+  src: url("/fonts/edi/edi-Heavy.ttf") format("opentype");
+}
+
+:root {
+  --ff-thin: "mtl-Thin", sans-serif;
+  --ff-base: "mtl-Regular", sans-serif;
+  --ff-bold: "mtl-Bold", sans-serif;
+  --ff-title: "edi-Thin", serif; 
+
+  --font-size-fluid-0: clamp(.75rem, 1.5vw, 1rem);
+  --font-size-fluid-1: clamp(1rem, 2vw, 1.5rem);
+  --font-size-fluid-2: clamp(1.5rem, 3vw, 2.5rem);
+  --font-size-fluid-3: clamp(2rem, 4vw, 3.5rem);
+}
+
+..mint_button {
+  appearance: none;
+  border: none;
+  font-family: var(--ff-thin);
+  background-color: black;
+  line-height: 1;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 16px 16px;
+  align-items: center;
+  color: white;
+  transition: all ease-in-out 150ms;
+  text-align: center;
+  filter: brightness(1);
+}
+
+.mint_button:not(:disabled):hover {
+  filter: brightness(1.75);
+}
+
+.mint_button:disabled {
+  filter: brightness(0.2);
+  cursor: ; 
+}
+
+
+.mint_button[data-mint-loading="true"] {
+  background: rgba(22, 25, 31, 0.24);
+}
+
+.mint_button[data-mint-started="true"] {
+  background-image: linear-gradient(270deg, #FF6257, #FF5CA0);
+  position: relative;
+}
+
+.mint_button[data-mint-started="true"]::after {
+  animation-name: pulse;
+  animation-duration: 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  background-color: #FF6257;
+  border-radius: inherit;
+  bottom: 0;
+  content: ' ';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.mint_button[data-mint-success="true"] {
+  background-color: white;
+  background-image: none;
+  color: black;
+  animation: none;
+  position: static;
+}
+
+.mint_button[data-mint-success="true"]::after {
+  content: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 0 }
+  100% { opacity: 1 }
+}
+
+
+/* h1,h2,h3,h4,h5{
+  overflow: hidden;
+} */
+
+h1, h2{
+  font-family: var(--ff-title), serif; 
+  font-weight: 100;
+}
+
+h3, h4, h5{
+  font-family: var(--ff-base) ;
+}
+
+p {
+  font-family: "mtl-light", "sans-serif";
+}
+
+.wrapper {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 60rem;
+}
+
+.flow > * + * {
+  margin-top: 5vh;
+}
+
+.whiteShadow {
+  text-shadow: 0px 0px 8px white; /* Adjust the values as needed */
+}
+
+.spaced {
+  justify-content: space-between;
+  align-items: center;
+}
+
+img {
+  border-radius: 8px;
+}
+
+.jumbo span {
+  display: inline-block;
+}
+
+.jumboImg {
+  z-index: 0;
+  max-height: 70vh;
+  align-self: center;
+}
