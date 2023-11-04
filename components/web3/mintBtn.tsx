@@ -6,12 +6,12 @@ import {
   useWaitForTransaction,
   useContractRead,
 } from 'wagmi';
-import { abi2 } from '../contract-abi-2'
+import { abi2 } from '../../contract-abi-2'
 import {
     fadeInSmooth,
     AnimContDyna,
     fadeInLinear,
-  } from "./animations";
+  } from "../animations";
   import utils from 'viem';
 
 

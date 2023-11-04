@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import dynamic from 'next/dynamic';
 import {
   useAccount,
   useContractRead,
@@ -19,12 +20,17 @@ import Timer from "../components/Timer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
-import MintBtn from "../components/mintBtn";
+import MintBtn from "../components/web3/mintBtn";
 
+const CurrentPrice = dynamic(() => import('../components/web3/CurrentPrice'), {
+  ssr: false,
+});
 
-import dynamic from 'next/dynamic';
+const TotalMinted = dynamic(() => import('../components/web3/Supply'), {
+  ssr: false,
+});
 
-const CurrentPrice = dynamic(() => import('../components/CurrentPrice'), {
+const Minted = dynamic(() => import('../components/web3/Minted'), {
   ssr: false,
 });
 
@@ -34,6 +40,7 @@ import {
   fadeInLinear,
 } from "../components/animations";
 import JumboTxt from "../components/JumboTxt";
+import Price from "../components/web3/CurrentPrice";
 
 const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
@@ -54,11 +61,6 @@ const Mint: NextPage = () => {
     functionName: "testMint",
   });
 
-  // const { config: contractWriteConfig2 } = usePrepareSendTransaction({
-  //   ...contractConfig,
-  //   functionName: "bid",
-  // });
-
   const {
     data: mintData,
     write: mint,
@@ -77,13 +79,6 @@ const Mint: NextPage = () => {
 
   const isMinted = txSuccess;
   
-  const anotherInfoTexts = [
-    "Total Minted",
-    "current Price",
-    "Status of the sale",
-    "With FingerprintsDAO",
-  ];
-
   return (
     <div>
 
@@ -94,6 +89,7 @@ const Mint: NextPage = () => {
           id="cont"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
+
           <div className="w-full mb-8 px-4">
             <NavBar />
           </div>
@@ -143,7 +139,7 @@ const Mint: NextPage = () => {
                   {/* <DutchAuctionTimer /> */}
                   <motion.div
                     variants={fadeInSmooth}
-                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4"
+                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                   >
                     <p className="whitespace-nowrap">Time left</p>
                     <Timer
@@ -157,17 +153,25 @@ const Mint: NextPage = () => {
 
                   <motion.div
                       variants={fadeInSmooth}
-                      className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4"
+                      className="w-full h-full flex justify-around rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                     >
+                      <p className="w-full">Current Price</p>
+                      <div className="flex gap-2">
                       <CurrentPrice/>
+                      <p>ETH</p>
+                      </div>
                     </motion.div>
 
                   <motion.div
                     variants={fadeInSmooth}
-                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4"
+                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                   >
                     <p className="whitespace-nowrap">Total Minted</p>
-                    <p className="font-semibold">350 / 1000</p>
+                    <div className="flex gap-2">
+                    <Minted/>
+                    <p>/</p>
+                    <TotalMinted/>
+                    </div>
                   </motion.div>
                   <div className="flex gap-2">
 
@@ -178,7 +182,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   animate="show"
                   id="contractDescription"
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4"
+                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
                   <motion.p variants={fadeInSmooth}>
                     Started in 2022, Panopticon is Teto&apos;s genesis long form
@@ -190,7 +194,7 @@ const Mint: NextPage = () => {
 
                 <motion.p
                     variants={fadeInSmooth}
-                    className="border p-4 rounded-xl"
+                    className="border p-4 rounded-xl hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                   >
                     In partnership with FingerprintsDAO
                   </motion.p>
@@ -266,8 +270,45 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
           </div> */}
 
             <div className="wrapper w-full flex flex-col gap-[15ch]">
+              <motion.div className="flex gap-4" variants={AnimContDyna}
+                  initial="hidden"
+                  animate="show">               
+              <motion.div
+                  variants={fadeInSmooth}
+                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  <motion.p variants={fadeInSmooth}>
+                    NFT Contract
+                  </motion.p>
+                </motion.div>
+
+                <motion.div
+                 variants={fadeInSmooth}
+                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  <motion.p variants={fadeInSmooth}>
+                  Dutch Auction Contract
+                  </motion.p>
+                </motion.div>
+                <motion.div
+                 variants={fadeInSmooth}
+                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  <motion.p variants={fadeInSmooth}>
+                  Discord
+                  </motion.p>
+                </motion.div>
+                <motion.div
+                 variants={fadeInSmooth}
+                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  <motion.p variants={fadeInSmooth}>
+                  Twitter
+                  </motion.p>
+                </motion.div>
+                </motion.div>
               <div>
-                <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-200/30 p-8">
+                <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8">
                   &quot;Innovation has become the blood of our society and
                   virtuality is our new reality.&quot;
                 </p>

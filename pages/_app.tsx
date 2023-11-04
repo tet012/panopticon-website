@@ -5,8 +5,6 @@ import {
   RainbowKitProvider,
   getDefaultWallets,
   connectorsForWallets,
-  darkTheme,
-  midnightTheme
 } from '@rainbow-me/rainbowkit';
 import { argentWallet, trustWallet } from '@rainbow-me/rainbowkit/wallets';
 import { createConfig, configureChains, WagmiConfig, mainnet } from 'wagmi';
