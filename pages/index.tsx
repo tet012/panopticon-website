@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import {
   useAccount,
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
-  usePrepareSendTransaction
+  usePrepareSendTransaction,
 } from "wagmi";
 
 import { abi } from "../contract-abi";
@@ -22,15 +22,15 @@ import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
 import MintBtn from "../components/web3/mintBtn";
 
-const CurrentPrice = dynamic(() => import('../components/web3/CurrentPrice'), {
+const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
   ssr: false,
 });
 
-const TotalMinted = dynamic(() => import('../components/web3/Supply'), {
+const TotalMinted = dynamic(() => import("../components/web3/Supply"), {
   ssr: false,
 });
 
-const Minted = dynamic(() => import('../components/web3/Minted'), {
+const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
@@ -48,7 +48,7 @@ const contractConfig = {
 } as const;
 
 const Mint: NextPage = () => {
-  const [tokenCount, setTokenCount] = useState(1); 
+  const [tokenCount, setTokenCount] = useState(1);
 
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
@@ -78,18 +78,16 @@ const Mint: NextPage = () => {
   });
 
   const isMinted = txSuccess;
-  
+
   return (
     <div>
-
-    <p></p>
+      <p></p>
 
       <div id="body" className="min-h-screen bg-neutral-50 flex flex-col">
         <div
           id="cont"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
-
           <div className="w-full mb-8 px-4">
             <NavBar />
           </div>
@@ -152,15 +150,15 @@ const Mint: NextPage = () => {
                   </motion.div>
 
                   <motion.div
-                      variants={fadeInSmooth}
-                      className="w-full h-full flex justify-around rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                    >
-                      <p className="w-full">Current Price</p>
-                      <div className="flex gap-2">
-                      <CurrentPrice/>
-                      <p>ETH</p>
-                      </div>
-                    </motion.div>
+                    variants={fadeInSmooth}
+                    className="w-full h-full flex justify-around rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  >
+                    <p className="w-full">Current Price</p>
+                    <div className="flex gap-2">
+                      <CurrentPrice />
+                      <p className="font-semibold">ETH</p>
+                    </div>
+                  </motion.div>
 
                   <motion.div
                     variants={fadeInSmooth}
@@ -168,14 +166,12 @@ const Mint: NextPage = () => {
                   >
                     <p className="whitespace-nowrap">Total Minted</p>
                     <div className="flex gap-2">
-                    <Minted/>
-                    <p>/</p>
-                    <TotalMinted/>
+                      <Minted />
+                      <p>/</p>
+                      <TotalMinted />
                     </div>
                   </motion.div>
-                  <div className="flex gap-2">
-
-                  </div>
+                  <div className="flex gap-2"></div>
                 </motion.div>
                 <motion.div
                   variants={AnimContDyna}
@@ -193,14 +189,13 @@ const Mint: NextPage = () => {
                 </motion.div>
 
                 <motion.p
-                    variants={fadeInSmooth}
-                    className="border p-4 rounded-xl hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    In partnership with FingerprintsDAO
-                  </motion.p>
+                  variants={fadeInSmooth}
+                  className="border p-4 rounded-xl hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  In partnership with FingerprintsDAO
+                </motion.p>
 
-<MintBtn/>
-
+                <MintBtn />
 
                 {/* <motion.div
                   variants={AnimContDyna}
@@ -270,43 +265,65 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
           </div> */}
 
             <div className="wrapper w-full flex flex-col gap-[15ch]">
-              <motion.div className="flex gap-4" variants={AnimContDyna}
-                  initial="hidden"
-                  animate="show">               
+              <div
+                id="rebate-info"
+                className="wrapper flex w-full justify-between gap-2"
+              >
+                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
+                  <p>You bought</p>
+                  <p className="font-semibold">X NFTs per X.XX ETH</p>
+                </div>
+                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
+                  <p>Current Price is</p>
+                  <div className="flex gap-2">
+                    <CurrentPrice />
+                    <p className="font-semibold">ETH</p>
+                  </div>
+                </div>
+                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
+                  <p>Pending Rebate</p>
+                  <p className="font-semibold">X.XX ETH</p>
+                </div>
+                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
+                  <p>Buy more with rebate</p>
+                  <p className="font-semibold">Up to X NFTs</p>
+                </div>
+              </div>
+
               <motion.div
+                className="flex gap-4 justify-between"
+                variants={AnimContDyna}
+                initial="hidden"
+                animate="show"
+              >
+                <motion.div
                   variants={fadeInSmooth}
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.p variants={fadeInSmooth}>
-                    NFT Contract
-                  </motion.p>
+                  <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
                 </motion.div>
 
                 <motion.div
-                 variants={fadeInSmooth}
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  variants={fadeInSmooth}
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
                   <motion.p variants={fadeInSmooth}>
-                  Dutch Auction Contract
+                    Dutch Auction Contract
                   </motion.p>
                 </motion.div>
                 <motion.div
-                 variants={fadeInSmooth}
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  variants={fadeInSmooth}
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.p variants={fadeInSmooth}>
-                  Discord
-                  </motion.p>
+                  <motion.p variants={fadeInSmooth}>Discord</motion.p>
                 </motion.div>
                 <motion.div
-                 variants={fadeInSmooth}
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  variants={fadeInSmooth}
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.p variants={fadeInSmooth}>
-                  Twitter
-                  </motion.p>
+                  <motion.p variants={fadeInSmooth}>Twitter</motion.p>
                 </motion.div>
-                </motion.div>
+              </motion.div>
               <div>
                 <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8">
                   &quot;Innovation has become the blood of our society and
@@ -479,14 +496,15 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 whileInView="show"
                 className="flex flex-col gap-2"
               >
-                                <motion.div
+                <motion.div
                   variants={fadeInSmooth}
                   id="faq1"
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>Is Panopticon On-Chain</h4>
                   <p>
-                  Yes. Panopticon is stored and generated on-chain using the Scripty.sol library. The thumbnail is not stored on-chain.
+                    Yes. Panopticon is stored and generated on-chain using the
+                    Scripty.sol library. The thumbnail is not stored on-chain.
                   </p>
                 </motion.div>
                 <motion.div
@@ -496,7 +514,10 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 >
                   <h4>Where and when is the auction?</h4>
                   <p>
-                  The 60-minute Dutch auction will take place on this website on the 2nd of November at 10 am PST / 01 pm EST / 6 pm CEST. The auction will have no time extension, which will be closed forever when it reaches the 60-minute mark.
+                    The 60-minute Dutch auction will take place on this website
+                    on the 2nd of November at 10 am PST / 01 pm EST / 6 pm CEST.
+                    The auction will have no time extension, which will be
+                    closed forever when it reaches the 60-minute mark.
                   </p>
                 </motion.div>
                 <motion.div
@@ -506,8 +527,15 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 >
                   <h4>How much does it cost to mint one?</h4>
                   <p>
-                  The Dutch auction will have a starting price of 0.2 ETH, going down to 0.05 ETH during the 60-minute Dutch auction. If the whole collection mints out before 60 minutes, the final price will be equal to the last sale's price. You don't have to worry about paying a higher price, as buyers will be entitled to a rebate if the price they paid is higher than the final price. Allowlisted wallets will also be eligible for a discount.
-                  {/* The rebates and discounts will be airdropped to the buyers' wallets up to 72 hours after the auction ends. */}
+                    The Dutch auction will have a starting price of 0.2 ETH,
+                    going down to 0.05 ETH during the 60-minute Dutch auction.
+                    If the whole collection mints out before 60 minutes, the
+                    final price will be equal to the last sale's price. You
+                    don't have to worry about paying a higher price, as buyers
+                    will be entitled to a rebate if the price they paid is
+                    higher than the final price. Allowlisted wallets will also
+                    be eligible for a discount.
+                    {/* The rebates and discounts will be airdropped to the buyers' wallets up to 72 hours after the auction ends. */}
                   </p>
                 </motion.div>
                 <motion.div
@@ -517,7 +545,9 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 >
                   <h4>What is the collection size?</h4>
                   <p>
-                  A total of 600 NFTs will be available for mint. If less than 600 NFTs are sold during the 60-minute Dutch auction, the supply will be reduced to the number of NFTs minted.
+                    A total of 600 NFTs will be available for mint. If less than
+                    600 NFTs are sold during the 60-minute Dutch auction, the
+                    supply will be reduced to the number of NFTs minted.
                   </p>
                 </motion.div>
                 <motion.div
@@ -526,9 +556,7 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>On which chain?</h4>
-                  <p>
-                  Bit Rot will be launched on the Ethereum Mainnet.
-                  </p>
+                  <p>Bit Rot will be launched on the Ethereum Mainnet.</p>
                 </motion.div>
               </motion.div>
             </div>
