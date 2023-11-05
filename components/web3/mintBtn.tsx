@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from 'wagmi';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useWaitForTransaction,
+} from "wagmi";
 import { AnimContDyna, fadeInSmooth } from "../animations";
-import { useCurrentPrice } from '../../web3/dutch-auction/use-get-current-price';
+import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 
 export function MintBtn() {
   const [tokenCount, setTokenCount] = useState(1);
   const { price, loading, error } = useCurrentPrice();
-  
-  const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : '0'; // Calculate the total price
+
+  const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : "0"; // Calculate the total price
   const totalPriceInWei = (parseFloat(totalPrice) * 1e18).toString(); // Convert ether to wei
 
   const { config } = usePrepareSendTransaction({
     to: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_2 as `0x${string}`,
     value: totalPriceInWei,
   });
-  
+
   const { data, sendTransaction } = useSendTransaction(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
@@ -38,9 +42,10 @@ export function MintBtn() {
         variants={fadeInSmooth}
         className="mint_button flex-1 p-4 bg-neutral-900 whiteShadow drop-shadow-md text-center text-neutral-100"
         onClick={() => sendTransaction?.()}
-        disabled={isLoading || !sendTransaction || tokenCount <= 0 || loading}
       >
-        {isLoading ? 'Minting...' : `Mint ${tokenCount} tokens for ${totalPrice} ETH`}
+        {isLoading
+          ? "Minting..."
+          : `Mint ${tokenCount} tokens for ${totalPrice} ETH`}
       </motion.button>
       <motion.button
         variants={fadeInSmooth}

@@ -1,25 +1,37 @@
-// import { useEffect, useState } from 'react';
-// import { ethers } from 'ethers';
-// import { abi } from "./abi";
+import { useEffect, useState } from "react";
+import { getContract } from "wagmi/actions";
+import { usePublicClient } from "wagmi";
+import { abi } from "./abi";
 
-// export const useBidEvent = () => {
-//   const [bids, setBids] = useState([]);
+type Bid = {
+  user: string;
+  qty: number;
+  price: number;
+  withDiscount: boolean;
+};
 
-//   useEffect(() => {
-//     const provider = new ethers.providers.Web3Provider(window.ethereum);
-//     const contract = new ethers.Contract(process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS, abi, provider);
-    
-//     const onBid = (user, qty, price, withDiscount) => {
-//       setBids(currentBids => [...currentBids, { user, qty, price, withDiscount }]);
-//     };
+export const useBidEvent = () => {
+  const [bids, setBids] = useState<Bid[]>([]);
+  const provider = usePublicClient();
+  const contract = getContract({
+    address: process.env
+      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
+    abi: abi,
+  });
 
-//     contract.on('Bid', onBid);
+  useEffect(() => {
+    const onBid = (
+      user: string,
+      qty: number,
+      price: number,
+      withDiscount: boolean
+    ) => {
+      setBids((currentBids) => [
+        ...currentBids,
+        { user, qty, price, withDiscount },
+      ]);
+    };
+  }, [contract, provider]);
 
-//     // Cleanup listener when the component is unmounted
-//     return () => {
-//       contract.off('Bid', onBid);
-//     };
-//   }, []);
-
-//   return bids;
-// };
+  return bids;
+};

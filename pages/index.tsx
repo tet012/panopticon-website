@@ -257,6 +257,30 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 </motion.button>
               </motion.div>
             </motion.div>
+            <div
+              id="rebate-info"
+              className="wrapper max-md:flex-col flex w-full justify-between gap-2"
+            >
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>You bought</p>
+                <p className="font-semibold">X NFTs per X.XX ETH</p>
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Current Price is</p>
+                <div className="flex gap-2">
+                  <CurrentPrice />
+                  <p className="font-semibold">ETH</p>
+                </div>
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Pending Rebate</p>
+                <p className="font-semibold">X.XX ETH</p>
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Buy more with rebate</p>
+                <p className="font-semibold">Up to X NFTs</p>
+              </div>
+            </div>
 
             {/* <div className="w-full flex h-full">
           <TokenRenderer tokenId={1} />
@@ -265,33 +289,8 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
           </div> */}
 
             <div className="wrapper w-full flex flex-col gap-[15ch]">
-              <div
-                id="rebate-info"
-                className="wrapper flex w-full justify-between gap-2"
-              >
-                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
-                  <p>You bought</p>
-                  <p className="font-semibold">X NFTs per X.XX ETH</p>
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
-                  <p>Current Price is</p>
-                  <div className="flex gap-2">
-                    <CurrentPrice />
-                    <p className="font-semibold">ETH</p>
-                  </div>
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
-                  <p>Pending Rebate</p>
-                  <p className="font-semibold">X.XX ETH</p>
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200 border-neutral-300 rounded-xl">
-                  <p>Buy more with rebate</p>
-                  <p className="font-semibold">Up to X NFTs</p>
-                </div>
-              </div>
-
               <motion.div
-                className="flex gap-4 justify-between"
+                className="flex gap-2 justify-between max-md:flex-col"
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
@@ -503,8 +502,8 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                 >
                   <h4>Is Panopticon On-Chain</h4>
                   <p>
-                    Yes. Panopticon is stored and generated on-chain using the
-                    Scripty.sol library. The thumbnail is not stored on-chain.
+                    Yes. Panopticon is stored and generated on-chain. The
+                    thumbnail are not stored on-chain.
                   </p>
                 </motion.div>
                 <motion.div
@@ -515,8 +514,8 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                   <h4>Where and when is the auction?</h4>
                   <p>
                     The 60-minute Dutch auction will take place on this website
-                    on the 2nd of November at 10 am PST / 01 pm EST / 6 pm CEST.
-                    The auction will have no time extension, which will be
+                    on the 10th of November at 10 am PST / 01 pm EST / 6 pm
+                    CEST. The auction will have no time extension, which will be
                     closed forever when it reaches the 60-minute mark.
                   </p>
                 </motion.div>
@@ -556,7 +555,7 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>On which chain?</h4>
-                  <p>Bit Rot will be launched on the Ethereum Mainnet.</p>
+                  <p>Panopticon will be launched on the Ethereum Mainnet.</p>
                 </motion.div>
               </motion.div>
             </div>
