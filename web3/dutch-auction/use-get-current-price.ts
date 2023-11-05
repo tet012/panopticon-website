@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useContractRead } from 'wagmi';
-import { abi } from "./abi"
+import { useEffect, useState } from "react";
+import { useContractRead } from "wagmi";
+import { abi } from "./abi";
 
 export const useCurrentPrice = () => {
   const [price, setPrice] = useState<string>();
@@ -8,16 +8,19 @@ export const useCurrentPrice = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const contractRead = useContractRead({
-    address: process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
+    address: process.env
+      .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
-    functionName: 'getCurrentPriceInWei',
+    functionName: "getCurrentPriceInWei",
   });
 
   useEffect(() => {
     if (contractRead.data) {
       console.log("Data received from contract read:", contractRead.data);
-      const priceInWeiString = BigInt(contractRead.data.toString()).toString().padStart(19, '0');
-      const priceWithDecimal = 
+      const priceInWeiString = BigInt(contractRead.data.toString())
+        .toString()
+        .padStart(19, "0");
+      const priceWithDecimal =
         priceInWeiString.slice(0, -18) + "." + priceInWeiString.slice(-18, -16);
       setPrice(priceWithDecimal);
       setLoading(false);
