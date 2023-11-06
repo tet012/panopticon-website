@@ -2,7 +2,7 @@ import React from "react";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 
 const Price: React.FC = () => {
-  const { price, loading, error } = useCurrentPrice();
+  const { price, priceInWei, loading, error } = useCurrentPrice();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -14,8 +14,12 @@ const Price: React.FC = () => {
 
   return (
     <div className="flex gap-2">
-      <p className="font-semibold break-keep">{price}</p>
-      <p className="font-semibold break-keep"> ETH</p>
+      <p className="font-semibold break-keep">
+        {priceInWei?.toString()}
+      </p>
+      <p className="font-semibold break-keep">
+        wei
+      </p>
     </div>
   );
 };

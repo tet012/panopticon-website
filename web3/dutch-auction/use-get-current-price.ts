@@ -23,7 +23,7 @@ export const useCurrentPrice = () => {
         .toString()
         .padStart(19, "0");
       const priceWithDecimal =
-        priceInWeiString.slice(0, -18) + "." + priceInWeiString.slice(-18, -16);
+        priceInWeiString.slice(0, -18) + "." + priceInWeiString.slice(-18, -15);
       setPrice(priceWithDecimal);
       setPriceInWei(BigInt(contractRead.data.toString()));
       setLoading(false);
