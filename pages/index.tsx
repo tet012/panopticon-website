@@ -19,7 +19,6 @@ import Footer from "../components/Footer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
-// import MintBtn from "../components/web3/mintBtn";
 
 const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
   ssr: false,

@@ -25,11 +25,7 @@ export function MintBtn() {
   const { price, priceInWei, loading, error } = useCurrentPrice();
   const { address, isConnected } = useAccount();
 
-  const merkleProof = useGetMerkleProof(address);
-
-  const userAddress = isConnected
-    ? address
-    : "0xf9f2d90c187760A35ff00c2F0963750893cd47Fb";
+  const { proof } = useGetMerkleProof(address);
   const userData = useGetUserData(address);
 
   const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : "0";
@@ -42,7 +38,7 @@ export function MintBtn() {
       .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "bid",
-    args: [tokenCount, merkleProof],
+    args: [tokenCount, proof],
     value: BigInt(value),
   });
 
@@ -72,6 +68,11 @@ export function MintBtn() {
         variants={fadeInSmooth}
         className="flex-1 p-4 text-center mint_button bg-neutral-900 whiteShadow drop-shadow-md text-neutral-100"
         disabled={isLoading}
+        onClick={() => {
+          if (write) {
+            write();
+          }
+        }}
       >
         {isLoading
           ? "Minting..."
