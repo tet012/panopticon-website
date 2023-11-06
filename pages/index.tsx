@@ -110,7 +110,7 @@ const Mint: NextPage = () => {
           id="cont"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
-          <ClaimRefundButton />
+          {/* <ClaimRefundButton /> */}
           <ClaimTokensButton />
 
           <div className="w-full mb-8 px-4">

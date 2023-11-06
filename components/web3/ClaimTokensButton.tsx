@@ -1,56 +1,62 @@
 import React, { useEffect, useState } from "react";
 import useGetClaimableTokens from "../../web3/dutch-auction/use-get-claimable-token";
 import useCallClaimTokens from "../../web3/dutch-auction/use-call-claim-tokens";
+import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
 import { useAccount } from "wagmi";
 
-const ClaimTokensButton = ({ merkleProof }) => {
+const ClaimTokensButton = () => {
   const { address } = useAccount();
+  const { proof } = useGetMerkleProof(address);
   const {
     claimableTokens,
     isErrorGetClaimableTokens,
     errorGetClaimableTokens,
   } = useGetClaimableTokens(address);
+
   const [amountToClaim, setAmountToClaim] = useState(0);
 
-  // Check if merkleProof is empty or not provided, and set it to an empty array if so
-  const validMerkleProof =
-    merkleProof && merkleProof.length > 0 ? merkleProof : [];
-
   const { writeClaimTokens, hashCallClaimTokens, errorMessageClaimTokens } =
-    useCallClaimTokens(amountToClaim, validMerkleProof);
+    useCallClaimTokens(amountToClaim, proof);
 
   useEffect(() => {
     if (isErrorGetClaimableTokens) {
       console.error(errorGetClaimableTokens);
     }
-    // Initialize the amount to claim with the number of claimable tokens
     setAmountToClaim(claimableTokens);
   }, [isErrorGetClaimableTokens, errorGetClaimableTokens, claimableTokens]);
 
-  // Handle incrementing the claim amount
   const increment = () => {
-    if (amountToClaim < claimableTokens) {
-      setAmountToClaim(amountToClaim + 1);
-    }
+    setAmountToClaim((prevAmount) =>
+      prevAmount < claimableTokens ? prevAmount + 1 : prevAmount
+    );
   };
 
-  // Handle decrementing the claim amount
   const decrement = () => {
-    if (amountToClaim > 0) {
-      setAmountToClaim(amountToClaim - 1);
-    }
+    setAmountToClaim((prevAmount) =>
+      prevAmount > 0 ? prevAmount - 1 : prevAmount
+    );
   };
 
-  // Handle the button click
-  const handleClick = () => {
-    writeClaimTokens();
+  const handleClick = async () => {
+    try {
+      await writeClaimTokens();
+    } catch (error) {
+      console.error("Error when claiming tokens:", error);
+    }
   };
 
   return (
     <div>
-      <button onClick={decrement}>-</button>
-      <button onClick={handleClick}>Claim {amountToClaim} Tokens</button>
-      <button onClick={increment}>+</button>
+      <button onClick={decrement} disabled={amountToClaim <= 0}>
+        -
+      </button>
+      <span>{amountToClaim}</span>
+      <button onClick={increment} disabled={amountToClaim >= claimableTokens}>
+        +
+      </button>
+      <button onClick={handleClick} disabled={amountToClaim === 0}>
+        Claim {amountToClaim} Tokens
+      </button>
       {hashCallClaimTokens && <p>Transaction Hash: {hashCallClaimTokens}</p>}
       {errorMessageClaimTokens && <p>Error: {errorMessageClaimTokens}</p>}
     </div>
