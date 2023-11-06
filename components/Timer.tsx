@@ -17,8 +17,6 @@ const Timer: React.FC<TimerProps> = ({ to }) => {
       }
 
       setTimeRemaining(remaining);
-
-      const formattedTime = format(new Date(0, 0, 0, 0, 0, timeRemaining), 'HH:mm:ss');
     };
 
     updateTimer();
