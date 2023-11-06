@@ -14,7 +14,7 @@ export const useCurrentPrice = () => {
     abi: abi,
     functionName: "getCurrentPriceInWei",
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1'),
-    watch: true // Refresh on incoming block
+    watch: true // Refresh automatically on incoming block
   });
 
   useEffect(() => {
