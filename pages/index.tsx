@@ -41,6 +41,11 @@ import {
 } from "../components/animations";
 import JumboTxt from "../components/JumboTxt";
 import Price from "../components/web3/CurrentPrice";
+import UserComponent from "../components/web3/UserComponent";
+import NftBuy from "../components/web3/NftBuy";
+import OldPrice from "../components/web3/OldPrice";
+import CurrentRebate from "../components/web3/CurrentRebate";
+import NFTsMintable from "../components/web3/NFTsMintable";
 
 const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
@@ -81,8 +86,6 @@ const Mint: NextPage = () => {
 
   return (
     <div>
-      <p></p>
-
       <div id="body" className="min-h-screen bg-neutral-50 flex flex-col">
         <div
           id="cont"
@@ -196,57 +199,6 @@ const Mint: NextPage = () => {
                 </motion.p>
 
                 <MintBtn />
-
-                {/* <motion.div
-                  variants={AnimContDyna}
-                  initial="hidden"
-                  animate="show"
-                  id="mintBtn"
-                  className="w-full h-auto bg-gradient-to-r animate-shiny 
-bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl overflow-hid flex p-4"
-                >
-                  <motion.button
-                    variants={fadeInSmooth}
-                    disabled={!mint || isMintLoading || isMintStarted}
-                                        data-mint-loading={isMintLoading}
-                    data-mint-started={isMintStarted}
-                    className="mint_button p-4 bg-neutral-800 whiteShadow drop-shadow-lg rounded-l-xl text-neutral-100"
-                    data-mint-success={isMinted}
-                    onClick={() =>
-                      setTokenCount((prevCount) => Math.max(1, prevCount - 1))
-                    }
-                  >
-                    -
-                  </motion.button>
-                  <motion.button
-                    variants={fadeInSmooth}
-                    disabled={!mint || isMintLoading || isMintStarted}
-                    className="mint_button flex-1 p-4 bg-neutral-900 whiteShadow drop-shadow-md text-center text-neutral-100"
-                    data-mint-loading={isMintLoading}
-                    data-mint-started={isMintStarted}
-                    data-mint-success={isMinted}
-                    onClick={() => mint?.()}
-                  >
-                    {isMintLoading && "Waiting for approval"}
-                    {isMintStarted && !isMinted && "Minting..."}
-                    {!isMintLoading &&
-                      !isMintStarted &&
-                      !isMinted &&
-                      `Mint ${tokenCount} tokens`}
-                    {isMinted && "Thank you for minting Panopticon!"}
-                  </motion.button>
-                  <motion.button
-                    variants={fadeInSmooth}
-                    disabled={!mint || isMintLoading || isMintStarted}
-                                        data-mint-loading={isMintLoading}
-                    data-mint-started={isMintStarted}
-                    className="mint_button p-4 bg-neutral-800 whiteShadow drop-shadow-lg rounded-r-xl text-neutral-100"
-                    data-mint-success={isMinted}
-                    onClick={() => setTokenCount((prevCount) => prevCount + 1)}
-                  >
-                    +
-                  </motion.button>
-                </motion.div> */}
                 <motion.button
                   variants={fadeInSmooth}
                   className="p-4 w-full bg-green-500 whiteShadow drop-shadow-lg rounded-xl text-neutral-100"
@@ -263,31 +215,28 @@ bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl over
             >
               <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
                 <p>You bought</p>
-                <p className="font-semibold">X NFTs per X.XX ETH</p>
+                <div className="font-semibold flex gap-2">
+                  <NftBuy /> <p>for</p> <OldPrice />
+                </div>
               </div>
               <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
                 <p>Current Price is</p>
                 <div className="flex gap-2">
                   <CurrentPrice />
-                  <p className="font-semibold">ETH</p>
                 </div>
               </div>
               <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
                 <p>Pending Rebate</p>
-                <p className="font-semibold">X.XX ETH</p>
+                <CurrentRebate />
               </div>
               <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
                 <p>Buy more with rebate</p>
-                <p className="font-semibold">Up to X NFTs</p>
+
+                <div className="flex">
+                  <NFTsMintable />
+                </div>
               </div>
             </div>
-
-            {/* <div className="w-full flex h-full">
-          <TokenRenderer tokenId={1} />
-          <TokenRenderer tokenId={2} />
-          <TokenRenderer tokenId={3} />
-          </div> */}
-
             <div className="wrapper w-full flex flex-col gap-[15ch]">
               <motion.div
                 className="flex gap-2 justify-between max-md:flex-col"

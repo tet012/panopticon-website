@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useContractRead } from 'wagmi';
+import React, { useEffect, useState } from "react";
+import { useContractRead } from "wagmi";
 import { abi } from "../../web3/panopticon/abi";
 
 const Minted: React.FC = () => {
   const [minted, setMinted] = useState<string>();
 
   const contractRead = useContractRead({
-    address: process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
+    address: process.env
+      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
-    functionName: 'nextTokenIdToMint',
+    functionName: "nextTokenId",
   });
 
   useEffect(() => {

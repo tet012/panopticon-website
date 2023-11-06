@@ -1,5 +1,5 @@
-import React from 'react';
-import { useCurrentPrice } from '../../web3/dutch-auction/use-get-current-price';
+import React from "react";
+import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 
 const Price: React.FC = () => {
   const { price, loading, error } = useCurrentPrice();
@@ -12,9 +12,7 @@ const Price: React.FC = () => {
     return <div>Error fetching data</div>;
   }
 
-  return (
-    <p className="flex font-semibold break-keep">{price}</p>
-  );
+  return <p className="flex font-semibold break-keep">{price} ETH</p>;
 };
 
 export default Price;

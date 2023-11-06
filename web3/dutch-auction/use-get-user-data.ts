@@ -28,5 +28,3 @@ export const useGetUserData = (userAddress: `0x${string}`) => {
 
   return userData;
 };
-
-// export default useGetUserData;
