@@ -23,6 +23,10 @@ const merkleTree = createMerkletree(list);
 export function getProof(minterAddress: `0x${string}`) {
   let proof: `0x${string}`[] = [];
 
+  if(!minterAddress) {
+    return '0x0fig';
+  }
+
   let hashedAddress = keccak256(minterAddress);
   proof = merkleTree.getHexProof(hashedAddress) as `0x${string}`[];
 

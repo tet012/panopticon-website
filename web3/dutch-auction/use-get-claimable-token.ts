@@ -19,7 +19,6 @@ export const useGetClaimableTokens = (userAddress: `0x${string}`) => {
 
   useEffect(() => {
     if (data) {
-      console.log("enter");
       setClaimableTokens(data);
     }
   }, [data]);
