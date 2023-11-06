@@ -14,7 +14,9 @@ import { abi } from "../../web3/dutch-auction/abi";
 import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useGetClaimableTokens } from "../../web3/dutch-auction/use-get-claimable-token";
 
-const merkleProof: `0x${string}`[] = [
+import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
+
+const emptyMerkleProof: `0x${string}`[] = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
 ];
 
@@ -22,6 +24,8 @@ export function MintBtn() {
   const [tokenCount, setTokenCount] = useState<number>(1);
   const { price, priceInWei, loading, error } = useCurrentPrice();
   const { address, isConnected } = useAccount();
+
+  const merkleProof = useGetMerkleProof(address);
 
   const userAddress = isConnected
     ? address
