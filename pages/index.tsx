@@ -22,6 +22,10 @@ import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
 // import MintBtn from "../components/web3/mintBtn";
 
+const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
+  ssr: false,
+});
+
 const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
   ssr: false,
 });
@@ -38,24 +42,6 @@ const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
-const NftBuy = dynamic(() => import("../components/web3/NftBuy"), {
-  ssr: false,
-});
-
-const OldPrice = dynamic(() => import("../components/web3/OldPrice"), {
-  ssr: false,
-});
-
-const CurrentRebate = dynamic(
-  () => import("../components/web3/CurrentRebate"),
-  {
-    ssr: false,
-  }
-);
-
-const NFTsMintable = dynamic(() => import("../components/web3/NFTsMintable"), {
-  ssr: false,
-});
 
 import {
   fadeInSmooth,
@@ -240,37 +226,8 @@ const Mint: NextPage = () => {
               </motion.div>
             </motion.div>
 
-            {/* Only show rebate info if connected with a wallet */}
-            {isConnected && (
-              <div
-                id="rebate-info"
-                className="wrapper max-md:flex-col flex w-full justify-between gap-2"
-              >
-                <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                  <p>You have bought</p>
-                  <div className="font-semibold flex gap-2">
-                    <NftBuy /> <p>for</p> <OldPrice />
-                  </div>
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                  <p>Current Price is</p>
-                  <div className="flex gap-2">
-                    <CurrentPrice />
-                  </div>
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                  <p>Pending Rebate</p>
-                  <CurrentRebate />
-                </div>
-                <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                  <p>Buy more with rebate</p>
+            <RebateInfo />
 
-                  <div className="flex">
-                    <NFTsMintable />
-                  </div>
-                </div>
-              </div>
-            )}
             <div className="wrapper w-full flex flex-col gap-[15ch]">
               <motion.div
                 className="flex gap-2 justify-between max-md:flex-col"

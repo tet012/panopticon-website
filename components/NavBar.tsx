@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { abi } from "../contract-abi";
 import {
-  useAccount,
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
@@ -18,7 +17,6 @@ const contractConfig = {
 
 const NavBar = () => {
   const [totalMinted, setTotalMinted] = useState(0);
-  const { isConnected } = useAccount();
   const { config: contractWriteConfig } = usePrepareContractWrite({
     ...contractConfig,
     functionName: "testMint",
