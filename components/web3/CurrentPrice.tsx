@@ -15,10 +15,10 @@ const Price: React.FC = () => {
   return (
     <div className="flex gap-2">
       <p className="font-semibold break-keep">
-        {priceInWei?.toString()}
+        {price}
       </p>
       <p className="font-semibold break-keep">
-        wei
+        ETH
       </p>
     </div>
   );
