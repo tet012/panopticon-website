@@ -7,7 +7,6 @@ import {
   useAccount,
 } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit"; // Ensure you have RainbowKit installed
-import { formatEther } from "ethers/lib/utils";
 import { AnimContDyna, fadeInSmooth } from "../animations";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 import { abi } from "../../web3/dutch-auction/abi";

@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useAccount } from "wagmi";
-import { ethers } from "ethers"; // Make sure to have ethers installed
+import { formatUnits } from "viem";
 
 const OldPrice = () => {
   const { address } = useAccount();
@@ -14,7 +14,7 @@ const OldPrice = () => {
 
   // Convert Gwei to Ether and round to two decimal places
   const contributionInEther = parseFloat(
-    ethers.formatUnits(userData.contribution, "ether")
+    formatUnits(userData.contribution, 18)
   ).toFixed(2);
 
   // Display the user's data

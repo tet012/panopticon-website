@@ -2,7 +2,7 @@ import React from "react";
 import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 import { useAccount } from "wagmi";
-import { ethers } from "ethers";
+import { formatUnits } from "viem";
 
 const CurrentRebate = () => {
   const { address } = useAccount();
@@ -19,7 +19,7 @@ const CurrentRebate = () => {
 
   // Convert contribution from Gwei to Ether and round to two decimal places
   const contributionInEther = parseFloat(
-    ethers.formatUnits(userData.contribution, "ether")
+    formatUnits(userData.contribution, 18)
   ).toFixed(2);
   const initialQuantity = userData.tokensBidded;
   const initialTotalCost = parseFloat(contributionInEther); // Assuming this is the total cost at the initial price
