@@ -14,7 +14,6 @@ const Minted: React.FC = () => {
 
   useEffect(() => {
     if (contractRead.data) {
-      console.log("Data received from contract read:", contractRead.data);
       setMinted(contractRead.data.toString());
     }
 

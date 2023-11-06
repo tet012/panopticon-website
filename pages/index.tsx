@@ -439,7 +439,7 @@ const Mint: NextPage = () => {
                     <TextSection
                       title="TokenFox, contract Magician"
                       text={
-                        "Creator of  http://onchainchecker.xyz. Curator and collector of on-chain NFTs. Solidity programmer."
+                        "Creator of onchainchecker.xyz. Curator and collector of on-chain NFTs. Solidity programmer."
                       }
                       textVariants={"fadeInSmooth"}
                     />
@@ -458,10 +458,10 @@ const Mint: NextPage = () => {
                   id="faq1"
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
-                  <h4>Is Panopticon On-Chain</h4>
+                  <h4>Is Panopticon On-Chain?</h4>
                   <p>
                     Yes. Panopticon is stored and generated on-chain. The
-                    thumbnail are not stored on-chain.
+                    thumbnails are not stored on-chain.
                   </p>
                 </motion.div>
                 <motion.div

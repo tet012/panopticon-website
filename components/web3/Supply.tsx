@@ -13,7 +13,6 @@ const MaxSupply: React.FC = () => {
 
   useEffect(() => {
     if (contractRead.data) {
-      console.log("Data received from contract read:", contractRead.data);
       setMaxSupply(contractRead.data.toString());
     }
 
