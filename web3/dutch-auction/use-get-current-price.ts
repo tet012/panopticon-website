@@ -13,6 +13,7 @@ export const useCurrentPrice = () => {
       .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "getCurrentPriceInWei",
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
   });
 
   useEffect(() => {

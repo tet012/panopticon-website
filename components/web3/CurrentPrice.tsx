@@ -9,7 +9,7 @@ const Price: React.FC = () => {
   }
 
   if (error) {
-    return <div>Error fetching data</div>;
+    return <div title={error.toString()}>Error fetching data</div>;
   }
 
   return (

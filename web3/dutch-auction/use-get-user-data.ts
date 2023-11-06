@@ -18,6 +18,7 @@ export const useGetUserData = (userAddress: `0x${string}`) => {
     abi: abi,
     functionName: "getUserData",
     args: [userAddress],
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
   });
 
   useEffect(() => {

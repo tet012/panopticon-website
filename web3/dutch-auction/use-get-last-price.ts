@@ -14,6 +14,7 @@ const useGetLastPrice = () => {
     address: process.env
       .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
     functionName: "getSettledPriceInWei",
     enabled: true, // Disable automatic fetching
   });

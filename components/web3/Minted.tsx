@@ -10,6 +10,7 @@ const Minted: React.FC = () => {
       .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "nextTokenId",
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
   });
 
   useEffect(() => {

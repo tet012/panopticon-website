@@ -15,6 +15,7 @@ export const useGetClaimableTokens = (userAddress: `0x${string}`) => {
     abi: abi,
     functionName: "getClaimableTokens",
     args: [userAddress],
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
   });
 
   useEffect(() => {
