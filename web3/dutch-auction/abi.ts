@@ -195,7 +195,7 @@ export const abi = [
   {
     inputs: [],
     name: "_discount",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
     stateMutability: "view",
     type: "function",
   },
@@ -218,7 +218,7 @@ export const abi = [
   },
   {
     inputs: [
-      { internalType: "uint32", name: "amount", type: "uint32" },
+      { internalType: "uint16", name: "amount", type: "uint16" },
       { internalType: "bytes32[]", name: "_merkleProof", type: "bytes32[]" },
     ],
     name: "claimTokens",
@@ -292,11 +292,11 @@ export const abi = [
       {
         components: [
           { internalType: "uint216", name: "contribution", type: "uint216" },
-          { internalType: "uint32", name: "tokensBidded", type: "uint32" },
+          { internalType: "uint16", name: "tokensBidded", type: "uint16" },
           {
-            internalType: "uint32",
+            internalType: "uint16",
             name: "tokensBiddedWithDiscount",
-            type: "uint32",
+            type: "uint16",
           },
           { internalType: "bool", name: "refundClaimed", type: "bool" },
         ],
@@ -321,6 +321,7 @@ export const abi = [
   {
     inputs: [
       { internalType: "bytes32[]", name: "_merkleProof", type: "bytes32[]" },
+      { internalType: "address", name: "_address", type: "address" },
     ],
     name: "hasDiscount",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -398,7 +399,7 @@ export const abi = [
     inputs: [
       { internalType: "uint256", name: "startAmountInWei", type: "uint256" },
       { internalType: "uint256", name: "endAmountInWei", type: "uint256" },
-      { internalType: "uint32", name: "refundDelayTime", type: "uint32" },
+      { internalType: "uint16", name: "refundDelayTime", type: "uint16" },
       { internalType: "uint64", name: "startTime", type: "uint64" },
       { internalType: "uint64", name: "endTime", type: "uint64" },
     ],
