@@ -1,0 +1,31 @@
+import { ethers } from "ethers";
+import { MerkleTree } from "merkletreejs";
+
+export function createMerkletree(whitelist: string[]) {
+  const { keccak256 } = ethers.utils;
+  let leaves = whitelist.map((addr) => keccak256(addr));
+  const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
+  return merkleTree;
+}
+
+const list = [
+  "0x6a07FEEF7Eb458A71Ac0AE759CCd3c78C70139cA",
+  "0x13d735A4D5E966b8F7B19Fc2f476BfC25c0fc7Dc",
+  // from teto
+  "0x9A586B81BF2B76AD7Bfb3B9BC1fea6bb54Dac7E5",
+  "0x9Fb241d216BDD4e4D0a544b7170950eC20CFA008",
+  "0xf9f2d90c187760A35ff00c2F0963750893cd47Fb",
+];
+
+// it can be cached once the list doesn't not change after we deploy the app
+const merkleTree = createMerkletree(list); 
+
+export default function getProof(minterAddress: string) {
+  let proof = [];
+
+  const { keccak256 } = ethers.utils;
+  let hashedAddress = keccak256(minterAddress);
+  proof = merkleTree.getHexProof(hashedAddress);
+  
+  return proof; // must be returned to the frontend and used on bid function and/or claimNfts function
+}
