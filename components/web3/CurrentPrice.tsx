@@ -12,7 +12,12 @@ const Price: React.FC = () => {
     return <div>Error fetching data</div>;
   }
 
-  return <p className="flex font-semibold break-keep">{price} ETH</p>;
+  return (
+    <div className="flex gap-2">
+      <p className="font-semibold break-keep">{price}</p>
+      <p className="font-semibold break-keep"> ETH</p>
+    </div>
+  );
 };
 
 export default Price;

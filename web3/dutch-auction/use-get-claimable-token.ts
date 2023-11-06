@@ -39,3 +39,5 @@ export const useGetClaimableTokens = (userAddress: `0x${string}`) => {
     errorGetClaimableTokens,
   };
 };
+
+export default useGetClaimableTokens;

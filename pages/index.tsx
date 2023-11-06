@@ -11,7 +11,6 @@ import {
 } from "wagmi";
 
 import { abi } from "../contract-abi";
-import { abi2 } from "../contract-abi-2";
 import { motion } from "framer-motion";
 
 import NavBar from "../components/NavBar";
@@ -20,9 +19,13 @@ import Timer from "../components/Timer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
-import MintBtn from "../components/web3/mintBtn";
+// import MintBtn from "../components/web3/mintBtn";
 
 const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
+  ssr: false,
+});
+
+const MintBtn = dynamic(() => import("../components/web3/mintBtn"), {
   ssr: false,
 });
 
@@ -34,6 +37,25 @@ const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
+const NftBuy = dynamic(() => import("../components/web3/NftBuy"), {
+  ssr: false,
+});
+
+const OldPrice = dynamic(() => import("../components/web3/OldPrice"), {
+  ssr: false,
+});
+
+const CurrentRebate = dynamic(
+  () => import("../components/web3/CurrentRebate"),
+  {
+    ssr: false,
+  }
+);
+
+const NFTsMintable = dynamic(() => import("../components/web3/NFTsMintable"), {
+  ssr: false,
+});
+
 import {
   fadeInSmooth,
   AnimContDyna,
@@ -41,11 +63,8 @@ import {
 } from "../components/animations";
 import JumboTxt from "../components/JumboTxt";
 import Price from "../components/web3/CurrentPrice";
-import UserComponent from "../components/web3/UserComponent";
-import NftBuy from "../components/web3/NftBuy";
-import OldPrice from "../components/web3/OldPrice";
-import CurrentRebate from "../components/web3/CurrentRebate";
-import NFTsMintable from "../components/web3/NFTsMintable";
+import ClaimRefundButton from "../components/web3/ClaimRefundButton";
+import ClaimTokensButton from "../components/web3/ClaimTokensButton";
 
 const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
@@ -91,6 +110,9 @@ const Mint: NextPage = () => {
           id="cont"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
+          <ClaimRefundButton />
+          <ClaimTokensButton />
+
           <div className="w-full mb-8 px-4">
             <NavBar />
           </div>
@@ -159,7 +181,6 @@ const Mint: NextPage = () => {
                     <p className="w-full">Current Price</p>
                     <div className="flex gap-2">
                       <CurrentPrice />
-                      <p className="font-semibold">ETH</p>
                     </div>
                   </motion.div>
 
@@ -258,18 +279,6 @@ const Mint: NextPage = () => {
                   <motion.p variants={fadeInSmooth}>
                     Dutch Auction Contract
                   </motion.p>
-                </motion.div>
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                >
-                  <motion.p variants={fadeInSmooth}>Discord</motion.p>
-                </motion.div>
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                >
-                  <motion.p variants={fadeInSmooth}>Twitter</motion.p>
                 </motion.div>
               </motion.div>
               <div>
