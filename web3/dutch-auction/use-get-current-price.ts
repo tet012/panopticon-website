@@ -4,6 +4,7 @@ import { abi } from "./abi";
 
 export const useCurrentPrice = () => {
   const [price, setPrice] = useState<string>();
+  const [priceInWei, setPriceInWei] = useState<BigInt>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -23,6 +24,7 @@ export const useCurrentPrice = () => {
       const priceWithDecimal =
         priceInWeiString.slice(0, -18) + "." + priceInWeiString.slice(-18, -16);
       setPrice(priceWithDecimal);
+      setPriceInWei(BigInt(contractRead.data.toString()));
       setLoading(false);
     }
 
@@ -33,5 +35,5 @@ export const useCurrentPrice = () => {
     }
   }, [contractRead.data, contractRead.error]);
 
-  return { price, loading, error };
+  return { price, priceInWei, loading, error };
 };

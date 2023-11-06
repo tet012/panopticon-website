@@ -5,6 +5,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+import { formatEther } from "viem";
 import { AnimContDyna, fadeInSmooth } from "../animations";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 import { abi } from "../../web3/dutch-auction/abi";
@@ -16,10 +17,16 @@ const merkleProof: `0x${string}`[] = [
 export function MintBtn() {
   const [tokenCount, setTokenCount] = useState<number>(1);
   const [errorMint, setErrorMint] = useState<string>("");
-  const { price, loading, error } = useCurrentPrice();
+  const { price, priceInWei, loading, error } = useCurrentPrice();
 
   const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : "0"; // Calculate the total price
   const totalPriceInWei = (parseFloat(totalPrice) * 1e18).toString(); // Convert ether to wei
+
+  const value = priceInWei
+    ? (BigInt(priceInWei.toString()) * BigInt(tokenCount)).toString()
+    : "0";
+
+  const valueInETH = formatEther(BigInt(value));
 
   const prepareContractWrite = usePrepareContractWrite({
     address: process.env
@@ -27,7 +34,7 @@ export function MintBtn() {
     abi: abi,
     functionName: "bid",
     args: [tokenCount, merkleProof],
-    value: BigInt(totalPriceInWei),
+    value: BigInt(value),
   });
 
   const { data, write } = useContractWrite(prepareContractWrite.config);
@@ -35,10 +42,13 @@ export function MintBtn() {
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
   useEffect(() => {
+    console.log(prepareContractWrite.error);
     if (prepareContractWrite.error && prepareContractWrite.isError) {
       setErrorMint("Execution reverted");
     }
   }, [prepareContractWrite.error, prepareContractWrite.isError]);
+
+  console.log(valueInETH);
 
   return (
     <motion.div

@@ -201,7 +201,7 @@ export const abi = [
   },
   {
     inputs: [
-      { internalType: "uint32", name: "qty", type: "uint32" },
+      { internalType: "uint16", name: "qty", type: "uint16" },
       { internalType: "bytes32[]", name: "_merkleProof", type: "bytes32[]" },
     ],
     name: "bid",
