@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
+import Link from 'next/link';
 import dynamic from "next/dynamic";
 import {
   useAccount,
@@ -70,6 +71,14 @@ const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
   abi,
 } as const;
+
+const generateEtherscanLink = (contractAddress: string) => {
+  if(process.env.NEXT_PUBLIC_CHAIN_ID === '1') {
+    return `https://etherscan.io/address/${contractAddress}`;
+  } else {
+    return `https://goerli.etherscan.io/address/${contractAddress}`;
+  }
+};
 
 const Mint: NextPage = () => {
   const [tokenCount, setTokenCount] = useState(1);
@@ -265,21 +274,39 @@ const Mint: NextPage = () => {
                 initial="hidden"
                 animate="show"
               >
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                <Link
+                  href={generateEtherscanLink(process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS)}
+                  target="_blank" rel="noreferrer"
+                  style={{ opacity: 0.8 }}
                 >
-                  <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
-                </motion.div>
+                  <motion.div
+                    variants={fadeInSmooth}
+                    className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  >
+                    <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>                  
+                    <motion.pre variants={fadeInSmooth}>
+                      {process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}
+                    </motion.pre>
+                  </motion.div>
+                </Link>
 
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                <Link
+                  href={generateEtherscanLink(process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS)}
+                  target="_blank" rel="noreferrer"
+                  style={{ opacity: 0.8 }}
                 >
-                  <motion.p variants={fadeInSmooth}>
-                    Dutch Auction Contract
-                  </motion.p>
-                </motion.div>
+                  <motion.div
+                    variants={fadeInSmooth}
+                    className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  >
+                    <motion.p variants={fadeInSmooth}>
+                      Dutch Auction Contract
+                    </motion.p>
+                    <motion.pre variants={fadeInSmooth}>
+                      {process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS}
+                    </motion.pre>
+                  </motion.div>
+                </Link>
               </motion.div>
               <div>
                 <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8">
