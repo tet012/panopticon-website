@@ -9,7 +9,7 @@ type dataType = {
   refundClaimed: boolean;
 };
 
-const useGetUserData = (userAddress: `0x${string}`) => {
+export const useGetUserData = (userAddress: `0x${string}`) => {
   const [userData, setUserData] = useState<dataType>();
 
   const contractRead = useContractRead({
@@ -29,4 +29,4 @@ const useGetUserData = (userAddress: `0x${string}`) => {
   return userData;
 };
 
-export default useGetUserData;
+// export default useGetUserData;

@@ -2,10 +2,14 @@ import { useContractRead } from "wagmi";
 import { abi } from "./abi";
 import { useEffect, useState } from "react";
 
-const useGetClaimableTokens = (userAddress: `0x${string}`) => {
-  const [claimableTokens, setClaimableTokens] = useState<number>();
+export const useGetClaimableTokens = (userAddress: `0x${string}`) => {
+  const [claimableTokens, setClaimableTokens] = useState<number>(0);
+  const [isErrorGetClaimableTokens, setIsErrorGetClaimableTokens] =
+    useState(false);
+  const [errorGetClaimableTokens, setErrorGetClaimableTokens] =
+    useState<string>();
 
-  const contractRead = useContractRead({
+  const { data, isError, error } = useContractRead({
     address: process.env
       .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
@@ -14,12 +18,24 @@ const useGetClaimableTokens = (userAddress: `0x${string}`) => {
   });
 
   useEffect(() => {
-    if (contractRead.data) {
-      setClaimableTokens(contractRead.data);
+    if (data) {
+      console.log("enter");
+      setClaimableTokens(data);
     }
-  }, [contractRead.data]);
+  }, [data]);
 
-  return claimableTokens;
+  useEffect(() => {
+    if (isError) {
+      setIsErrorGetClaimableTokens(isError);
+      if (error) {
+        setErrorGetClaimableTokens(error);
+      }
+    }
+  }, [isError, error]);
+
+  return {
+    claimableTokens,
+    isErrorGetClaimableTokens,
+    errorGetClaimableTokens,
+  };
 };
-
-export default useGetClaimableTokens;

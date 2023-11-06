@@ -10,14 +10,26 @@ import { AnimContDyna, fadeInSmooth } from "../animations";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 import { abi } from "../../web3/dutch-auction/abi";
 
+import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
+import { useGetClaimableTokens } from "../../web3/dutch-auction/use-get-claimable-token";
+
 const merkleProof: `0x${string}`[] = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
 ];
+
+// 0xf9f2d90c187760A35ff00c2F0963750893cd47Fb
 
 export function MintBtn() {
   const [tokenCount, setTokenCount] = useState<number>(1);
   const [errorMint, setErrorMint] = useState<string>("");
   const { price, priceInWei, loading, error } = useCurrentPrice();
+
+  const userData = useGetUserData("0xf9f2d90c187760A35ff00c2F0963750893cd47Fb");
+  console.log(userData);
+  const { claimableTokens } = useGetClaimableTokens(
+    "0xf9f2d90c187760A35ff00c2F0963750893cd47Fb"
+  );
+  console.log(claimableTokens);
 
   const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : "0"; // Calculate the total price
   const totalPriceInWei = (parseFloat(totalPrice) * 1e18).toString(); // Convert ether to wei
@@ -26,7 +38,8 @@ export function MintBtn() {
     ? (BigInt(priceInWei.toString()) * BigInt(tokenCount)).toString()
     : "0";
 
-  const valueInETH = formatEther(BigInt(value));
+  // Get the value in ETH
+  // const valueInETH = formatEther(BigInt(value));
 
   const prepareContractWrite = usePrepareContractWrite({
     address: process.env
@@ -47,8 +60,6 @@ export function MintBtn() {
       setErrorMint("Execution reverted");
     }
   }, [prepareContractWrite.error, prepareContractWrite.isError]);
-
-  console.log(valueInETH);
 
   return (
     <motion.div
