@@ -1,43 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import { differenceInSeconds, format } from 'date-fns';
 
 interface TimerProps {
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
+  to: bigint;
 }
 
-const Timer: React.FC<TimerProps> = ({ year, month, day, hour, minute }) => {
-  const [timeRemaining, setTimeRemaining] = useState('00:00:00');
+const Timer: React.FC<TimerProps> = ({ to }) => {
+  const [timeRemaining, setTimeRemaining] = useState(0);
 
   useEffect(() => {
-    const targetDate = new Date(year, month - 1, day, hour, minute);
-
     const updateTimer = () => {
-      const now = new Date();
-      const timeDiff = targetDate.getTime() - now.getTime();
-
-      if (timeDiff <= 0) {
-        setTimeRemaining('00:00:00');
-        return;
+      const currentTime = Math.floor(Date.now() / 1000);
+      let remaining = Number(to) - currentTime;
+      if (remaining < 0) {
+        remaining = 0;
       }
 
-      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+      setTimeRemaining(remaining);
 
-      setTimeRemaining(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+      const formattedTime = format(new Date(0, 0, 0, 0, 0, timeRemaining), 'HH:mm:ss');
     };
 
-    updateTimer();  // Initial update
+    updateTimer();
     const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId);
-  }, [year, month, day, hour, minute]);
+  }, [to]);
 
   return (
-    <p className='font-semibold'>{timeRemaining}</p>
+    <p className='font-semibold'>
+      {format(new Date(0, 0, 0, 0, 0, timeRemaining), 'HH:mm:ss')}
+    </p>
   );
 };
 

@@ -11,6 +11,7 @@
   "dependencies": {
     "@lottiefiles/lottie-player": "^2.0.2",
     "@rainbow-me/rainbowkit": "^1.0.11",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
     "lottie-react": "^2.4.0",
     "merkletreejs": "^0.3.11",

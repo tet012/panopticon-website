@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState  } from "react";
 import type { NextPage } from "next";
 import Link from 'next/link';
 import dynamic from "next/dynamic";
@@ -16,7 +16,6 @@ import { motion } from "framer-motion";
 
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import Timer from "../components/Timer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
@@ -42,6 +41,9 @@ const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
+const DutchAuctionTimer = dynamic(() => import("../components/web3/DutchAuctionTimer"), {
+  ssr: false,
+});
 
 import {
   fadeInSmooth,
@@ -154,20 +156,7 @@ const Mint: NextPage = () => {
                   animate="show"
                   className="flex flex-col gap-2"
                 >
-                  {/* <DutchAuctionTimer /> */}
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <p className="whitespace-nowrap">Time left</p>
-                    <Timer
-                      year={2023}
-                      month={11}
-                      day={8}
-                      hour={8}
-                      minute={30}
-                    />
-                  </motion.div>
+                  <DutchAuctionTimer />
 
                   <motion.div
                     variants={fadeInSmooth}
