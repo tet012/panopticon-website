@@ -13,12 +13,12 @@ export const useCurrentPrice = () => {
       .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "getCurrentPriceInWei",
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1'),
+    watch: true // Refresh on incoming block
   });
 
   useEffect(() => {
     if (contractRead.data) {
-      console.log("Data received from contract read:", contractRead.data);
       const priceInWeiString = BigInt(contractRead.data.toString())
         .toString()
         .padStart(19, "0");
@@ -30,7 +30,6 @@ export const useCurrentPrice = () => {
     }
 
     if (contractRead.error) {
-      console.error("Error fetching data:", contractRead.error);
       setError(contractRead.error);
       setLoading(false);
     }
