@@ -28,7 +28,7 @@ export function MintBtn() {
   const { proof } = useGetMerkleProof(address);
   const userData = useGetUserData(address);
 
-  const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(2) : "0";
+  const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(3) : "0";
   const value = priceInWei
     ? (BigInt(priceInWei.toString()) * BigInt(tokenCount)).toString()
     : "0";

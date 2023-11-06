@@ -15,7 +15,7 @@ const OldPrice = () => {
   // Convert Gwei to Ether and round to two decimal places
   const contributionInEther = parseFloat(
     formatUnits(userData.contribution, 18)
-  ).toFixed(2);
+  ).toFixed(3);
 
   // Display the user's data
   return (
