@@ -1,6 +1,5 @@
-import React, { useState  } from "react";
+import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import Link from 'next/link';
 import dynamic from "next/dynamic";
 import {
   useAccount,
@@ -16,13 +15,11 @@ import { motion } from "framer-motion";
 
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import Timer from "../components/Timer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
-
-const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
-  ssr: false,
-});
+// import MintBtn from "../components/web3/mintBtn";
 
 const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
   ssr: false,
@@ -40,7 +37,22 @@ const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
-const DutchAuctionTimer = dynamic(() => import("../components/web3/DutchAuctionTimer"), {
+const NftBuy = dynamic(() => import("../components/web3/NftBuy"), {
+  ssr: false,
+});
+
+const OldPrice = dynamic(() => import("../components/web3/OldPrice"), {
+  ssr: false,
+});
+
+const CurrentRebate = dynamic(
+  () => import("../components/web3/CurrentRebate"),
+  {
+    ssr: false,
+  }
+);
+
+const NFTsMintable = dynamic(() => import("../components/web3/NFTsMintable"), {
   ssr: false,
 });
 
@@ -58,14 +70,6 @@ const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
   abi,
 } as const;
-
-const generateEtherscanLink = (contractAddress: string) => {
-  if(process.env.NEXT_PUBLIC_CHAIN_ID === '1') {
-    return `https://etherscan.io/address/${contractAddress}`;
-  } else {
-    return `https://goerli.etherscan.io/address/${contractAddress}`;
-  }
-};
 
 const Mint: NextPage = () => {
   const [tokenCount, setTokenCount] = useState(1);
@@ -106,9 +110,6 @@ const Mint: NextPage = () => {
           id="cont"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
-          {/* <ClaimRefundButton /> */}
-          {/* <ClaimTokensButton /> */}
-
           <div className="w-full mb-8 px-4">
             <NavBar />
           </div>
@@ -140,14 +141,15 @@ const Mint: NextPage = () => {
                 className="flex flex-col p-4 w-2/4 max-md:w-full gap-2"
               >
                 <JumboTxt></JumboTxt>
-                {/* <h1 className="text-8xl">Mint Panopticon</h1> */}
                 {mintError && (
-                  <p className=" p-2 text-red-800 rounded-md">
+                  <p className=" p-2 bottom-0 text-red-500">
                     Error: {mintError.message}
                   </p>
                 )}
                 {txError && (
-                  <p className="p-2 text-red-500">Error: {txError.message}</p>
+                  <p className="p-2 bottom-0 text-red-500">
+                    Error: {txError.message}
+                  </p>
                 )}
                 <motion.div
                   variants={AnimContDyna}
@@ -155,7 +157,19 @@ const Mint: NextPage = () => {
                   animate="show"
                   className="flex flex-col gap-2"
                 >
-                  <DutchAuctionTimer />
+                  <motion.div
+                    variants={fadeInSmooth}
+                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  >
+                    <p className="whitespace-nowrap">Time left</p>
+                    <Timer
+                      year={2023}
+                      month={11}
+                      day={8}
+                      hour={8}
+                      minute={30}
+                    />
+                  </motion.div>
 
                   <motion.div
                     variants={fadeInSmooth}
@@ -203,19 +217,37 @@ const Mint: NextPage = () => {
                 </motion.p>
 
                 <MintBtn />
-                <motion.button
-                  variants={fadeInSmooth}
-                  className="p-4 w-full bg-green-500 whiteShadow drop-shadow-lg rounded-xl text-neutral-100"
-                  data-mint-success={isMinted}
-                  hidden={!isMinted}
-                >
-                  Mint with rebate
-                </motion.button>
+                <ClaimTokensButton />
               </motion.div>
             </motion.div>
+            <div
+              id="rebate-info"
+              className="wrapper max-md:flex-col flex w-full justify-between gap-2"
+            >
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>You bought</p>
+                <div className="font-semibold flex gap-2">
+                  <NftBuy /> <p>for</p> <OldPrice />
+                </div>
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Current Price is</p>
+                <div className="flex gap-2">
+                  <CurrentPrice />
+                </div>
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Pending Rebate</p>
+                <CurrentRebate />
+              </div>
+              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
+                <p>Buy more with rebate</p>
 
-            <RebateInfo />
-
+                <div className="flex">
+                  <NFTsMintable />
+                </div>
+              </div>
+            </div>
             <div className="wrapper w-full flex flex-col gap-[15ch]">
               <motion.div
                 className="flex gap-2 justify-between max-md:flex-col"
@@ -223,39 +255,21 @@ const Mint: NextPage = () => {
                 initial="hidden"
                 animate="show"
               >
-                <Link
-                  href={generateEtherscanLink(process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS)}
-                  target="_blank" rel="noreferrer"
-                  style={{ opacity: 0.8 }}
+                <motion.div
+                  variants={fadeInSmooth}
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>                  
-                    <motion.pre variants={fadeInSmooth}>
-                      {process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}
-                    </motion.pre>
-                  </motion.div>
-                </Link>
+                  <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
+                </motion.div>
 
-                <Link
-                  href={generateEtherscanLink(process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS)}
-                  target="_blank" rel="noreferrer"
-                  style={{ opacity: 0.8 }}
+                <motion.div
+                  variants={fadeInSmooth}
+                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <motion.p variants={fadeInSmooth}>
-                      Dutch Auction Contract
-                    </motion.p>
-                    <motion.pre variants={fadeInSmooth}>
-                      {process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS}
-                    </motion.pre>
-                  </motion.div>
-                </Link>
+                  <motion.p variants={fadeInSmooth}>
+                    Dutch Auction Contract
+                  </motion.p>
+                </motion.div>
               </motion.div>
               <div>
                 <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8">
@@ -468,7 +482,6 @@ const Mint: NextPage = () => {
                     will be entitled to a rebate if the price they paid is
                     higher than the final price. Allowlisted wallets will also
                     be eligible for a discount.
-                    {/* The rebates and discounts will be airdropped to the buyers' wallets up to 72 hours after the auction ends. */}
                   </p>
                 </motion.div>
                 <motion.div

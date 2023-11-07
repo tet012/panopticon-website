@@ -54,7 +54,7 @@ export function MintBtn() {
       variants={AnimContDyna}
       initial="hidden"
       animate="show"
-      className="flex w-full h-auto p-4 overflow-hidden bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl"
+      className="flex w-full h-auto p-2 overflow-hidden bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl"
     >
       <motion.button
         variants={fadeInSmooth}
