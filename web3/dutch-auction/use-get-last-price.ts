@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 import { abi } from "./abi";
@@ -14,7 +14,7 @@ const useGetLastPrice = () => {
     address: process.env
       .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || "1"),
     functionName: "getSettledPriceInWei",
     enabled: true, // Disable automatic fetching
   });

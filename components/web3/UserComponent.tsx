@@ -5,7 +5,9 @@ import { formatUnits } from "viem";
 
 const UserComponent = () => {
   const { address } = useAccount();
-  const userData = useGetUserData(address);
+  const effectiveAddress =
+    address || "0x0000000000000000000000000000000000000000";
+  const userData = useGetUserData(effectiveAddress);
 
   // If userData or address is undefined, it means the data is still being fetched or there was an error
   if (!userData || !address) {

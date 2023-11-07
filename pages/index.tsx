@@ -1,35 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
+import Link from "next/link";
 import dynamic from "next/dynamic";
-import {
-  useAccount,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction,
-  usePrepareSendTransaction,
-} from "wagmi";
-
 import { abi } from "../contract-abi";
 import { motion } from "framer-motion";
 
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import Timer from "../components/Timer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
-// import MintBtn from "../components/web3/mintBtn";
+
+const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
+  ssr: false,
+});
 
 const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
   ssr: false,
 });
 
-const MintBtn = dynamic(() => import("../components/web3/mintBtn"), {
+const MintBtn = dynamic(() => import("../components/web3/MintButton"), {
   ssr: false,
 });
 
-const TotalMinted = dynamic(() => import("../components/web3/Supply"), {
+const TotalMinted = dynamic(() => import("../components/web3/TotalSupply"), {
   ssr: false,
 });
 
@@ -37,24 +31,26 @@ const Minted = dynamic(() => import("../components/web3/Minted"), {
   ssr: false,
 });
 
-const NftBuy = dynamic(() => import("../components/web3/NftBuy"), {
-  ssr: false,
-});
-
-const OldPrice = dynamic(() => import("../components/web3/OldPrice"), {
-  ssr: false,
-});
-
-const CurrentRebate = dynamic(
-  () => import("../components/web3/CurrentRebate"),
+const ClaimTokensButton = dynamic(
+  () => import("../components/web3/ClaimTokensButton"),
   {
     ssr: false,
   }
 );
 
-const NFTsMintable = dynamic(() => import("../components/web3/NFTsMintable"), {
-  ssr: false,
-});
+const ClaimRefundButton = dynamic(
+  () => import("../components/web3/ClaimRebateButton"),
+  {
+    ssr: false,
+  }
+);
+
+const DutchAuctionTimer = dynamic(
+  () => import("../components/web3/DutchAuctionTimer"),
+  {
+    ssr: false,
+  }
+);
 
 import {
   fadeInSmooth,
@@ -62,52 +58,26 @@ import {
   fadeInLinear,
 } from "../components/animations";
 import JumboTxt from "../components/JumboTxt";
-import Price from "../components/web3/CurrentPrice";
-import ClaimRefundButton from "../components/web3/ClaimRefundButton";
-import ClaimTokensButton from "../components/web3/ClaimTokensButton";
 
 const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
   abi,
 } as const;
 
+const generateEtherscanLink = (contractAddress: string) => {
+  if (process.env.NEXT_PUBLIC_CHAIN_ID === "1") {
+    return `https://etherscan.io/address/${contractAddress}`;
+  } else {
+    return `https://goerli.etherscan.io/address/${contractAddress}`;
+  }
+};
+
 const Mint: NextPage = () => {
-  const [tokenCount, setTokenCount] = useState(1);
-
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
-
-  const [totalMinted, setTotalMinted] = React.useState(0);
-  const { isConnected } = useAccount();
-
-  const { config: contractWriteConfig } = usePrepareContractWrite({
-    ...contractConfig,
-    functionName: "testMint",
-  });
-
-  const {
-    data: mintData,
-    write: mint,
-    isLoading: isMintLoading,
-    isSuccess: isMintStarted,
-    error: mintError,
-  } = useContractWrite(contractWriteConfig);
-
-  const {
-    data: txData,
-    isSuccess: txSuccess,
-    error: txError,
-  } = useWaitForTransaction({
-    hash: mintData?.hash,
-  });
-
-  const isMinted = txSuccess;
-
   return (
     <div>
       <div id="body" className="min-h-screen bg-neutral-50 flex flex-col">
         <div
-          id="cont"
+          id="hero"
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
           <div className="w-full mb-8 px-4">
@@ -126,7 +96,7 @@ const Mint: NextPage = () => {
               <motion.div
                 variants={fadeInSmooth}
                 id="mainImg"
-                className="p-32 w-3/4 max-md:w-full max-md:p-16 bg-neutral-200 flex"
+                className="p-32 w-3/4 max-md:w-full max-md:p-16 bg-neutral-200 flex "
               >
                 <motion.img
                   variants={fadeInSmooth}
@@ -141,142 +111,110 @@ const Mint: NextPage = () => {
                 className="flex flex-col p-4 w-2/4 max-md:w-full gap-2"
               >
                 <JumboTxt></JumboTxt>
-                {mintError && (
-                  <p className=" p-2 bottom-0 text-red-500">
-                    Error: {mintError.message}
-                  </p>
-                )}
-                {txError && (
-                  <p className="p-2 bottom-0 text-red-500">
-                    Error: {txError.message}
-                  </p>
-                )}
-                <motion.div
-                  variants={AnimContDyna}
-                  initial="hidden"
-                  animate="show"
-                  className="flex flex-col gap-2"
-                >
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <p className="whitespace-nowrap">Time left</p>
-                    <Timer
-                      year={2023}
-                      month={11}
-                      day={8}
-                      hour={8}
-                      minute={30}
-                    />
-                  </motion.div>
+                <DutchAuctionTimer />
 
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full h-full flex justify-around rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <p className="w-full">Current Price</p>
-                    <div className="flex gap-2">
-                      <CurrentPrice />
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    variants={fadeInSmooth}
-                    className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  >
-                    <p className="whitespace-nowrap">Total Minted</p>
-                    <div className="flex gap-2">
-                      <Minted />
-                      <p>/</p>
-                      <TotalMinted />
-                    </div>
-                  </motion.div>
-                  <div className="flex gap-2"></div>
-                </motion.div>
                 <motion.div
-                  variants={AnimContDyna}
-                  initial="hidden"
-                  animate="show"
-                  id="contractDescription"
-                  className="grow flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  variants={fadeInSmooth}
+                  className="w-full flex justify-around rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
-                  <motion.p variants={fadeInSmooth}>
-                    Started in 2022, Panopticon is Teto&apos;s genesis long form
-                    collection, a digital artist with over a decade of
-                    experience as an art director for the music industry and a
-                    web developer.
-                  </motion.p>
+                  <p className="w-full">Current Price</p>
+                  <div className="flex gap-2">
+                    <CurrentPrice />
+                  </div>
                 </motion.div>
 
+                <motion.div
+                  variants={fadeInSmooth}
+                  className="w-full flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                >
+                  <p className="whitespace-nowrap">Total Minted</p>
+                  <div className="flex gap-2">
+                    <Minted />
+                    <p>/</p>
+                    <TotalMinted />
+                  </div>
+                </motion.div>
+                <motion.p
+                  className="grow flex flex-col space-between border-neutral-300 justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  variants={fadeInSmooth}
+                >
+                  Started in 2022, Panopticon is Teto&apos;s genesis long form
+                  collection, a digital artist with over a decade of experience
+                  as an art director for the music industry and a web developer.
+                </motion.p>
                 <motion.p
                   variants={fadeInSmooth}
-                  className="border p-4 rounded-xl hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                  className="border p-4 rounded-xl border-neutral-300 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                 >
                   In partnership with FingerprintsDAO
                 </motion.p>
-
                 <MintBtn />
+
                 <ClaimTokensButton />
+                <ClaimRefundButton />
               </motion.div>
             </motion.div>
-            <div
-              id="rebate-info"
-              className="wrapper max-md:flex-col flex w-full justify-between gap-2"
-            >
-              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                <p>You bought</p>
-                <div className="font-semibold flex gap-2">
-                  <NftBuy /> <p>for</p> <OldPrice />
-                </div>
-              </div>
-              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                <p>Current Price is</p>
-                <div className="flex gap-2">
-                  <CurrentPrice />
-                </div>
-              </div>
-              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                <p>Pending Rebate</p>
-                <CurrentRebate />
-              </div>
-              <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl hover:shadow-lg">
-                <p>Buy more with rebate</p>
 
-                <div className="flex">
-                  <NFTsMintable />
-                </div>
-              </div>
-            </div>
-            <div className="wrapper w-full flex flex-col gap-[15ch]">
+            <div className="wrapper w-full flex flex-col gap-2">
+              <RebateInfo />
               <motion.div
-                className="flex gap-2 justify-between max-md:flex-col"
+                className="flex w-full  space-between gap-2 max-md:flex-col justify-between"
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
               >
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                <Link
+                  href={generateEtherscanLink(
+                    process.env
+                      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
                 >
-                  <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
-                </motion.div>
+                  <motion.div variants={fadeInSmooth}>
+                    <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
+                    <motion.pre variants={fadeInSmooth}>
+                      {process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}
+                    </motion.pre>
+                  </motion.div>
+                </Link>
 
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex flex-col space-between justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+                <Link
+                  href={generateEtherscanLink(
+                    process.env
+                      .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full grow flex flex-col space-between justify-between border bg-neutral-200/20 border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
                 >
-                  <motion.p variants={fadeInSmooth}>
-                    Dutch Auction Contract
-                  </motion.p>
-                </motion.div>
+                  <motion.div variants={fadeInSmooth}>
+                    <motion.p variants={fadeInSmooth}>
+                      Dutch Auction Contract
+                    </motion.p>
+                    <motion.pre variants={fadeInSmooth}>
+                      {process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS}
+                    </motion.pre>
+                  </motion.div>
+                </Link>
               </motion.div>
-              <div>
-                <p className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8">
+            </div>
+
+            <div className="wrapper w-full flex flex-col gap-[15ch]">
+              <motion.div
+                variants={AnimContDyna}
+                initial="hidden"
+                animate="show"
+              >
+                <motion.p
+                  variants={fadeInSmooth}
+                  className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8"
+                >
                   &quot;Innovation has become the blood of our society and
                   virtuality is our new reality.&quot;
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
 
               <div
                 id="arg1"
@@ -344,7 +282,7 @@ const Mint: NextPage = () => {
                   <TextSection
                     title="Inspiration"
                     text={
-                      "Drawing inspiration from science fiction luminaries like Ray Bradbury, Alain Damasio, George Orwell, Aldous Huxley, and Isaac Asimov, Panopticon reflects the genre's core concepts:Technology will deeply transform humanity and the way humans behave with each othersVirtuality will overshadow the real world and people will mostly interact with avatars or robotsInnovation if not mastered will create even more social fracture instead of bringing people togetherVisually the collection is widely inspired by anime culture, from Paprika, Full Metal Alchemist to Akira and Evangelion, the bright colors, shapes & movement defined the global direction of Panopticon. Straying from either techno-solutionism or techno-doom, Teto navigates a middle ground, mitigating and balancing these extremes in a vibrant, dynamic, and impactful manner."
+                      "Drawing inspiration from science fiction luminaries like Ray Bradbury, Alain Damasio, George Orwell, Aldous Huxley, and Isaac Asimov, Panopticon reflects the genre's core concepts:Technology will deeply transform humanity and the way humans behave with each othersVirtuality will overshadow the real world and people will mostly interact with avatars or robots. Innovation if not mastered will create even more social fracture instead of bringing people together. Visually the collection is widely inspired by anime culture, from Paprika, Full Metal Alchemist to Akira and Evangelion, the bright colors, shapes & movement defined the global direction of Panopticon. Straying from either techno-solutionism or techno-doom, Teto navigates a middle ground, mitigating and balancing these extremes in a vibrant, dynamic, and impactful manner."
                     }
                     textVariants={fadeInLinear}
                   />
@@ -396,12 +334,14 @@ const Mint: NextPage = () => {
                   <motion.div
                     variants={AnimContDyna}
                     initial="hidden"
+                    viewport={{ once: true }}
                     whileInView="show"
                     className="flex gap-4 bg-neutral-100 rounded p-8 w-full"
                   >
                     <motion.img
                       alt=""
                       variants={fadeInSmooth}
+                      viewport={{ once: true }}
                       className="rounded-full h-20 border-2 border-neutral-800 w-20"
                       src="/img/profiles/teto.jpg"
                     ></motion.img>
@@ -416,12 +356,14 @@ const Mint: NextPage = () => {
                   <motion.div
                     variants={AnimContDyna}
                     initial="hidden"
+                    viewport={{ once: true }}
                     whileInView="show"
                     className="flex gap-4 bg-neutral-100 rounded p-8 w-full"
                   >
                     <motion.img
                       alt=""
                       variants={fadeInSmooth}
+                      viewport={{ once: true }}
                       className="rounded-full h-20 border-2 border-neutral-800 w-20"
                       src="/img/profiles/fox.jpg"
                     ></motion.img>
@@ -441,6 +383,7 @@ const Mint: NextPage = () => {
                 variants={AnimContDyna}
                 initial="hidden"
                 whileInView="show"
+                viewport={{ once: true }}
                 className="flex flex-col gap-2"
               >
                 <motion.div
@@ -457,6 +400,7 @@ const Mint: NextPage = () => {
                 <motion.div
                   variants={fadeInSmooth}
                   id="faq1"
+                  viewport={{ once: true }}
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>Where and when is the auction?</h4>
@@ -470,6 +414,7 @@ const Mint: NextPage = () => {
                 <motion.div
                   variants={fadeInSmooth}
                   id="faq2"
+                  viewport={{ once: true }}
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>How much does it cost to mint one?</h4>
@@ -477,16 +422,17 @@ const Mint: NextPage = () => {
                     The Dutch auction will have a starting price of 0.2 ETH,
                     going down to 0.05 ETH during the 60-minute Dutch auction.
                     If the whole collection mints out before 60 minutes, the
-                    final price will be equal to the last sale's price. You
-                    don't have to worry about paying a higher price, as buyers
-                    will be entitled to a rebate if the price they paid is
-                    higher than the final price. Allowlisted wallets will also
-                    be eligible for a discount.
+                    final price will be equal to the last sale&apos;s price. You
+                    don&apos;t have to worry about paying a higher price, as
+                    buyers will be entitled to a rebate if the price they paid
+                    is higher than the final price. Allowlisted wallets will
+                    also be eligible for a discount.
                   </p>
                 </motion.div>
                 <motion.div
                   variants={fadeInSmooth}
                   id="faq3"
+                  viewport={{ once: true }}
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>What is the collection size?</h4>
@@ -499,6 +445,7 @@ const Mint: NextPage = () => {
                 <motion.div
                   variants={fadeInSmooth}
                   id="faq3"
+                  viewport={{ once: true }}
                   className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
                 >
                   <h4>On which chain?</h4>

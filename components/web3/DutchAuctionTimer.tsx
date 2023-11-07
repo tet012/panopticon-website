@@ -20,15 +20,15 @@ const DutchAuctionTimer: React.FC = () => {
   return (
     <motion.div
       variants={fadeInSmooth}
-      className="w-full h-full flex justify-between rounded-xl border rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+      className="w-full flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
     >
       {config && (
         <Timer
           startTime={config.startTime}
           endTime={config.endTime}
-          beforeText='Auction starting in'
-          duringText='Time left'
-          afterText='Auction ended'
+          beforeText="Auction starting in"
+          duringText="Time left"
+          afterText="Auction ended"
         />
       )}
       {!config && <em>Auction not configured</em>}

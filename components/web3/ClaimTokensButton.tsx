@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import useGetClaimableTokens from "../../web3/dutch-auction/use-get-claimable-token";
 import useCallClaimTokens from "../../web3/dutch-auction/use-call-claim-tokens";
 import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
+import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useAccount } from "wagmi";
+import { AnimContDyna, fadeInSmooth } from "../animations";
+import { motion } from "framer-motion";
 
 const ClaimTokensButton = () => {
   const { address } = useAccount();
-  const { proof } = useGetMerkleProof(address);
+  const effectiveAddress =
+    address || "0x0000000000000000000000000000000000000000";
+  const { proof } = useGetMerkleProof(effectiveAddress);
   const {
     claimableTokens,
     isErrorGetClaimableTokens,
     errorGetClaimableTokens,
-  } = useGetClaimableTokens(address);
+  } = useGetClaimableTokens(effectiveAddress);
 
   const [amountToClaim, setAmountToClaim] = useState(0);
 
@@ -46,44 +51,52 @@ const ClaimTokensButton = () => {
   };
 
   return (
-    <div className="flex w-full h-auto p-2 overflow-hidden bg-gradient-to-r from-blue-400 to-teal-500 animate-gradient-xy rounded-2xl">
-      <button
+    <motion.div
+      variants={AnimContDyna}
+      initial="hidden"
+      animate="show"
+      className="flex w-full h-auto p-2 overflow-hidden bg-gradient-to-r from-blue-400 to-teal-500 animate-gradient-xy rounded-2xl"
+    >
+      <motion.button
+        variants={fadeInSmooth}
         className="p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-l-xl text-neutral-100"
         onClick={decrement}
         disabled={amountToClaim <= 0}
       >
         -
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
+        variants={fadeInSmooth}
         className="flex-1 p-4 text-center mint_button bg-neutral-900 whiteShadow drop-shadow-md text-neutral-100"
         onClick={handleClick}
         disabled={amountToClaim === 0}
       >
         Claim {amountToClaim} Tokens
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        variants={fadeInSmooth}
         className="p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-r-xl text-neutral-100"
         onClick={increment}
         disabled={amountToClaim >= claimableTokens}
       >
         +
-      </button>
+      </motion.button>
       {hashCallClaimTokens && (
-        <div className="bg-red-200 flex m-4 rounded justify-center fixed inset-x-0 bottom-0 wrap-break-spaces p-4">
+        <div className="z-10 bg-red-200 flex m-4 rounded justify-center fixed inset-x-0 bottom-0 wrap-break-spaces p-4">
           <p className="wrap-pre-line truncate text-sm font-xs max-w-xl">
             Transaction Hash: {hashCallClaimTokens}
           </p>
         </div>
       )}
       {errorMessageClaimTokens && (
-        <div className="bg-red-200 flex m-4 rounded justify-center fixed inset-x-0 bottom-0 wrap-break-spaces p-4">
+        <div className="z-10 bg-red-200 flex m-4 rounded justify-center fixed inset-x-0 bottom-24 wrap-break-spaces p-4">
           <p className="wrap-pre-line truncate text-sm font-xs max-w-xl">
             Error: {errorMessageClaimTokens}
           </p>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

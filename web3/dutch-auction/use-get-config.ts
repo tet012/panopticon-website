@@ -7,7 +7,7 @@ interface AuctionConfig {
   endTime: bigint;
   refundDelayTime: number;
   startAmountInWei: bigint;
-  endAmountInWei: string;
+  endAmountInWei: bigint;
 }
 
 export const useGetConfig = () => {
@@ -20,7 +20,7 @@ export const useGetConfig = () => {
       .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "getConfig",
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || "1"),
   });
 
   useEffect(() => {

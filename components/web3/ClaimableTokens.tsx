@@ -6,14 +6,23 @@ import { formatUnits } from "viem";
 
 const NFTsMintable = () => {
   const { address } = useAccount();
+  const effectiveAddress =
+    address || "0x0000000000000000000000000000000000000000";
   const {
     price: currentPrice,
     loading: loadingPrice,
     error: errorPrice,
   } = useCurrentPrice();
-  const userData = useGetUserData(address);
+  const userData = useGetUserData(effectiveAddress);
 
-  if (!userData || !address || loadingPrice || errorPrice) {
+  // Make sure we have all necessary data before proceeding
+  if (
+    !userData ||
+    !address ||
+    loadingPrice ||
+    errorPrice ||
+    currentPrice === undefined
+  ) {
     return <div>Loading...</div>;
   }
 

@@ -1,17 +1,18 @@
 import React from "react";
 import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useAccount } from "wagmi";
-import { formatUnits } from "viem";
 
 const NftBuy = () => {
   const { address } = useAccount();
-  const userData = useGetUserData(address);
 
-  if (!userData || !address) {
+  // Use a fallback address of 0x0 if address is undefined
+  const effectiveAddress =
+    address || "0x0000000000000000000000000000000000000000";
+  const userData = useGetUserData(effectiveAddress);
+
+  if (!userData) {
     return <div>Loading...</div>;
   }
-
-  const contributionInEther = formatUnits(userData.contribution, 18);
 
   return (
     <div>
