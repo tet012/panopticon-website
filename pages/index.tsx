@@ -101,7 +101,7 @@ const Mint: NextPage = () => {
                 <motion.img
                   variants={fadeInSmooth}
                   className="shadow-2xl self-center"
-                  src="img/panopticon/1.png"
+                  src="img/panopticon/1.jpg"
                   height="100%"
                 ></motion.img>
               </motion.div>
@@ -245,10 +245,10 @@ const Mint: NextPage = () => {
                 >
                   <ImageGrid
                     images={[
-                      "img/panopticon/4.png",
-                      "img/panopticon/5.png",
-                      "img/panopticon/6.png",
-                      "img/panopticon/7.png",
+                      "img/panopticon/4.jpg",
+                      "img/panopticon/5.jpg",
+                      "img/panopticon/6.jpg",
+                      "img/panopticon/7.jpg",
                     ]}
                     imgVariants={fadeInLinear}
                   />
@@ -267,7 +267,7 @@ const Mint: NextPage = () => {
                   className="flex flex-col w-full max-md:w-auto gap-8"
                 >
                   <SingleImage
-                    src="img/panopticon/8.png"
+                    src="img/panopticon/8.jpg"
                     imgVariants={fadeInLinear}
                   />
                 </motion.div>
@@ -318,10 +318,10 @@ const Mint: NextPage = () => {
                 >
                   <ImageGrid
                     images={[
-                      "img/panopticon/9.png",
-                      "img/panopticon/10.png",
-                      "img/panopticon/11.png",
-                      "img/panopticon/12.png",
+                      "img/panopticon/9.jpg",
+                      "img/panopticon/10.jpg",
+                      "img/panopticon/11.jpg",
+                      "img/panopticon/12.jpg",
                     ]}
                     imgVariants={fadeInLinear}
                   />

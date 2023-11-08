@@ -34,7 +34,7 @@ const Mint: NextPage = () => {
                 Coming on-chain the 14th of November
               </motion.p>
               <Link
-                className="mb-16 border-neutral-600 border px-4 py-2 rounded-full mt-16"
+                className="mb-16 border-neutral-600 border px-4 py-2 rounded-full mt-16 hover:bg-neutral-900 hover:text-neutral-50"
                 href="https://evt.to/aseusiaew"
               >
                 Add to Calendar
@@ -43,22 +43,22 @@ const Mint: NextPage = () => {
               <motion.div
                 variants={fadeInSmooth}
                 id="mainImg"
-                className="p-8 overflow-hidden gap-4 max-md:w-full max-md:p-16 bg-neutral-200 flex self-center flex align-center justify-center max-md:flex-col"
+                className="p-8 gap-4 max-md:w-full max-md:p-16 bg-neutral-200 flex self-center flex align-center justify-center max-md:flex-col"
               >
                 <motion.img
                   variants={fadeInSmooth}
-                  className="shadow-2xl self-center w-1/2 max-md:w-full"
-                  src="img/panopticon/16.png"
+                  className="shadow-2xl self-center w-1/3 max-md:w-full"
+                  src="img/panopticon/16.jpg"
                 ></motion.img>
                 <motion.img
                   variants={fadeInSmooth}
-                  className="shadow-2xl self-center w-1/2 max-md:w-full"
-                  src="img/panopticon/1.png"
+                  className="shadow-2xl self-center w-1/3 max-md:w-full"
+                  src="img/panopticon/1.jpg"
                 ></motion.img>
                 <motion.img
                   variants={fadeInSmooth}
-                  className="shadow-2xl self-center w-1/2 max-md:w-full"
-                  src="img/panopticon/15.png"
+                  className="shadow-2xl self-center w-1/3 max-md:w-full"
+                  src="img/panopticon/15.jpg"
                   height="50%"
                 ></motion.img>
               </motion.div>
@@ -109,10 +109,10 @@ const Mint: NextPage = () => {
                   >
                     <ImageGrid
                       images={[
-                        "img/panopticon/4.png",
-                        "img/panopticon/5.png",
-                        "img/panopticon/6.png",
-                        "img/panopticon/7.png",
+                        "img/panopticon/4.jpg",
+                        "img/panopticon/5.jpg",
+                        "img/panopticon/6.jpg",
+                        "img/panopticon/7.jpg",
                       ]}
                       imgVariants={fadeInLinear}
                     />
@@ -131,7 +131,7 @@ const Mint: NextPage = () => {
                     className="flex flex-col w-full max-md:w-auto gap-8"
                   >
                     <SingleImage
-                      src="img/panopticon/8.png"
+                      src="img/panopticon/8.jpg"
                       imgVariants={fadeInLinear}
                     />
                   </motion.div>
@@ -182,10 +182,10 @@ const Mint: NextPage = () => {
                   >
                     <ImageGrid
                       images={[
-                        "img/panopticon/9.png",
-                        "img/panopticon/10.png",
-                        "img/panopticon/11.png",
-                        "img/panopticon/12.png",
+                        "img/panopticon/9.jpg",
+                        "img/panopticon/10.jpg",
+                        "img/panopticon/11.jpg",
+                        "img/panopticon/12.jpg",
                       ]}
                       imgVariants={fadeInLinear}
                     />
@@ -270,7 +270,7 @@ const Mint: NextPage = () => {
                     <h4>Where and when is the auction?</h4>
                     <p>
                       The 60-minute Dutch auction will take place on this
-                      website on the 10th of November at 10 am PST / 01 pm EST /
+                      website on the 14th of November at 10 am PST / 01 pm EST /
                       6 pm CEST. The auction will have no time extension, which
                       will be closed forever when it reaches the 60-minute mark.
                     </p>
