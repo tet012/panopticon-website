@@ -1,34 +1,32 @@
+import { useEffect, useState } from "react";
 import { keccak256 } from "viem";
 import { MerkleTree } from "merkletreejs";
+type EthereumAddress = `0x${string}`;
 
-export function createMerkletree(whitelist: `0x${string}`[]) {
-  let leaves = whitelist.map((addr) => keccak256(addr));
+export async function createMerkleTreeFromAPI() {
+  // Fetch the list of addresses from the API
+  const response = await fetch(
+    "https://fp-api-eta.vercel.app/api/panopticon/discountList?address=0x6a07FEEF7Eb458A71Ac0AE759CCd3c78C70139cA"
+  );
+  const data = await response.json();
+
+  // Use the list of addresses to create the Merkle tree
+  // Assuming the API returns an array of addresses in the format that you need
+  const leaves = data.merkleProof.map((addr: EthereumAddress) =>
+    keccak256(addr)
+  );
   const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
   return merkleTree;
 }
 
-const list: `0x${string}`[] = [
-  "0x6a07FEEF7Eb458A71Ac0AE759CCd3c78C70139cA",
-  "0x13d735A4D5E966b8F7B19Fc2f476BfC25c0fc7Dc",
-  // from teto
-  "0x9A586B81BF2B76AD7Bfb3B9BC1fea6bb54Dac7E5",
-  "0x9Fb241d216BDD4e4D0a544b7170950eC20CFA008",
-  "0xf9f2d90c187760A35ff00c2F0963750893cd47Fb",
-  "0x90D41fA17a8dF96E7dff80227b4FC7d208dFd026",
-];
+export async function getProof(minterAddress: EthereumAddress) {
+  const merkleTree = await createMerkleTreeFromAPI();
 
-// it can be cached once the list doesn't not change after we deploy the app
-const merkleTree = createMerkletree(list);
-
-export function getProof(minterAddress: `0x${string}`) {
-  let proof: `0x${string}`[] = [];
-
-  if(!minterAddress) {
-    return '0x0fig';
+  if (!minterAddress) {
+    return "0x0fig";
   }
 
-  let hashedAddress = keccak256(minterAddress);
-  proof = merkleTree.getHexProof(hashedAddress) as `0x${string}`[];
-
-  return proof; // must be returned to the frontend and used on bid function and/or claimNfts function
+  const hashedAddress = keccak256(minterAddress);
+  const proof = merkleTree.getHexProof(hashedAddress);
+  return proof;
 }
