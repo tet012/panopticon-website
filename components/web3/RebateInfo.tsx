@@ -42,9 +42,6 @@ const RebateInfo: React.FC = () => {
         <p>You have bought</p>
         <div className="font-semibold flex gap-1">
           <NftBuy /> <p>for</p> <OldPrice />
-          {(userData?.tokensBiddedWithDiscount > 0) &&
-            ` (${userData?.tokensBiddedWithDiscount} with discount)`
-          }
         </div>
       </div>
       <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl">

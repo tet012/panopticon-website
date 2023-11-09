@@ -53,7 +53,12 @@ export function MintBtn() {
     return <ConnectButton showBalance={false} />;
   }
 
-  return (
+  return (<>
+    {proof && proof.length > 0 && (
+      <div className="w-full text-center text-green-700">
+        You are is eligible for 10% discount (claimable after mint)
+      </div>
+    )}
     <motion.div
       variants={AnimContDyna}
       initial="hidden"
@@ -116,7 +121,7 @@ export function MintBtn() {
         </div>
       )}
     </motion.div>
-  );
+  </>);
 }
 
 export default MintBtn;
