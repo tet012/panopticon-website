@@ -18,9 +18,6 @@ const useCallClaimTokens = (
   const hashCallClaimTokens = data?.hash;
 
   const getError = () => {
-    if (prepareContractWrite.error) {
-      return prepareContractWrite.error.message;
-    }
     if (error) {
       return error.message;
     }
