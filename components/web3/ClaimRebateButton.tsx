@@ -2,7 +2,7 @@ import React from "react";
 import useCallClaimRefund from "../../web3/dutch-auction/use-call-claim-refund";
 import dynamic from "next/dynamic";
 
-const ClaimRefundButton = () => {
+const ClaimRebateButton = () => {
   // Use the hook to get the necessary functions and state
   const { writeClaimRefund, hashCallClaimRefund, errorMessage } =
     useCallClaimRefund();
@@ -28,4 +28,4 @@ const ClaimRefundButton = () => {
   );
 };
 
-export default ClaimRefundButton;
+export default ClaimRebateButton;

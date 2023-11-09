@@ -11,53 +11,19 @@ import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
 
+const MintingUI = dynamic(() => import("../components/web3/MintingUI"), {
+  ssr: false,
+});
+
 const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
   ssr: false,
 });
-
-const CurrentPrice = dynamic(() => import("../components/web3/CurrentPrice"), {
-  ssr: false,
-});
-
-const MintBtn = dynamic(() => import("../components/web3/MintButton"), {
-  ssr: false,
-});
-
-const TotalMinted = dynamic(() => import("../components/web3/TotalSupply"), {
-  ssr: false,
-});
-
-const Minted = dynamic(() => import("../components/web3/Minted"), {
-  ssr: false,
-});
-
-const ClaimTokensButton = dynamic(
-  () => import("../components/web3/ClaimTokensButton"),
-  {
-    ssr: false,
-  }
-);
-
-const ClaimRefundButton = dynamic(
-  () => import("../components/web3/ClaimRebateButton"),
-  {
-    ssr: false,
-  }
-);
-
-const DutchAuctionTimer = dynamic(
-  () => import("../components/web3/DutchAuctionTimer"),
-  {
-    ssr: false,
-  }
-);
 
 import {
   fadeInSmooth,
   AnimContDyna,
   fadeInLinear,
 } from "../components/animations";
-import JumboTxt from "../components/JumboTxt";
 
 const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
@@ -106,53 +72,7 @@ const Mint: NextPage = () => {
                 ></motion.img>
               </motion.div>
 
-              <motion.div
-                variants={fadeInSmooth}
-                className="flex flex-col p-4 w-2/4 max-md:w-full gap-2"
-              >
-                <JumboTxt></JumboTxt>
-                <DutchAuctionTimer />
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex justify-around rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                >
-                  <p className="w-full">Current Price</p>
-                  <div className="flex gap-2">
-                    <CurrentPrice />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  variants={fadeInSmooth}
-                  className="w-full flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                >
-                  <p className="whitespace-nowrap">Total Minted</p>
-                  <div className="flex gap-2">
-                    <Minted />
-                    <p>/</p>
-                    <TotalMinted />
-                  </div>
-                </motion.div>
-
-                <motion.p
-                  className="grow flex flex-col space-between border-neutral-300 justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                  variants={fadeInSmooth}
-                >
-                  Started in 2022, Panopticon is Teto&apos;s genesis long form
-                  collection, a digital artist with over a decade of experience
-                  as an art director for the music industry and a web developer.
-                </motion.p>
-                <motion.p
-                  variants={fadeInSmooth}
-                  className="border p-4 rounded-xl border-neutral-300 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
-                >
-                  In partnership with FingerprintsDAO
-                </motion.p>
-                <MintBtn />
-
-                <ClaimTokensButton />
-                <ClaimRefundButton />
-              </motion.div>
+              <MintingUI />
             </motion.div>
 
             <div className="wrapper w-full flex flex-col gap-2">
