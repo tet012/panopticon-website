@@ -1,6 +1,7 @@
 import React from "react";
 import { useAccount } from "wagmi";
 import dynamic from "next/dynamic";
+import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 
 const CurrentPrice = dynamic(() => import("./CurrentPrice"), {
   ssr: false,
@@ -23,8 +24,11 @@ const NFTsMintable = dynamic(() => import("./ClaimableTokens"), {
 });
 
 const RebateInfo: React.FC = () => {
-  const { isConnected } = useAccount();
-
+  const { isConnected, address } = useAccount();
+  const effectiveAddress =
+    address || "0x0000000000000000000000000000000000000000";
+  const userData = useGetUserData(effectiveAddress);
+  
   if (!isConnected) {
     return null;
   }
@@ -38,6 +42,9 @@ const RebateInfo: React.FC = () => {
         <p>You have bought</p>
         <div className="font-semibold flex gap-1">
           <NftBuy /> <p>for</p> <OldPrice />
+          {(userData?.tokensBiddedWithDiscount > 0) &&
+            ` (${userData?.tokensBiddedWithDiscount} with discount)`
+          }
         </div>
       </div>
       <div className="w-full grow p-4 border bg-neutral-200/20 border-neutral-300 rounded-xl">

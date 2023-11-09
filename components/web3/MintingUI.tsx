@@ -80,7 +80,7 @@ const MintingUI: React.FC = () => {
           variants={fadeInSmooth}
           className="w-full flex justify-around rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
         >
-            <p className="w-full">Current Price {getAuctionState(auctionConfig)}</p>
+            <p className="w-full">Current Price</p>
             <div className="flex gap-2">
             <CurrentPrice />
             </div>

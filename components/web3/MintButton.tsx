@@ -29,7 +29,6 @@ export function MintBtn() {
   const effectiveAddress =
     address || "0x0000000000000000000000000000000000000000";
   const userData = useGetUserData(effectiveAddress);
-
   const { proof } = useGetMerkleProof(effectiveAddress);
 
   const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(3) : "0";
