@@ -108,13 +108,6 @@ export function MintBtn() {
           <div className="flex flex-col gap-2">
             <a
               className="font-semibold p-2 w-full rounded-lg bg-neutral-200"
-              href={`https://opensea.io/assets/ethereum/${NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}/${mintTransaction?.data?.hash}`}
-              target="_blank" rel="noreferrer"
-            >
-              View on Opensea
-            </a>
-            <a
-              className="font-semibold p-2 w-full rounded-lg bg-neutral-200"
               href={generateEtherscanLinkForTx(mintTransaction?.data?.hash)}
               target="_blank" rel="noreferrer"
             >
