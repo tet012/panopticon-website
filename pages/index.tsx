@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import TextSection from "../components/TextSection";
+import JumboTxt from "../components/JumboTxt";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
 import { generateEtherscanLinkForAddress } from "../utils/etherscan";
@@ -64,8 +65,11 @@ const Mint: NextPage = () => {
                   height="100%"
                 ></motion.img>
               </motion.div>
-
-              <MintingUI />
+              {process.env.NEXT_PUBLIC_STARTED === "true" ? (
+                <MintingUI />
+              ) : (
+                <JumboTxt />
+              )}
             </motion.div>
 
             <div className="wrapper w-full flex flex-col gap-2">
@@ -77,7 +81,9 @@ const Mint: NextPage = () => {
                 animate="show"
               >
                 <Link
-                  href={generateEtherscanLinkForAddress(process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS)}
+                  href={generateEtherscanLinkForAddress(
+                    process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS
+                  )}
                   target="_blank"
                   rel="noreferrer"
                   className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
