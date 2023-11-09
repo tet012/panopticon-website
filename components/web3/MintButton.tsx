@@ -15,6 +15,7 @@ import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useGetClaimableTokens } from "../../web3/dutch-auction/use-get-claimable-token";
 
 import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
+import { generateEtherscanLinkForTx } from "../../utils/etherscan";
 
 const emptyMerkleProof: `0x${string}`[] = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -43,10 +44,11 @@ export function MintBtn() {
     functionName: "bid",
     args: [tokenCount, proof],
     value: BigInt(value),
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || "1")
   });
 
-  const { data, write } = useContractWrite(prepareContractWrite.config);
-  const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
+  const mintTransaction = useContractWrite(prepareContractWrite.config);
+  const { isLoading, isSuccess } = useWaitForTransaction({ hash: mintTransaction?.data?.hash });
 
   if (!isConnected) {
     return <ConnectButton showBalance={false} />;
@@ -73,10 +75,12 @@ export function MintBtn() {
         <motion.button
           variants={fadeInSmooth}
           className="ww-full grow flex p-4 text-center justify-center mint_button bg-neutral-900 whiteShadow drop-shadow-md text-neutral-100"
-          disabled={isLoading}
+          disabled={isLoading || !!prepareContractWrite?.error}
           onClick={() => {
-            if (write) {
-              write();
+            if (mintTransaction?.write) {
+              mintTransaction.write();
+            } else {
+              console.log(mintTransaction);
             }
           }}
         >
@@ -104,13 +108,15 @@ export function MintBtn() {
           <div className="flex flex-col gap-2">
             <a
               className="font-semibold p-2 w-full rounded-lg bg-neutral-200"
-              href={`https://testnets.opensea.io/assets/goerli/NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS/${data?.hash}`}
+              href={`https://opensea.io/assets/ethereum/${NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}/${mintTransaction?.data?.hash}`}
+              target="_blank" rel="noreferrer"
             >
               View on Opensea
             </a>
             <a
               className="font-semibold p-2 w-full rounded-lg bg-neutral-200"
-              href={`https://etherscan.io/tx/${data?.hash}`}
+              href={generateEtherscanLinkForTx(mintTransaction?.data?.hash)}
+              target="_blank" rel="noreferrer"
             >
               View on Etherscan
             </a>

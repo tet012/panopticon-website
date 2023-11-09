@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import TextSection from "../components/TextSection";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
+import { generateEtherscanLinkForAddress } from "../utils/etherscan";
 
 const MintingUI = dynamic(() => import("../components/web3/MintingUI"), {
   ssr: false,
@@ -29,14 +30,6 @@ const contractConfig = {
   address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`,
   abi,
 } as const;
-
-const generateEtherscanLink = (contractAddress: string) => {
-  if (process.env.NEXT_PUBLIC_CHAIN_ID === "1") {
-    return `https://etherscan.io/address/${contractAddress}`;
-  } else {
-    return `https://goerli.etherscan.io/address/${contractAddress}`;
-  }
-};
 
 const Mint: NextPage = () => {
   return (
@@ -84,10 +77,7 @@ const Mint: NextPage = () => {
                 animate="show"
               >
                 <Link
-                  href={generateEtherscanLink(
-                    process.env
-                      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`
-                  )}
+                  href={generateEtherscanLinkForAddress(process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS)}
                   target="_blank"
                   rel="noreferrer"
                   className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
@@ -101,9 +91,8 @@ const Mint: NextPage = () => {
                 </Link>
 
                 <Link
-                  href={generateEtherscanLink(
-                    process.env
-                      .NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS as `0x${string}`
+                  href={generateEtherscanLinkForAddress(
+                    process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS
                   )}
                   target="_blank"
                   rel="noreferrer"
