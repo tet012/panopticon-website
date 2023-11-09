@@ -11,6 +11,35 @@ import ClaimTokensButton from "./ClaimTokensButton";
 import ClaimRebateButton from "./ClaimRebateButton";
 import DutchAuctionTimer from "./DutchAuctionTimer";
 import TotalSupply from "./TotalSupply";
+import { useNetwork, useSwitchNetwork } from 'wagmi';
+
+const RequireCorrectNetwork: React.FC = ({ children }: any) => {
+  const { chain } = useNetwork();
+  const { chains, error, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork();
+
+  if(!chain || !chain.id) {
+    return null;
+  }
+
+  if(chain.id !== Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+    return (
+      <motion.p
+        variants={fadeInSmooth}
+        className="border p-4 rounded-xl border-neutral-300 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+        style={{ backgroundColor: 'red', color: '#fff' }}
+      >
+        <button
+          onClick={() => switchNetwork?.(Number(process.env.NEXT_PUBLIC_CHAIN_ID))}
+        >
+          Switch network to Ethereum to mint
+          {isLoading && ' (switching)'}
+        </button>
+      </motion.p>
+    );
+  }
+  return children;
+};
 
 const MintingUI: React.FC = () => {
   return (
@@ -57,10 +86,11 @@ const MintingUI: React.FC = () => {
           In partnership with FingerprintsDAO
         </motion.p>
         
-        <MintButton />
-
-        <ClaimTokensButton />
-        <ClaimRebateButton />
+        <RequireCorrectNetwork>
+          <MintButton />
+          <ClaimTokensButton />
+          <ClaimRebateButton />
+        </RequireCorrectNetwork>
       </motion.div>
     </>
   );
