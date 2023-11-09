@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useGetClaimableTokens from "../../web3/dutch-auction/use-get-claimable-token";
 import useCallClaimTokens from "../../web3/dutch-auction/use-call-claim-tokens";
 import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
-import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
 import { useAccount } from "wagmi";
 import { AnimContDyna, fadeInSmooth } from "../animations";
 import { motion } from "framer-motion";

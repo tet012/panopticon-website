@@ -12,11 +12,34 @@ import ClaimRebateButton from "./ClaimRebateButton";
 import DutchAuctionTimer from "./DutchAuctionTimer";
 import TotalSupply from "./TotalSupply";
 import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useGetConfig } from "../../web3/dutch-auction/use-get-config";
 
-const RequireCorrectNetwork: React.FC = ({ children }: any) => {
+enum AuctionState {
+  LOADING = 'LOADING',
+  UPCOMING = 'UPCOMING',
+  RUNNING = 'RUNNING',
+  COMPLETED = 'COMPLETED'
+};
+
+const getAuctionState = (auctionConfig: any) => {
+  if(!auctionConfig || auctionConfig.loading || !auctionConfig.config) {
+    return AuctionState.LOADING;
+  }
+
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  if(currentTime < Number(auctionConfig.config.startTime)) {
+    return AuctionState.UPCOMING;
+  } else if(currentTime < Number(auctionConfig.config.endTime)) {
+    return AuctionState.RUNNING;
+  } else {
+    return AuctionState.COMPLETED;
+  }
+}
+
+const RequireCorrectNetwork: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { chain } = useNetwork();
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork();
+  const { isLoading, switchNetwork } = useSwitchNetwork();
 
   if(!chain || !chain.id) {
     return null;
@@ -42,6 +65,9 @@ const RequireCorrectNetwork: React.FC = ({ children }: any) => {
 };
 
 const MintingUI: React.FC = () => {
+  const auctionConfig: any = useGetConfig();
+  const auctionState = getAuctionState(auctionConfig);
+
   return (
     <>
       <motion.div
@@ -49,12 +75,12 @@ const MintingUI: React.FC = () => {
         className="flex flex-col p-4 w-2/4 max-md:w-full gap-2"
       >
         <JumboTxt></JumboTxt>
-        <DutchAuctionTimer />
+        <DutchAuctionTimer auctionConfig={auctionConfig} />
         <motion.div
           variants={fadeInSmooth}
           className="w-full flex justify-around rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
         >
-            <p className="w-full">Current Price</p>
+            <p className="w-full">Current Price {getAuctionState(auctionConfig)}</p>
             <div className="flex gap-2">
             <CurrentPrice />
             </div>
@@ -87,9 +113,13 @@ const MintingUI: React.FC = () => {
         </motion.p>
         
         <RequireCorrectNetwork>
-          <MintButton />
-          <ClaimTokensButton />
-          <ClaimRebateButton />
+          {(auctionState === AuctionState.RUNNING) && (
+            <>
+              <MintButton />
+              <ClaimTokensButton />
+            </>
+          )}
+          {auctionState === AuctionState.COMPLETED && <ClaimRebateButton />}
         </RequireCorrectNetwork>
       </motion.div>
     </>

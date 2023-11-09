@@ -1,13 +1,10 @@
 import React from "react";
 import Timer from "../Timer";
 import { motion } from "framer-motion";
-import { useGetConfig } from "../../web3/dutch-auction/use-get-config";
 import { fadeInSmooth } from "../animations";
 
-const DutchAuctionTimer: React.FC = () => {
-  const { config, loading, error } = useGetConfig();
-
-  // parse endtime into year, month, day, hour, minute
+const DutchAuctionTimer: React.FC<any> = ({ auctionConfig }) => {
+  const { config, error, loading } = auctionConfig;
 
   if (loading) {
     return <div>Loading...</div>;
