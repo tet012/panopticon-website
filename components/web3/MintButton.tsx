@@ -10,10 +10,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit"; // Ensure you have Rainb
 import { AnimContDyna, fadeInSmooth } from "../animations";
 import { useCurrentPrice } from "../../web3/dutch-auction/use-get-current-price";
 import { abi } from "../../web3/dutch-auction/abi";
-
-import { useGetUserData } from "../../web3/dutch-auction/use-get-user-data";
-import { useGetClaimableTokens } from "../../web3/dutch-auction/use-get-claimable-token";
-
+import { useHasDiscount } from "../../web3/dutch-auction/use-has-discount";
 import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
 import { generateEtherscanLinkForTx } from "../../utils/etherscan";
 
@@ -28,8 +25,8 @@ export function MintBtn() {
 
   const effectiveAddress =
     address || "0x0000000000000000000000000000000000000000";
-  const userData = useGetUserData(effectiveAddress);
   const { proof } = useGetMerkleProof(effectiveAddress);
+  const { hasDiscount } = useHasDiscount(proof, effectiveAddress);
 
   const totalPrice = price ? (parseFloat(price) * tokenCount).toFixed(3) : "0";
   const value = priceInWei
@@ -54,7 +51,7 @@ export function MintBtn() {
   }
 
   return (<>
-    {proof && proof.length > 0 && (
+    {hasDiscount && (
       <div className="w-full text-center text-green-700">
         You are is eligible for 10% discount (claimable after mint)
       </div>
