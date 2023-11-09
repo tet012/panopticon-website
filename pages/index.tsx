@@ -112,7 +112,6 @@ const Mint: NextPage = () => {
               >
                 <JumboTxt></JumboTxt>
                 <DutchAuctionTimer />
-
                 <motion.div
                   variants={fadeInSmooth}
                   className="w-full flex justify-around rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
@@ -134,6 +133,7 @@ const Mint: NextPage = () => {
                     <TotalMinted />
                   </div>
                 </motion.div>
+
                 <motion.p
                   className="grow flex flex-col space-between border-neutral-300 justify-between border rounded-xl p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
                   variants={fadeInSmooth}
