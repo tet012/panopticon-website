@@ -35,10 +35,13 @@ const contractConfig = {
 const Mint: NextPage = () => {
   return (
     <div>
-      <div id="body" className="min-h-screen bg-neutral-50 flex flex-col">
+      <div
+        id="body"
+        className="min-h-screen bg-neutral-50 flex flex-col w-full"
+      >
         <div
           id="hero"
-          className="bg-neutral-50 max-w-7xl self-center flex flex-col"
+          className="bg-neutral-50 max-md:max-w-7xl w-full self-center flex flex-col"
         >
           <div className="w-full mb-8 px-4">
             {process.env.NEXT_PUBLIC_STARTED === "true" ? <NavBar /> : ""}
@@ -52,7 +55,7 @@ const Mint: NextPage = () => {
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-4 mt-16"
+                className="flex flex-col gap-4 mt-16 p-8 align-center justify-center items-center"
               >
                 <div className="flex justify-center">
                   <JumboTxt />
@@ -65,7 +68,7 @@ const Mint: NextPage = () => {
                   href="https://evt.to/aseusiaew"
                 >
                   <motion.p
-                    className="border-neutral-300 shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:transition hover:ease-in hover:text-neutral-50"
+                    className="border-neutral-300 w-fit self-center shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:transition hover:ease-in hover:text-neutral-50"
                     variants={fadeInSmooth}
                   >
                     Add to Calendar
@@ -80,12 +83,12 @@ const Mint: NextPage = () => {
               variants={AnimContDyna}
               initial="hidden"
               animate="show"
-              className="flex max-md:flex-col gap-2"
+              className="flex max-md:flex-col gap-2 justify-center aling-center items-center"
             >
               <motion.div
                 variants={fadeInSmooth}
                 id="mainImg"
-                className={`p-32 max-md:w-full overflow-hidden max-md:p-16 bg-neutral-200 flex flex-col ${
+                className={`p-32 max-md:w-full overflow-hidden max-md:p-8 bg-neutral-200 flex flex-col ${
                   process.env.NEXT_PUBLIC_STARTED === "true"
                     ? "w-3/4"
                     : "w-full"
@@ -94,9 +97,9 @@ const Mint: NextPage = () => {
                 {process.env.NEXT_PUBLIC_STARTED === "true" ? (
                   <motion.img
                     variants={fadeInSmooth}
-                    className={`shadow-2xl self-center ${
+                    className={`shadow-2xl self-center bg-red-300 ${
                       process.env.NEXT_PUBLIC_STARTED === "true"
-                        ? "w-auto"
+                        ? "w-full"
                         : "w-1/2"
                     }`}
                     src="img/panopticon/1.jpg"
@@ -107,7 +110,7 @@ const Mint: NextPage = () => {
                     variants={AnimContDyna}
                     initial="hidden"
                     animate="show"
-                    className="flex gap-8 w-full max-md:flex-col"
+                    className="flex gap-8 w-full max-md:flex-col max-md:p-2"
                   >
                     <motion.img
                       variants={fadeInSmooth}
@@ -163,7 +166,7 @@ const Mint: NextPage = () => {
                 >
                   <motion.div variants={fadeInSmooth}>
                     <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
-                    <motion.pre variants={fadeInSmooth}>
+                    <motion.pre className="truncate" variants={fadeInSmooth}>
                       {process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS}
                     </motion.pre>
                   </motion.div>
@@ -181,7 +184,7 @@ const Mint: NextPage = () => {
                     <motion.p variants={fadeInSmooth}>
                       Dutch Auction Contract
                     </motion.p>
-                    <motion.pre variants={fadeInSmooth}>
+                    <motion.pre className="truncate" variants={fadeInSmooth}>
                       {process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS}
                     </motion.pre>
                   </motion.div>
