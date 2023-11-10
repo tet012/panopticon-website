@@ -54,7 +54,9 @@ const Mint: NextPage = () => {
                 animate="show"
                 className="flex flex-col gap-4 mt-16"
               >
-                <JumboTxt />
+                <div className="flex justify-center">
+                  <JumboTxt />
+                </div>
                 <motion.p className="text-center" variants={fadeInSmooth}>
                   Coming on-chain the 14th of November with FingerprintsDAO
                 </motion.p>
@@ -101,7 +103,12 @@ const Mint: NextPage = () => {
                     height="100%"
                   ></motion.img>
                 ) : (
-                  <div className="flex gap-8 w-full max-md:flex-col">
+                  <motion.div
+                    variants={AnimContDyna}
+                    initial="hidden"
+                    animate="show"
+                    className="flex gap-8 w-full max-md:flex-col"
+                  >
                     <motion.img
                       variants={fadeInSmooth}
                       className={`shadow-2xl max-md:w-full ${
@@ -132,7 +139,7 @@ const Mint: NextPage = () => {
                       src="img/panopticon/3.jpg"
                       height="100%"
                     ></motion.img>
-                  </div>
+                  </motion.div>
                 )}
               </motion.div>
               {process.env.NEXT_PUBLIC_STARTED === "true" ? <MintingUI /> : ""}
