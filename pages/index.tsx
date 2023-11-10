@@ -56,7 +56,7 @@ const Mint: NextPage = () => {
               >
                 <JumboTxt />
                 <motion.p className="text-center" variants={fadeInSmooth}>
-                  Coming on-chain the 14th of November
+                  Coming on-chain the 14th of November with FingerprintsDAO
                 </motion.p>
                 <Link
                   className="mb-16 text-center "
