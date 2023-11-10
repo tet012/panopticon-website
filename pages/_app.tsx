@@ -54,7 +54,12 @@ const wagmiConfig = createConfig({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider coolMode appInfo={demoAppInfo} chains={chains}>
+      <RainbowKitProvider
+        coolMode
+        appInfo={demoAppInfo}
+        showRecentTransactions={true}
+        chains={chains}
+      >
         <Head>
           <link rel="icon" href="img/favicon.ico" sizes="any" />
         </Head>

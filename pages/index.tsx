@@ -41,12 +41,39 @@ const Mint: NextPage = () => {
           className="bg-neutral-50 max-w-7xl self-center flex flex-col"
         >
           <div className="w-full mb-8 px-4">
-            <NavBar />
+            {process.env.NEXT_PUBLIC_STARTED === "true" ? <NavBar /> : ""}
           </div>
           <div
             id="mainCont"
             className="flex flex-col max-md:w-full gap-8 bg-neutral-50 self-center items-center"
           >
+            {process.env.NEXT_PUBLIC_STARTED === "false" ? (
+              <motion.div
+                variants={AnimContDyna}
+                initial="hidden"
+                animate="show"
+                className="flex flex-col gap-4"
+              >
+                <JumboTxt />
+                <motion.p className="text-center" variants={fadeInSmooth}>
+                  Coming on-chain the 14th of November
+                </motion.p>
+                <Link
+                  className="mb-16 text-center "
+                  href="https://evt.to/aseusiaew"
+                >
+                  <motion.p
+                    className="border-neutral-300 shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:text-neutral-50"
+                    variants={fadeInSmooth}
+                  >
+                    Add to Calendar
+                  </motion.p>
+                </Link>
+              </motion.div>
+            ) : (
+              ""
+            )}
+
             <motion.div
               variants={AnimContDyna}
               initial="hidden"
@@ -56,7 +83,11 @@ const Mint: NextPage = () => {
               <motion.div
                 variants={fadeInSmooth}
                 id="mainImg"
-                className="p-32 w-3/4 max-md:w-full max-md:p-16 bg-neutral-200 flex "
+                className={`p-32 max-md:w-full max-md:p-16 bg-neutral-200 flex flex-col ${
+                  process.env.NEXT_PUBLIC_STARTED === "true"
+                    ? "w-3/4"
+                    : "w-full"
+                }`}
               >
                 <motion.img
                   variants={fadeInSmooth}
@@ -65,11 +96,7 @@ const Mint: NextPage = () => {
                   height="100%"
                 ></motion.img>
               </motion.div>
-              {process.env.NEXT_PUBLIC_STARTED === "true" ? (
-                <MintingUI />
-              ) : (
-                <JumboTxt />
-              )}
+              {process.env.NEXT_PUBLIC_STARTED === "true" ? <MintingUI /> : ""}
             </motion.div>
 
             <div className="wrapper w-full flex flex-col gap-2">

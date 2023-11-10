@@ -49,7 +49,9 @@ export function MintBtn() {
   });
 
   if (!isConnected) {
-    return <ConnectButton showBalance={false} />;
+    return (
+      <ConnectButton label="Connect your wallet to mint" showBalance={false} />
+    );
   }
 
   return (

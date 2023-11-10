@@ -18,9 +18,12 @@ const Footer = () => (
         Instagram
       </a>
     </div>
-    <a href="#hero" className="button h-fit">
-      Mint Panopticon
-    </a>
+
+    {process.env.NEXT_PUBLIC_STARTED === "true" && (
+      <a href="#hero" className="button h-fit">
+        Mint Panopticon
+      </a>
+    )}
   </div>
 );
 
