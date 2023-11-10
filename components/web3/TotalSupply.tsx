@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useContractRead } from "wagmi";
+import React, { useEffect, useState } from 'react';
+import { useContractRead } from 'wagmi';
 import { abi } from "../../web3/panopticon/abi";
 
-const Minted: React.FC = () => {
-  const [minted, setMinted] = useState<string>();
+const MaxSupply: React.FC = () => {
+  const [maxSupply, setMaxSupply] = useState<string>();
 
   const contractRead = useContractRead({
-    address: process.env
-      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
+    address: process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
-    functionName: "nextTokenId",
-    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1'),
-    watch: true // Refresh automatically on incoming block
+    functionName: 'maxSupply',
+    chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || '1')
   });
 
   useEffect(() => {
     if (contractRead.data) {
-      setMinted(contractRead.data.toString());
+      setMaxSupply(contractRead.data.toString());
     }
 
     if (contractRead.isError) {
@@ -37,9 +35,9 @@ const Minted: React.FC = () => {
   // Display the contract data
   return (
     <div>
-      <p className="font-semibold">{minted}</p>
+      <p className="font-semibold">{maxSupply}</p>
     </div>
   );
 };
 
-export default Minted;
+export default MaxSupply;
