@@ -19,7 +19,7 @@ const ClaimRebateButton = () => {
   return (
     <div className="flex gap-2 w-full h-auto p-2 overflow-hidden bg-gradient-to-r from-red-400 to-violet-500 animate-gradient-xy rounded-2xl">
       <button
-        className="w-full flex justify-center align-center gap-2 rounded-xl p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg  text-neutral-100"
+        className="hover:transition hover:ease-in w-full flex justify-center align-center gap-2 rounded-xl p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg  text-neutral-100"
         onClick={handleClick}
       >
         Claim Rebate <CurrentRebate />

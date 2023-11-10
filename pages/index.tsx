@@ -63,7 +63,7 @@ const Mint: NextPage = () => {
                   href="https://evt.to/aseusiaew"
                 >
                   <motion.p
-                    className="border-neutral-300 shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:text-neutral-50"
+                    className="border-neutral-300 shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:transition hover:ease-in hover:text-neutral-50"
                     variants={fadeInSmooth}
                   >
                     Add to Calendar
@@ -83,18 +83,57 @@ const Mint: NextPage = () => {
               <motion.div
                 variants={fadeInSmooth}
                 id="mainImg"
-                className={`p-32 max-md:w-full max-md:p-16 bg-neutral-200 flex flex-col ${
+                className={`p-32 max-md:w-full overflow-hidden max-md:p-16 bg-neutral-200 flex flex-col ${
                   process.env.NEXT_PUBLIC_STARTED === "true"
                     ? "w-3/4"
                     : "w-full"
                 }`}
               >
-                <motion.img
-                  variants={fadeInSmooth}
-                  className="shadow-2xl self-center"
-                  src="img/panopticon/1.jpg"
-                  height="100%"
-                ></motion.img>
+                {process.env.NEXT_PUBLIC_STARTED === "true" ? (
+                  <motion.img
+                    variants={fadeInSmooth}
+                    className={`shadow-2xl self-center ${
+                      process.env.NEXT_PUBLIC_STARTED === "true"
+                        ? "w-auto"
+                        : "w-1/2"
+                    }`}
+                    src="img/panopticon/1.jpg"
+                    height="100%"
+                  ></motion.img>
+                ) : (
+                  <div className="flex gap-8 w-full max-md:flex-col">
+                    <motion.img
+                      variants={fadeInSmooth}
+                      className={`shadow-2xl max-md:w-full ${
+                        process.env.NEXT_PUBLIC_STARTED === "true"
+                          ? "w-auto"
+                          : "w-1/3"
+                      }`}
+                      src="img/panopticon/1.jpg"
+                      height="100%"
+                    ></motion.img>
+                    <motion.img
+                      variants={fadeInSmooth}
+                      className={`shadow-2xl max-md:w-full ${
+                        process.env.NEXT_PUBLIC_STARTED === "true"
+                          ? "w-auto"
+                          : "w-1/3"
+                      }`}
+                      src="img/panopticon/2.jpg"
+                      height="100%"
+                    ></motion.img>
+                    <motion.img
+                      variants={fadeInSmooth}
+                      className={`shadow-2xl max-md:w-full ${
+                        process.env.NEXT_PUBLIC_STARTED === "true"
+                          ? "w-auto"
+                          : "w-1/3"
+                      }`}
+                      src="img/panopticon/3.jpg"
+                      height="100%"
+                    ></motion.img>
+                  </div>
+                )}
               </motion.div>
               {process.env.NEXT_PUBLIC_STARTED === "true" ? <MintingUI /> : ""}
             </motion.div>
@@ -102,7 +141,7 @@ const Mint: NextPage = () => {
             <div className="wrapper w-full flex flex-col gap-2">
               <RebateInfo />
               <motion.div
-                className="flex w-full  space-between gap-2 max-md:flex-col justify-between"
+                className="flex w-full space-between gap-2 max-md:flex-col justify-between"
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
@@ -113,7 +152,7 @@ const Mint: NextPage = () => {
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
+                  className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-blue-100 hover:shadow-lg hover:transition hover:ease-in"
                 >
                   <motion.div variants={fadeInSmooth}>
                     <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
@@ -129,7 +168,7 @@ const Mint: NextPage = () => {
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full grow flex flex-col space-between justify-between border bg-neutral-200/20 border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-lg"
+                  className="w-full grow flex flex-col space-between justify-between border bg-neutral-200/20 border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-green-100 hover:shadow-lg hover:transition hover:ease-in"
                 >
                   <motion.div variants={fadeInSmooth}>
                     <motion.p variants={fadeInSmooth}>

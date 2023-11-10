@@ -70,7 +70,7 @@ export function MintBtn() {
         <div className="flex w-full">
           <motion.button
             variants={fadeInSmooth}
-            className="p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-l-xl text-neutral-100"
+            className="hover:transition hover:ease-in-out p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-l-xl text-neutral-100"
             onClick={() =>
               setTokenCount((prevCount) => Math.max(1, prevCount - 1))
             }
@@ -80,7 +80,7 @@ export function MintBtn() {
           </motion.button>
           <motion.button
             variants={fadeInSmooth}
-            className="ww-full grow flex p-4 text-center justify-center mint_button bg-neutral-900 whiteShadow drop-shadow-md text-neutral-100"
+            className="hover:transition hover:ease-in-out w-full grow flex p-4 text-center justify-center mint_button bg-neutral-900 whiteShadow drop-shadow-md text-neutral-100"
             disabled={isLoading || !!prepareContractWrite?.error}
             onClick={() => {
               if (mintTransaction?.write) {
@@ -100,7 +100,7 @@ export function MintBtn() {
           </motion.button>
           <motion.button
             variants={fadeInSmooth}
-            className="ww-full p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-r-xl text-neutral-100 "
+            className="hover:transition hover:ease-in-out p-4 mint_button bg-neutral-800 whiteShadow drop-shadow-lg rounded-r-xl text-neutral-100 "
             onClick={() => setTokenCount((prevCount) => prevCount + 1)}
             disabled={!isConnected || isLoading}
           >

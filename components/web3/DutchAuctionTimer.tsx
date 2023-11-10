@@ -17,7 +17,7 @@ const DutchAuctionTimer: React.FC<any> = ({ auctionConfig }) => {
   return (
     <motion.div
       variants={fadeInSmooth}
-      className="w-full flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow "
+      className="hover:border-neutral-400 w-full hover:transition hover:ease-in flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-300 hover:bg-neutral-100 hover:shadow-xl"
     >
       {config && (
         <Timer
