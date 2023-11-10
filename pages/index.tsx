@@ -52,7 +52,7 @@ const Mint: NextPage = () => {
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-4"
+                className="flex flex-col gap-4 mt-16"
               >
                 <JumboTxt />
                 <motion.p className="text-center" variants={fadeInSmooth}>
