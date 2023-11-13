@@ -41,7 +41,7 @@ const Timer: React.FC<TimerProps> = (props) => {
     const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId);
-  }, [ endTime ]);
+  }, [ endTime, props.afterText, props.beforeText, props.duringText ]);
 
   return (
     <>
