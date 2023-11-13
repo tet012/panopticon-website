@@ -8,7 +8,7 @@ export const abi = [
     stateMutability: "nonpayable",
     type: "constructor",
   },
-  { inputs: [], name: "MethodLocked", type: "error" },
+  { inputs: [], name: "Frozen", type: "error" },
   { inputs: [], name: "NoSupplyLeft", type: "error" },
   { inputs: [], name: "NotMinter", type: "error" },
   { inputs: [], name: "TokenNotFound", type: "error" },
@@ -155,6 +155,20 @@ export const abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "freeze",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "frozen",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "getApproved",
     outputs: [{ internalType: "address", name: "", type: "address" }],
@@ -169,13 +183,6 @@ export const abi = [
     name: "isApprovedForAll",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "lockRenderer",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -246,6 +253,13 @@ export const abi = [
   },
   {
     inputs: [],
+    name: "refreshMetadata",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "renderer",
     outputs: [
       {
@@ -254,13 +268,6 @@ export const abi = [
         type: "address",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rendererLocked",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
     type: "function",
   },
@@ -339,6 +346,13 @@ export const abi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_index", type: "uint256" }],
+    name: "tokenByIndex",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "tokenHTML",
     outputs: [{ internalType: "string", name: "", type: "string" }],
@@ -356,6 +370,23 @@ export const abi = [
     inputs: [],
     name: "tokenIdMax",
     outputs: [{ internalType: "uint16", name: "", type: "uint16" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
+    name: "tokenImageURI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_owner", type: "address" },
+      { internalType: "uint256", name: "_index", type: "uint256" },
+    ],
+    name: "tokenOfOwnerByIndex",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
