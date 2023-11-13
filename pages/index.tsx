@@ -291,34 +291,30 @@ const Mint: NextPage = () => {
                   viewport={{ once: true }}
                   className="flex flex-col w-full max-md:w-auto gap-8"
                 >
-                  <TextSection
-                    title="Definition"
-                    text={
-                      <span style={{ fontSize: "100%" }}>
-                        <em>
-                          "When I started working on this collection back in
-                          October 2022 it began as it always do: with an
-                          instinct, an idea that stick to your guts. Even tho
-                          I’ve been a web developer for quite some years now, I
-                          never been really fluent in Javascript, so when I
-                          decided to throw my tablet and my pencil to grab
-                          p5.js, it was quite a jump. This year been the most
-                          profitable year of my life artisticly-wise: I grew as
-                          an artist, as a human and my field of view expanded"
-                        </em>{" "}
-                        <span
-                          style={{
-                            marginTop: "1rem",
-                            whiteSpace: "nowrap",
-                            float: "right",
-                          }}
-                        >
-                          - teto
-                        </span>
-                      </span>
-                    }
-                    textVariants={fadeInLinear}
-                  />
+                  <motion.h4 variants={fadeInLinear}>Definition</motion.h4>
+                  <motion.p variants={fadeInLinear}>
+                    <em>
+                      When I started working on this collection back in October
+                      2022 it began as it always do: with an instinct, an idea
+                      that stick to your guts. Even tho I have ve been a web
+                      developer for quite some years now, I never been really
+                      fluent in Javascript, so when I decided to throw my tablet
+                      and my pencil to grab p5.js, it was quite a jump. This
+                      year been the most profitable year of my life
+                      artisticly-wise: I grew as an artist, as a human and my
+                      field of view expanded
+                    </em>{" "}
+                    <motion.span
+                      variants={fadeInLinear}
+                      style={{
+                        marginTop: "1rem",
+                        whiteSpace: "nowrap",
+                        float: "right",
+                      }}
+                    >
+                      - teto
+                    </motion.span>
+                  </motion.p>
                 </motion.div>
 
                 <motion.div
