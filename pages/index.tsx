@@ -221,7 +221,7 @@ const Mint: NextPage = () => {
                   <TextSection
                     title="Origin"
                     text={
-                      "Started in 2022, Panopticon is Teto's genesis long form collection, a digital artist with over a decade of experience as an art director for the music industry and a web developer. After numerous collections exploring the recurring theme of Perception in the digital age, Teto delved deeper into the human-screen relationship with this collection. Learn more"
+                      "Started in 2022, Panopticon is Teto's genesis long form collection, a digital artist with over a decade of experience as an art director for the music industry and a web developer. After numerous collections exploring the recurring theme of perception in the digital age, Teto delved deeper into the human-screen relationship with this collection."
                     }
                     textVariants={fadeInLinear}
                   />
@@ -273,7 +273,7 @@ const Mint: NextPage = () => {
                   <TextSection
                     title="Inspiration"
                     text={
-                      "Drawing inspiration from science fiction luminaries like Ray Bradbury, Alain Damasio, George Orwell, Aldous Huxley, and Isaac Asimov, Panopticon reflects the genre's core concepts:Technology will deeply transform humanity and the way humans behave with each othersVirtuality will overshadow the real world and people will mostly interact with avatars or robots. Innovation if not mastered will create even more social fracture instead of bringing people together. Visually the collection is widely inspired by anime culture, from Paprika, Full Metal Alchemist to Akira and Evangelion, the bright colors, shapes & movement defined the global direction of Panopticon. Straying from either techno-solutionism or techno-doom, Teto navigates a middle ground, mitigating and balancing these extremes in a vibrant, dynamic, and impactful manner."
+                      "Drawing inspiration from science fiction luminaries like Ray Bradbury, Alain Damasio, George Orwell, Aldous Huxley, and Isaac Asimov, Panopticon reflects the genre's core concepts: technology will deeply transform humanity and the way humans behave with each others. Virtuality will overshadow the real world and people will mostly interact with avatars or robots. Innovation - if not mastered - will create even more social fracture instead of bringing people together. Visually the collection is widely inspired by anime culture, from Paprika and Full Metal Alchemist to Akira and Evangelion, the bright colors, shapes and movement defined the global direction of Panopticon. Straying from either techno-solutionism or techno-doom, Teto navigates a middle ground, mitigating and balancing these extremes in a vibrant, dynamic, and impactful manner."
                     }
                     textVariants={fadeInLinear}
                   />
@@ -294,7 +294,7 @@ const Mint: NextPage = () => {
                   <TextSection
                     title="Definition"
                     text={
-                      "When I started working on this collection back in October 2022 it began as it always do: with an instinct, an idea that stick to your guts. Even tho I’ve been a web developer for quite some years now, I never been really fluent in Javascript, so when I decided to throw my tablet & my pencil to grab p5.js, it was quite a jump. This year been the most profitable year of my life artisticly-wise: I grew as an artist, as a human & my field of view expanded."
+                      "\"When I started working on this collection back in October 2022 it began as it always do: with an instinct, an idea that stick to your guts. Even tho I’ve been a web developer for quite some years now, I never been really fluent in Javascript, so when I decided to throw my tablet and my pencil to grab p5.js, it was quite a jump. This year been the most profitable year of my life artisticly-wise: I grew as an artist, as a human and my field of view expanded.\" -teto"
                     }
                     textVariants={fadeInLinear}
                   />
