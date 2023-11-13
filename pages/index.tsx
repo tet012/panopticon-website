@@ -55,7 +55,7 @@ const Mint: NextPage = () => {
       >
         <div
           id="hero"
-          className="bg-neutral-50 max-md:max-w-7xl w-full self-center flex flex-col"
+          className="bg-neutral-50 max-w-7xl w-full self-center flex flex-col"
         >
           <div className="w-full mb-8 px-4">
             {process.env.NEXT_PUBLIC_STARTED === "true" ? <NavBar /> : ""}
