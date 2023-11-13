@@ -83,7 +83,7 @@ const Mint: NextPage = () => {
               variants={AnimContDyna}
               initial="hidden"
               animate="show"
-              className="flex max-md:flex-col gap-2 justify-center aling-center items-center"
+              className="flex max-md:flex-col gap-2"
             >
               <motion.div
                 variants={fadeInSmooth}
