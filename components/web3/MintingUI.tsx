@@ -26,7 +26,7 @@ const getAuctionState = (auctionConfig: any) => {
 
   const currentTime = Math.floor(Date.now() / 1000);
 
-  if (currentTime < Number(auctionConfig.config.startTime)) {
+  if (currentTime < Number(auctionConfig.config.startTime) || !auctionConfig.endTime) {
     return AuctionState.UPCOMING;
   } else if (currentTime < Number(auctionConfig.config.endTime)) {
     return AuctionState.RUNNING;
@@ -87,18 +87,20 @@ const MintingUI: React.FC = () => {
             <CurrentPrice />
           </div>
         </motion.div>
-        <motion.div
-          variants={fadeInSmooth}
-          className="hover:border-neutral-400 w-full hover:transition hover:ease-in flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-xl"
-        >
-          <p className="whitespace-nowrap">Total Minted</p>
-          <div className="flex gap-2">
-            <Minted />
-            <p>/</p>
-            <TotalSupply />
-          </div>
-        </motion.div>
 
+        {(auctionState === AuctionState.RUNNING || auctionState === AuctionState.COMPLETED) && (
+          <motion.div
+            variants={fadeInSmooth}
+            className="hover:border-neutral-400 w-full hover:transition hover:ease-in flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-xl"
+          >
+            <p className="whitespace-nowrap">Total Minted</p>
+            <div className="flex gap-2">
+              <Minted />
+              <p>/</p>
+              <TotalSupply />
+            </div>
+          </motion.div>
+        )}
         <motion.p
           className="hover:border-neutral-400 hover:transition hover:ease-in grow flex flex-col space-between border-neutral-300 justify-between border rounded-xl p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-xl"
           variants={fadeInSmooth}

@@ -18,7 +18,11 @@ const Timer: React.FC<TimerProps> = (props) => {
     const updateTimer = () => {
       const currentTime = Math.floor(Date.now() / 1000);
 
-      if(currentTime < Number(startTime)) {
+      if(!startTime && !endTime) {
+        // Not configured
+        setText("Auction not scheduled yet");
+        setTimeRemaining(0);
+      } else  if(currentTime < Number(startTime)) {
         // Before timer is started
         setText(props.beforeText);
         setTimeRemaining(Number(startTime) - currentTime);
