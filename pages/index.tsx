@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { abi } from "../contract-abi";
 import { motion } from "framer-motion";
+import Head from "next/head";
 
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -35,6 +36,19 @@ const contractConfig = {
 const Mint: NextPage = () => {
   return (
     <div>
+      <Head>
+        <title>Panopticon by Teto</title>
+        <meta
+          name="description"
+          content="A generative art collection exploring our relationship with tehcnology."
+        />
+        <meta property="og:title" content="Panopticon by Teto" />
+        <meta
+          property="og:description"
+          content="A generative art collection exploring our relationship with tehcnology."
+        />
+        <meta property="og:image" content="/img/web-img.jpg" />
+      </Head>
       <div
         id="body"
         className="min-h-screen bg-neutral-50 flex flex-col w-full"
