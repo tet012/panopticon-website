@@ -14,12 +14,20 @@ const Price: React.FC = () => {
 
   return (
     <div className="flex gap-2">
-      <p className="font-semibold break-keep">
-        {price}
-      </p>
-      <p className="font-semibold break-keep">
-        ETH
-      </p>
+      {price ?
+      <>
+        <p className="font-semibold break-keep">
+          {price}
+        </p>
+        <p className="font-semibold break-keep">
+          ETH
+        </p>
+      </> :
+      <>
+        <p className="font-semibold break-keep">
+          Unavailable
+        </p>
+      </>}
     </div>
   );
 };
