@@ -28,7 +28,8 @@ export const useCurrentPrice = () => {
       setPriceInWei(BigInt(contractRead.data.toString()));
       setLoading(false);
     } else if(!contractRead.error) {
-      setPrice(null);
+      setPrice("0");
+      setPriceInWei(BigInt(0));
       setLoading(false);
     }
 
