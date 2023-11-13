@@ -294,7 +294,28 @@ const Mint: NextPage = () => {
                   <TextSection
                     title="Definition"
                     text={
-                      <span style={{ fontSize: '100%' }}><em>"When I started working on this collection back in October 2022 it began as it always do: with an instinct, an idea that stick to your guts. Even tho I’ve been a web developer for quite some years now, I never been really fluent in Javascript, so when I decided to throw my tablet and my pencil to grab p5.js, it was quite a jump. This year been the most profitable year of my life artisticly-wise: I grew as an artist, as a human and my field of view expanded"</em> <span style={{ marginTop: '1rem', whiteSpace: 'nowrap', float: 'right' }}>- teto</span></span>
+                      <span style={{ fontSize: "100%" }}>
+                        <em>
+                          "When I started working on this collection back in
+                          October 2022 it began as it always do: with an
+                          instinct, an idea that stick to your guts. Even tho
+                          I’ve been a web developer for quite some years now, I
+                          never been really fluent in Javascript, so when I
+                          decided to throw my tablet and my pencil to grab
+                          p5.js, it was quite a jump. This year been the most
+                          profitable year of my life artisticly-wise: I grew as
+                          an artist, as a human and my field of view expanded"
+                        </em>{" "}
+                        <span
+                          style={{
+                            marginTop: "1rem",
+                            whiteSpace: "nowrap",
+                            float: "right",
+                          }}
+                        >
+                          - teto
+                        </span>
+                      </span>
                     }
                     textVariants={fadeInLinear}
                   />
@@ -397,7 +418,7 @@ const Mint: NextPage = () => {
                   <h4>Where and when is the auction?</h4>
                   <p>
                     The 60-minute Dutch auction will take place on this website
-                    on the 10th of November at 10 am PST / 01 pm EST / 6 pm
+                    on the 14th of November at 10 am PST / 01 pm EST / 6 pm
                     CEST. The auction will have no time extension, which will be
                     closed forever when it reaches the 60-minute mark.
                   </p>
