@@ -75,7 +75,7 @@ const ClaimTokensButton = () => {
         onClick={handleClick}
         disabled={amountToClaim === 0}
       >
-        Claim {amountToClaim} Tokens
+        Claim {amountToClaim} tokens with rebate
       </motion.button>
       <motion.button
         variants={fadeInSmooth}
