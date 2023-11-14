@@ -2,10 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeInSmooth } from "../animations";
 import JumboTxt from "../JumboTxt";
-import CurrentPrice from "./CurrentPrice";
-import MintButton from "./MintButton";
 import Minted from "./Minted";
-import ClaimTokensButton from "./ClaimTokensButton";
 import ClaimRebateButton from "./ClaimRebateButton";
 import DutchAuctionTimer from "./DutchAuctionTimer";
 import TotalSupply from "./TotalSupply";
@@ -56,7 +53,7 @@ const MintingUI: React.FC = () => {
         >
           <p className="w-full">Current Price</p>
           <div className="flex gap-2">
-            <CurrentPrice />
+            SOLD&nbsp;OUT
           </div>
         </motion.div>
 
@@ -89,9 +86,7 @@ const MintingUI: React.FC = () => {
         </motion.p>
 
         <RequireCorrectNetwork>
-          <MintButton auctionState={auctionConfig?.auctionState} />
-          {auctionConfig?.auctionState === AuctionState.RUNNING && <ClaimTokensButton />}
-          {auctionConfig?.auctionState === AuctionState.COMPLETED && <ClaimRebateButton />}
+          <ClaimRebateButton />
         </RequireCorrectNetwork>
       </motion.div>
     </>
