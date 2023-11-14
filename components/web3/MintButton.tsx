@@ -13,12 +13,13 @@ import { abi } from "../../web3/dutch-auction/abi";
 import { useHasDiscount } from "../../web3/dutch-auction/use-has-discount";
 import useGetMerkleProof from "../../web3/merkle-tree/use-get-merkle-proof";
 import { generateEtherscanLinkForTx } from "../../utils/etherscan";
+import { AuctionState } from "../../web3/dutch-auction/use-get-config";
 
 const emptyMerkleProof: `0x${string}`[] = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
 ];
 
-export function MintBtn() {
+export function MintBtn({ auctionState }: { auctionState: AuctionState }) {
   const [tokenCount, setTokenCount] = useState<number>(1);
   const { price, priceInWei, loading, error } = useCurrentPrice();
   const { address, isConnected } = useAccount();
@@ -66,6 +67,7 @@ export function MintBtn() {
         initial="hidden"
         animate="show"
         className="flex flex-col gap-2 w-full h-auto p-2 overflow-hidden bg-gradient-to-r from-green-400 to-teal-500 animate-gradient-xy rounded-2xl"
+        style={{ display: (auctionState === AuctionState.RUNNING) ? "block" : "none" }}
       >
         <div className="flex w-full">
           <motion.button

@@ -10,30 +10,7 @@ import ClaimRebateButton from "./ClaimRebateButton";
 import DutchAuctionTimer from "./DutchAuctionTimer";
 import TotalSupply from "./TotalSupply";
 import { useNetwork, useSwitchNetwork } from "wagmi";
-import { useGetConfig } from "../../web3/dutch-auction/use-get-config";
-
-enum AuctionState {
-  LOADING = "LOADING",
-  UPCOMING = "UPCOMING",
-  RUNNING = "RUNNING",
-  COMPLETED = "COMPLETED",
-}
-
-const getAuctionState = (auctionConfig: any) => {
-  if (!auctionConfig || auctionConfig.loading || !auctionConfig.config) {
-    return AuctionState.LOADING;
-  }
-
-  const currentTime = Math.floor(Date.now() / 1000);
-
-  if (currentTime < Number(auctionConfig.config.startTime) || !auctionConfig.endTime) {
-    return AuctionState.UPCOMING;
-  } else if (currentTime < Number(auctionConfig.config.endTime)) {
-    return AuctionState.RUNNING;
-  } else {
-    return AuctionState.COMPLETED;
-  }
-};
+import { useGetConfig, AuctionState } from "../../web3/dutch-auction/use-get-config";
 
 const RequireCorrectNetwork: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -68,7 +45,6 @@ const RequireCorrectNetwork: React.FC<{ children: React.ReactNode }> = ({
 
 const MintingUI: React.FC = () => {
   const auctionConfig: any = useGetConfig();
-  const auctionState = getAuctionState(auctionConfig);
 
   return (
     <>
@@ -88,7 +64,7 @@ const MintingUI: React.FC = () => {
           </div>
         </motion.div>
 
-        {(auctionState === AuctionState.RUNNING || auctionState === AuctionState.COMPLETED) && (
+        {(auctionConfig?.auctionState !== AuctionState.UPCOMING) && (
           <motion.div
             variants={fadeInSmooth}
             className="hover:border-neutral-400 w-full hover:transition hover:ease-in flex justify-between rounded-xl border border-neutral-300 rounded-lg p-4 hover:border-neutral-400 hover:bg-neutral-100 hover:shadow-xl"
@@ -117,13 +93,9 @@ const MintingUI: React.FC = () => {
         </motion.p>
 
         <RequireCorrectNetwork>
-          {auctionState === AuctionState.RUNNING && (
-            <>
-              <MintButton />
-              <ClaimTokensButton />
-            </>
-          )}
-          {auctionState === AuctionState.COMPLETED && <ClaimRebateButton />}
+          <MintButton auctionState={auctionConfig?.auctionState} />
+          {auctionConfig?.auctionState === AuctionState.RUNNING && <ClaimTokensButton />}
+          {auctionConfig?.auctionState === AuctionState.COMPLETED && <ClaimRebateButton />}
         </RequireCorrectNetwork>
       </motion.div>
     </>
