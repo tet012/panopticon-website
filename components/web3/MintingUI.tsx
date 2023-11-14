@@ -2,10 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeInSmooth } from "../animations";
 import JumboTxt from "../JumboTxt";
-import Minted from "./Minted";
 import ClaimRebateButton from "./ClaimRebateButton";
 import DutchAuctionTimer from "./DutchAuctionTimer";
-import TotalSupply from "./TotalSupply";
 import { useNetwork, useSwitchNetwork } from "wagmi";
 import { useGetConfig, AuctionState } from "../../web3/dutch-auction/use-get-config";
 
@@ -64,9 +62,9 @@ const MintingUI: React.FC = () => {
           >
             <p className="whitespace-nowrap">Total Minted</p>
             <div className="flex gap-2">
-              <Minted />
+              600
               <p>/</p>
-              <TotalSupply />
+              600
             </div>
           </motion.div>
         )}
