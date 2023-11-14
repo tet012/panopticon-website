@@ -23,7 +23,6 @@ const ClaimRebateButton = () => {
         onClick={handleClick}
       >
         Claim Rebate <CurrentRebate />
-        (after auction ends)
       </button>
     </div>
   );
