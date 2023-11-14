@@ -3,7 +3,7 @@ type EthereumAddress = `0x${string}`;
 export async function getProof(address: EthereumAddress) {
   try {
     const response = await fetch(
-      `https://fp-api-eta.vercel.app/api/panopticon/discountList?address=${address}`
+      `https://api.fingerprintsdao.xyz/api/panopticon/discountList?address=${(address}`
     );
 
     if (!response.ok) {
