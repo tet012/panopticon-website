@@ -18,11 +18,7 @@ const RequireCorrectNetwork: React.FC<{ children: React.ReactNode }> = ({
   const { chain } = useNetwork();
   const { isLoading, switchNetwork } = useSwitchNetwork();
 
-  if (!chain || !chain.id) {
-    return null;
-  }
-
-  if (chain.id !== Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+  if (chain !== undefined && chain.id !== Number(process.env.NEXT_PUBLIC_CHAIN_ID)) {
     return (
       <motion.p
         variants={fadeInSmooth}

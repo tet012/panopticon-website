@@ -7,7 +7,7 @@ import { AnimContDyna, fadeInSmooth } from "../animations";
 import { motion } from "framer-motion";
 
 const ClaimTokensButton = () => {
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const effectiveAddress =
     address || "0x0000000000000000000000000000000000000000";
   const { proof } = useGetMerkleProof(effectiveAddress);
@@ -48,6 +48,10 @@ const ClaimTokensButton = () => {
       console.error("Error when claiming tokens:", error);
     }
   };
+
+  if (!isConnected) {
+    return null;
+  }
 
   return (
     <motion.div

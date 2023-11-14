@@ -50,9 +50,13 @@ export function MintBtn({ auctionState }: { auctionState: AuctionState }) {
   });
 
   if (!isConnected) {
-    return (
-      <ConnectButton label="Connect your wallet to mint" showBalance={false} />
-    );
+    if(auctionState === AuctionState.RUNNING) {
+      return (
+        <ConnectButton label="Connect your wallet to mint" showBalance={false} />
+      );
+    } else {
+      return null;
+    }
   }
 
   return (
