@@ -4,6 +4,7 @@ import TokenOwnerDisplay, {
   NFTOwnerDetails,
 } from "../web3/panopticon/NFTOwnerDetails";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface TokenPageProps {
   tokenId: bigint;
