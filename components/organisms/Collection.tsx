@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
-import { tokenData } from "../pages/api/tokens";
-import useFilter from "../hooks/useFilter";
-import palettes from "./atoms/palettes";
-import Sidebar from "./molecules/Sidebar";
-import Gallery from "./molecules/Gallery";
+import { tokenData } from "../../pages/api/tokens";
+import useFilter from "../../hooks/useFilter";
+import palettes from "../atoms/palettes";
+import Sidebar from "../molecules/Sidebar";
+import Gallery from "../molecules/Gallery";
 
 type Token = {
   image: string;
@@ -12,7 +12,7 @@ type Token = {
   id: number;
 };
 
-const TokenGallery = () => {
+const Collection = () => {
   const router = useRouter();
   const mutableTokenData = useMemo(() => [...tokenData], []);
   const [tokens, setTokens] = useState<Token[]>(mutableTokenData);
@@ -106,4 +106,4 @@ const TokenGallery = () => {
   );
 };
 
-export default TokenGallery;
+export default Collection;

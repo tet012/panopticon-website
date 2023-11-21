@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useGetTokenUri } from "../../../web3/panopticon/use-get-token-uri";
-import TokenOwnerDisplay, { NFTOwnerDetails } from "./NFTOwnerDetails";
-import TokenActivity from "../TokenActivity";
+import { useGetTokenUri } from "../../web3/panopticon/use-get-token-uri";
+import TokenOwnerDisplay, {
+  NFTOwnerDetails,
+} from "../web3/panopticon/NFTOwnerDetails";
 import Link from "next/link";
 
 interface TokenPageProps {

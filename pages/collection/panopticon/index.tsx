@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 import NavBar from "../../../components/NavBar";
-import TokenGallery from "../../../components/TokenGallery";
+import TokenGallery from "../../../components/organisms/Collection";
 
 const Token: NextPage = () => {
   const router = useRouter();

@@ -2,12 +2,9 @@ import React from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-
 import NavBar from "../../../components/NavBar";
 import Footer from "../../../components/Footer";
-import TokenUriDisplay from "../../../components/web3/panopticon/TokenUriDisplay";
-import DataComp from "../../../components/DataComp";
-import TokenGallery from "../../../components/TokenGallery";
+import TokenUriDisplay from "../../../components/organisms/TokenPage";
 
 const Token: NextPage = () => {
   const router = useRouter();
@@ -43,7 +40,9 @@ const Token: NextPage = () => {
         </div>
 
         <div id="tokeninfo" className="flex">
-          <TokenUriDisplay tokenId={tokenIdBigInt} />
+          {tokenIdBigInt !== undefined && (
+            <TokenUriDisplay tokenId={tokenIdBigInt} />
+          )}
         </div>
       </div>
       <Footer />
