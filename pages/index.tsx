@@ -2,7 +2,7 @@ import React from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { abi } from "../contract-abi";
+import { abi } from "../web3/panopticon/panopticon-abi";
 import { motion } from "framer-motion";
 import Head from "next/head";
 
@@ -13,12 +13,13 @@ import JumboTxt from "../components/JumboTxt";
 import ImageGrid from "../components/ImageGrid";
 import SingleImage from "../components/SingleImage";
 import { generateEtherscanLinkForAddress } from "../utils/etherscan";
+import TokenImageDisplay from "../components/web3/panopticon/TokenImageUri";
 
-const MintingUI = dynamic(() => import("../components/web3/MintingUI"), {
+const MintingUI = dynamic(() => import("../components/web3/mint/MintingUI"), {
   ssr: false,
 });
 
-const RebateInfo = dynamic(() => import("../components/web3/RebateInfo"), {
+const RebateInfo = dynamic(() => import("../components/web3/mint/RebateInfo"), {
   ssr: false,
 });
 
@@ -33,7 +34,7 @@ const contractConfig = {
   abi,
 } as const;
 
-const Mint: NextPage = () => {
+const Home: NextPage = () => {
   return (
     <div>
       <Head>
@@ -49,27 +50,28 @@ const Mint: NextPage = () => {
         />
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
+
       <div
         id="body"
-        className="min-h-screen bg-neutral-50 flex flex-col w-full"
+        className="flex flex-col w-full min-h-screen bg-neutral-50"
       >
         <div
           id="hero"
-          className="bg-neutral-50 max-w-7xl w-full self-center flex flex-col"
+          className="flex flex-col self-center w-full bg-neutral-50 max-w-7xl"
         >
-          <div className="w-full mb-8 px-4">
+          <div className="w-full px-4 mb-8">
             {process.env.NEXT_PUBLIC_STARTED === "true" ? <NavBar /> : ""}
           </div>
           <div
             id="mainCont"
-            className="flex flex-col max-md:w-full gap-8 bg-neutral-50 self-center items-center"
+            className="flex flex-col items-center self-center gap-8 max-md:w-full bg-neutral-50"
           >
             {process.env.NEXT_PUBLIC_STARTED === "false" ? (
               <motion.div
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-4 mt-16 p-8 align-center justify-center items-center"
+                className="flex flex-col items-center justify-center gap-4 p-8 mt-16 align-center"
               >
                 <div className="flex justify-center">
                   <JumboTxt />
@@ -82,7 +84,7 @@ const Mint: NextPage = () => {
                   href="https://evt.to/aseusiaew"
                 >
                   <motion.p
-                    className="border-neutral-300 w-fit self-center shadow-xl border px-4 py-2 rounded-full mt-8 hover:bg-neutral-900 hover:transition hover:ease-in hover:text-neutral-50"
+                    className="self-center px-4 py-2 mt-8 border rounded-full shadow-xl border-neutral-300 w-fit hover:bg-neutral-900 hover:transition hover:ease-in hover:text-neutral-50"
                     variants={fadeInSmooth}
                   >
                     Add to Calendar
@@ -97,7 +99,7 @@ const Mint: NextPage = () => {
               variants={AnimContDyna}
               initial="hidden"
               animate="show"
-              className="flex max-md:flex-col gap-2"
+              className="flex gap-2 max-md:flex-col"
             >
               <motion.div
                 variants={fadeInSmooth}
@@ -124,7 +126,7 @@ const Mint: NextPage = () => {
                     variants={AnimContDyna}
                     initial="hidden"
                     animate="show"
-                    className="flex gap-8 w-full max-md:flex-col max-md:p-2"
+                    className="flex w-full gap-8 max-md:flex-col max-md:p-2"
                   >
                     <motion.img
                       variants={fadeInSmooth}
@@ -162,21 +164,21 @@ const Mint: NextPage = () => {
               {process.env.NEXT_PUBLIC_STARTED === "true" ? <MintingUI /> : ""}
             </motion.div>
 
-            <div className="wrapper w-full flex flex-col gap-2">
+            <div className="flex flex-col w-full gap-2 wrapper">
               <RebateInfo />
               <motion.div
-                className="flex w-full space-between gap-2 max-md:flex-col justify-between"
+                className="flex justify-between w-full gap-2 space-between max-md:flex-col"
                 variants={AnimContDyna}
                 initial="hidden"
                 animate="show"
               >
                 <Link
                   href={generateEtherscanLinkForAddress(
-                    process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS
+                    process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS,
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full grow flex flex-col space-between justify-between bg-neutral-200/20 border border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-blue-100 hover:shadow-lg hover:transition hover:ease-in"
+                  className="flex flex-col justify-between w-full p-4 border grow space-between bg-neutral-200/20 border-neutral-300 rounded-xl hover:border-neutral-400 hover:bg-blue-100 hover:shadow-lg hover:transition hover:ease-in"
                 >
                   <motion.div variants={fadeInSmooth}>
                     <motion.p variants={fadeInSmooth}>NFT Contract</motion.p>
@@ -188,11 +190,11 @@ const Mint: NextPage = () => {
 
                 <Link
                   href={generateEtherscanLinkForAddress(
-                    process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS
+                    process.env.NEXT_PUBLIC_DUTCH_AUCTION_CONTRACT_ADDRESS,
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full grow flex flex-col space-between justify-between border bg-neutral-200/20 border-neutral-300 rounded-xl p-4 hover:border-neutral-400 hover:bg-green-100 hover:shadow-lg hover:transition hover:ease-in"
+                  className="flex flex-col justify-between w-full p-4 border grow space-between bg-neutral-200/20 border-neutral-300 rounded-xl hover:border-neutral-400 hover:bg-green-100 hover:shadow-lg hover:transition hover:ease-in"
                 >
                   <motion.div variants={fadeInSmooth}>
                     <motion.p variants={fadeInSmooth}>
@@ -214,7 +216,7 @@ const Mint: NextPage = () => {
               >
                 <motion.p
                   variants={fadeInSmooth}
-                  className="font-serif text-2xl mt-16 rounded text-center italic bg-neutral-300/30 p-8"
+                  className="p-8 mt-16 font-serif text-2xl italic text-center rounded bg-neutral-300/30"
                 >
                   &quot;Innovation has become the blood of our society and
                   virtuality is our new reality.&quot;
@@ -230,7 +232,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <TextSection
                     title="Origin"
@@ -246,7 +248,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <ImageGrid
                     images={[
@@ -269,7 +271,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <SingleImage
                     src="img/panopticon/8.jpg"
@@ -282,7 +284,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <TextSection
                     title="Inspiration"
@@ -303,7 +305,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <motion.h4 variants={fadeInLinear}>Definition</motion.h4>
                   <motion.p className="italic" variants={fadeInLinear}>
@@ -334,7 +336,7 @@ const Mint: NextPage = () => {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="flex flex-col w-full max-md:w-auto gap-8"
+                  className="flex flex-col w-full gap-8 max-md:w-auto"
                 >
                   <ImageGrid
                     images={[
@@ -350,52 +352,57 @@ const Mint: NextPage = () => {
 
               <div id="authors" className="flex flex-col gap-2">
                 <p className="text-center"> About the authors</p>
-                <div className="flex gap-2 max-md:flex-col">
-                  <motion.div
-                    variants={AnimContDyna}
-                    initial="hidden"
-                    viewport={{ once: true }}
-                    whileInView="show"
-                    className="flex gap-4 bg-neutral-100 rounded p-8 w-full"
-                  >
-                    <motion.img
-                      alt=""
-                      variants={fadeInSmooth}
-                      viewport={{ once: true }}
-                      className="rounded-full h-20 border-2 border-neutral-800 w-20"
-                      src="/img/profiles/teto.jpg"
-                    ></motion.img>
-                    <TextSection
-                      title="Teto, artist"
-                      text={
-                        "Mixed-media artist, natively digital, I've been creating art with computer for the past 20 years."
-                      }
-                      textVariants={"fadeInSmooth"}
-                    />
-                  </motion.div>
-                  <motion.div
-                    variants={AnimContDyna}
-                    initial="hidden"
-                    viewport={{ once: true }}
-                    whileInView="show"
-                    className="flex gap-4 bg-neutral-100 rounded p-8 w-full"
-                  >
-                    <motion.img
-                      alt=""
-                      variants={fadeInSmooth}
-                      viewport={{ once: true }}
-                      className="rounded-full h-20 border-2 border-neutral-800 w-20"
-                      src="/img/profiles/fox.jpg"
-                    ></motion.img>
 
-                    <TextSection
-                      title="TokenFox, contract Magician"
-                      text={
-                        "Creator of onchainchecker.xyz. Curator and collector of on-chain NFTs. Solidity programmer."
-                      }
-                      textVariants={"fadeInSmooth"}
-                    />
-                  </motion.div>
+                <div className="flex gap-2 max-md:flex-col">
+                  <Link href="https://twitter.com/tetonotsorry">
+                    <motion.div
+                      variants={AnimContDyna}
+                      initial="hidden"
+                      viewport={{ once: true }}
+                      whileInView="show"
+                      className="flex w-full gap-4 p-8 rounded bg-neutral-100"
+                    >
+                      <motion.img
+                        alt=""
+                        variants={fadeInSmooth}
+                        viewport={{ once: true }}
+                        className="w-20 h-20 border-2 rounded-full border-neutral-800"
+                        src="/img/profiles/teto.jpg"
+                      ></motion.img>
+                      <TextSection
+                        title="Teto, artist"
+                        text={
+                          "Mixed-media artist, natively digital, I've been creating art with computer for the past 20 years."
+                        }
+                        textVariants={"fadeInSmooth"}
+                      />
+                    </motion.div>
+                  </Link>
+                  <Link href="https://twitter.com/tokenfox1">
+                    <motion.div
+                      variants={AnimContDyna}
+                      initial="hidden"
+                      viewport={{ once: true }}
+                      whileInView="show"
+                      className="flex w-full gap-4 p-8 rounded bg-neutral-100"
+                    >
+                      <motion.img
+                        alt=""
+                        variants={fadeInSmooth}
+                        viewport={{ once: true }}
+                        className="w-20 h-20 border-2 rounded-full border-neutral-800"
+                        src="/img/profiles/fox.jpg"
+                      ></motion.img>
+
+                      <TextSection
+                        title="TokenFox, contract Magician"
+                        text={
+                          "Creator of onchainchecker.xyz. Curator and collector of on-chain NFTs. Solidity programmer."
+                        }
+                        textVariants={"fadeInSmooth"}
+                      />
+                    </motion.div>
+                  </Link>
                 </div>
               </div>
               <motion.div
@@ -409,7 +416,7 @@ const Mint: NextPage = () => {
                 <motion.div
                   variants={fadeInSmooth}
                   id="faq1"
-                  className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
+                  className="flex flex-col gap-2 p-8 rounded bg-neutral-100"
                 >
                   <h4>Is Panopticon On-Chain?</h4>
                   <p>
@@ -421,7 +428,7 @@ const Mint: NextPage = () => {
                   variants={fadeInSmooth}
                   id="faq1"
                   viewport={{ once: true }}
-                  className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
+                  className="flex flex-col gap-2 p-8 rounded bg-neutral-100"
                 >
                   <h4>Where and when is the auction?</h4>
                   <p>
@@ -435,7 +442,7 @@ const Mint: NextPage = () => {
                   variants={fadeInSmooth}
                   id="faq2"
                   viewport={{ once: true }}
-                  className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
+                  className="flex flex-col gap-2 p-8 rounded bg-neutral-100"
                 >
                   <h4>How much does it cost to mint one?</h4>
                   <p>
@@ -453,7 +460,7 @@ const Mint: NextPage = () => {
                   variants={fadeInSmooth}
                   id="faq3"
                   viewport={{ once: true }}
-                  className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
+                  className="flex flex-col gap-2 p-8 rounded bg-neutral-100"
                 >
                   <h4>What is the collection size?</h4>
                   <p>
@@ -466,7 +473,7 @@ const Mint: NextPage = () => {
                   variants={fadeInSmooth}
                   id="faq3"
                   viewport={{ once: true }}
-                  className="bg-neutral-100 p-8 rounded flex flex-col gap-2"
+                  className="flex flex-col gap-2 p-8 rounded bg-neutral-100"
                 >
                   <h4>On which chain?</h4>
                   <p>Panopticon will be launched on the Ethereum Mainnet.</p>
@@ -481,4 +488,4 @@ const Mint: NextPage = () => {
   );
 };
 
-export default Mint;
+export default Home;

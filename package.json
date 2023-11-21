@@ -9,15 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@lottiefiles/lottie-player": "^2.0.2",
     "@rainbow-me/rainbowkit": "^1.0.11",
+    "axios": "^1.6.2",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
+    "gsap": "^3.12.2",
     "lottie-react": "^2.4.0",
     "merkletreejs": "^0.3.11",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.1",
+    "mysql2": "^3.6.3",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "three": "^0.158.0",
     "viem": "~1.10.7",
     "wagmi": "~1.4.1"
   },
@@ -28,7 +35,9 @@
     "eslint": "^8.15.0",
     "eslint-config-next": "^13.4.19",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.3",
+    "prettier": "^3.0.0-alpha.6",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5.0.4"
   }
 }

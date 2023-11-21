@@ -17,8 +17,8 @@ import { infuraProvider } from "wagmi/providers/infura";
 const infuraId = process.env.INFURA_ID || "01ce58772c21421d833971a8ccf7f111";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet, goerli],
-  [infuraProvider({ apiKey: infuraId }), publicProvider()]
+  [mainnet],
+  [infuraProvider({ apiKey: infuraId }), publicProvider()],
 );
 
 const projectId = "f99a5c07d12ddbe3b9010b0f0e8a0a49";
