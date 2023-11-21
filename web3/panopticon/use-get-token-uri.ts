@@ -3,7 +3,8 @@ import { abi } from "./panopticon-abi";
 
 export const useGetTokenUri = (tokenId: bigint) => {
   const { data, isError, isLoading } = useContractRead({
-    address: process.env.NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
+    address: process.env
+      .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
     abi: abi,
     functionName: "tokenURI",
     args: [tokenId],
@@ -36,7 +37,7 @@ export const useGetTokenUri = (tokenId: bigint) => {
   };
 };
 
-function base64ToBytes(base64) {
+function base64ToBytes(base64: string) {
   const binaryString = atob(base64);
   const bytes = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {

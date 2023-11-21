@@ -14,17 +14,12 @@ export const NFTOwnerDetails: React.FC<NFTOwnerDetailsProps> = ({
   const [ownerAddress, setOwnerAddress] = useState<string | undefined>();
 
   const { owner } = useGetOwnerOf(tokenId);
+  const ethereumAddress = owner as `0x${string}`;
 
-  const { data: ensName } = useEnsName({ address: owner });
-  const { data: ensAvatar } = useEnsAvatar({ addressOrName: ensName || owner });
+  const { data: ensName } = useEnsName({ address: ethereumAddress });
 
-  React.useEffect(() => {
-    if (owner) {
-      setOwnerAddress(owner);
-    }
-  }, [owner]);
-
-  const truncateAddress = (address: string) => `${address.substring(0, 6)}...`;
+  // Always call useEnsAvatar, but pass undefined if ensName is not available
+  const { data: ensAvatar } = useEnsAvatar({ name: ensName ?? undefined });
 
   React.useEffect(() => {
     if (owner) {
@@ -34,6 +29,8 @@ export const NFTOwnerDetails: React.FC<NFTOwnerDetailsProps> = ({
       }
     }
   }, [owner, onAddressLoaded]);
+
+  const truncateAddress = (address: string) => `${address.substring(0, 6)}...`;
 
   return (
     <div>
