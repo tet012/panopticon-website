@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { useRef, forwardRef } from "react";
 import Image from "next/image"; // Importing Next.js Image component
 
 type TokenProps = {
@@ -6,28 +6,38 @@ type TokenProps = {
   image: string;
 };
 
-interface TokenComponentProps {
+type TokenComponentProps = {
   token: TokenProps;
   onClick: (id: number) => void;
-}
+};
 
-const Token = forwardRef<HTMLDivElement, TokenComponentProps>(
-  ({ token, onClick }, ref) => {
-    return (
-      <div ref={ref} onClick={() => onClick(token.id)}>
-        {/* Replaced <img> with Next.js <Image> component */}
-        <Image
-          src={token.image}
-          alt={`Token ${token.id}`}
-          width={200}
-          height={200}
-          layout="responsive"
-        />
-      </div>
-    );
-  },
-);
+const Token: React.FC<TokenComponentProps> = ({ token, onClick }) => {
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
 
-Token.displayName = "Token"; // Assigning display name
+  const handleLoadingComplete = () => {
+    if (imageWrapperRef.current) {
+      imageWrapperRef.current.style.background = "none";
+    }
+  };
+
+  return (
+    <div
+      ref={imageWrapperRef}
+      onClick={() => onClick(token.id)}
+      className="image-wrapper"
+    >
+      <Image
+        src={token.image}
+        alt={`Token ${token.id}`}
+        width={300}
+        height={400}
+        loading="lazy"
+        onLoadingComplete={handleLoadingComplete}
+      ></Image>
+    </div>
+  );
+};
+
+Token.displayName = "Token";
 
 export default Token;

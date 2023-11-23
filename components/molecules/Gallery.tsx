@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Token from "../atoms/Token";
+import { useRouter } from "next/router"; // Import useRouter from Next.js
+
+import JumboTxt from "../JumboTxt";
+import { motion } from "framer-motion";
+import {
+  fadeInSmooth,
+  AnimContDyna,
+  fadeInLinear,
+} from "../../components/animations";
 
 type Token = {
   id: number;
@@ -12,19 +21,21 @@ interface GalleryProps {
   columnCount: number;
 }
 
-const Gallery: React.FC<GalleryProps> = ({
-  tokens,
-  handleTokenClick,
-  columnCount,
-}) => {
+const Gallery: React.FC<GalleryProps> = ({ tokens, columnCount }) => {
   const [visibleCount, setVisibleCount] = useState(columnCount * 3); // Default to 3 rows of initial column count
   const [isLoading, setIsLoading] = useState(false);
   const bufferDistance = 300;
   const rowsPerPage = 3;
+  const router = useRouter();
 
   useEffect(() => {
     setVisibleCount(columnCount * rowsPerPage);
   }, [columnCount]);
+
+  const handleTokenClick = (tokenId: number) => {
+    // Navigate to the updated URL
+    router.push(`/collection/panopticon/${tokenId}`);
+  };
 
   const handleLoadMore = () => {
     if (visibleCount < tokens.length && !isLoading) {

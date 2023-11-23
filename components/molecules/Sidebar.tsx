@@ -1,5 +1,5 @@
 // FilterPanel.js
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import {
   ArrowLeftCircleIcon,
@@ -51,13 +51,28 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [isSelectorVisible, setIsSelectorVisible] = useState(false);
 
   const toggleDisplaySelector = () => {
-    setIsSelectorVisible(!isSelectorVisible);
+    setIsSelectorVisible((prev) => !prev);
   };
 
   // Function to handle slider change
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColumnCount(Number(event.target.value));
   };
+
+  const popupRef = useRef<HTMLDivElement>(null); // Specifying the type as HTMLDivElement
+
+  const closePopup = (event: MouseEvent) => {
+    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      setIsSelectorVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", closePopup);
+    return () => {
+      document.removeEventListener("mousedown", closePopup);
+    };
+  }, []);
 
   return (
     <aside
@@ -89,11 +104,13 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
 
           {isSelectorVisible && (
-            <div className="popup-class backdrop-blur-sm max-md:left-[-120%] left-2 absolute bg-neutral-50/50 shadow-2xl top-full mt-1 p-4 rounded-lg">
+            <div
+              ref={popupRef}
+              className="popup-class backdrop-blur-sm max-md:left-[-250%]  left-2 absolute bg-neutral-50/50 shadow-2xl top-full mt-1 p-4 rounded-lg"
+            >
               <div className="whitespace-nowrap px-4">
                 Columns: {columnCount}
               </div>
-
               <input
                 type="range"
                 min="1"
@@ -165,6 +182,12 @@ const Sidebar: React.FC<SidebarProps> = ({
               )}
             </div>
           ))}
+          <button
+            onClick={toggleSidebarVisibility}
+            className="md:hidden fixed bottom-2 margin-auto self-center shadow-2xl bg-blue-600 text-white p-4 rounded-xl w-11/12"
+          >
+            Close
+          </button>
         </>
       )}
     </aside>

@@ -14,7 +14,7 @@
     "@rainbow-me/rainbowkit": "^1.0.11",
     "axios": "^1.6.2",
     "date-fns": "^2.30.0",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.5",
     "gsap": "^3.12.2",
     "lottie-react": "^2.4.0",
     "merkletreejs": "^0.3.11",
@@ -24,6 +24,7 @@
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-window": "^1.8.9",
     "three": "^0.158.0",
     "viem": "~1.10.7",
     "wagmi": "~1.4.1"

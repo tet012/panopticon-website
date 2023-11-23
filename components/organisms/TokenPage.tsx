@@ -29,9 +29,9 @@ const TokenUri: React.FC<TokenPageProps> = ({ tokenId }) => {
   const animationHtml = decodeDataUri(tokenData.animation_url);
 
   return (
-    <div className="flex w-full 8">
+    <div className="flex w-full max-md:flex-col">
       {/* <img src={tokenData.image} alt={tokenData.name} /> */}
-      <div className="w-2/3 h-full flex">
+      <div className="w-2/3 max-md:w-full h-full flex ">
         <iframe
           srcDoc={animationHtml}
           style={{

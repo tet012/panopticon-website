@@ -241,3 +241,38 @@ img {
     background-position: -100% 0;
   }
 }
+
+.slider .token-wrapper {
+  flex: 0 0 20%; /* Each token takes up 20% of the slider (for 5 tokens) */
+  max-width: 20%; /* Ensures that each token doesn't grow beyond 20% */
+  /* Add more styling for padding, margin, etc., as needed */
+}
+
+/* Responsive adjustments, if necessary */
+@media (max-width: 600px) {
+  .slider .token-wrapper {
+    flex: 0 0 40%; /* Each token takes up 40% of the slider (for 2.5 tokens) */
+    max-width: 40%;
+  }
+}
+
+.image-wrapper {
+  background: linear-gradient(270deg, grey, lightgrey, grey);
+  background-size: 200% 200%;
+  animation: gradient 2s ease-in-out infinite;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
