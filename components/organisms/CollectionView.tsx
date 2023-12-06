@@ -6,7 +6,7 @@ import { raeminiscenceTokens } from "../../pages/api/raeminiscenceTokens";
 import { presenceTokens } from "../../pages/api/presenceTokens";
 import { loopzTokens } from "../../pages/api/loopzTokens";
 import useTokenFilter from "../../hooks/useFilter";
-import palettes from "../atoms/Palettes";
+import palettes from "../atoms/palettes";
 import Sidebar from "./Sidebar";
 import Gallery from "./Gallery";
 
