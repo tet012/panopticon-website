@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
-import { abi } from "../../../web3/panopticon/panopticon-abi";
+import { panopticonAbi } from "../../../web3/panopticon/panopticon-abi";
 
 const Minted: React.FC = () => {
   const [minted, setMinted] = useState<string>();
@@ -8,7 +8,7 @@ const Minted: React.FC = () => {
   const contractRead = useContractRead({
     address: process.env
       .NEXT_PUBLIC_PANOPTICON_CONTRACT_ADDRESS as `0x${string}`,
-    abi: abi,
+    abi: panopticonAbi,
     functionName: "nextTokenId",
     chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || "1"),
     watch: true, // Refresh automatically on incoming block

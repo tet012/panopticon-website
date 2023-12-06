@@ -60,7 +60,7 @@
   --font-size-fluid-3: clamp(2rem, 4vw, 3.5rem);
 }
 
-..mint_button {
+.mint_button {
   appearance: none;
   border: none;
   font-family: var(--ff-thin);
@@ -171,10 +171,6 @@ p {
   align-items: center;
 }
 
-img {
-  border-radius: 8px;
-}
-
 .jumbo span {
   display: inline-block;
 }
@@ -198,8 +194,8 @@ img {
 }
 
 .placeholder-avatar {
-  width: 25px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -225,37 +221,6 @@ img {
   border-radius: 2px;
 }
 
-.image-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #f6f7f8 0px, #edeef1 40px, #f6f7f8 80px);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -100% 0;
-  }
-}
-
-.slider .token-wrapper {
-  flex: 0 0 20%; /* Each token takes up 20% of the slider (for 5 tokens) */
-  max-width: 20%; /* Ensures that each token doesn't grow beyond 20% */
-  /* Add more styling for padding, margin, etc., as needed */
-}
-
-/* Responsive adjustments, if necessary */
-@media (max-width: 600px) {
-  .slider .token-wrapper {
-    flex: 0 0 40%; /* Each token takes up 40% of the slider (for 2.5 tokens) */
-    max-width: 40%;
-  }
-}
-
 .image-wrapper {
   background: linear-gradient(270deg, grey, lightgrey, grey);
   background-size: 200% 200%;
@@ -275,4 +240,16 @@ img {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.token-thumbnail img {
+  animation-play-state: paused;
+}
+
+.token-thumbnail:hover img {
+  animation-play-state: running;
+}
+
+.pause-animations {
+  animation-play-state: paused !important;
 }

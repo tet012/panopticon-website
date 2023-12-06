@@ -1,4 +1,4 @@
-export const abi = [
+export const panopticonAbi = [
   {
     inputs: [
       { internalType: "uint16", name: "_maxSupply", type: "uint16" },

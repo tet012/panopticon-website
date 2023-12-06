@@ -1,0 +1,12 @@
+export const raeminiscenceAbi = [
+  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  { stateMutability: "payable", type: "fallback" },
+  {
+    inputs: [],
+    name: "implementation",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  { stateMutability: "payable", type: "receive" },
+] as const;

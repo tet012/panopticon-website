@@ -3,42 +3,62 @@ import { useState, useEffect, useCallback } from "react";
 type Token = {
   id: number;
   image: string;
-  traits: { [key: string]: string };
+  traits?: Record<string, string>;
+  attributes?: Array<{ trait_type: string; value: string }>;
 };
 
-const useTokenFilter = (initialData: Token[]) => {
+const useFilter = (initialData: Token[]) => {
   const [tokens, setTokens] = useState<Token[]>([]);
   const [filters, setFilters] = useState<{ [key: string]: string[] }>({});
   const [activeFilters, setActiveFilters] = useState<{
     [key: string]: Set<string>;
   }>({});
 
-  // Extract filters from initial data
   useEffect(() => {
-    const extractedFilters = initialData.reduce(
-      (acc: { [key: string]: Set<string> }, token) => {
-        Object.keys(token.traits).forEach((trait) => {
-          if (!acc[trait]) acc[trait] = new Set<string>();
-          acc[trait].add(token.traits[trait]);
-        });
-        return acc;
-      },
-      {} as { [key: string]: Set<string> },
-    );
+    const extractedFilters: { [key: string]: Set<string> } = {};
+
+    initialData.forEach((token) => {
+      const traitsOrAttributes =
+        token.traits ||
+        token.attributes?.reduce(
+          (acc, attr) => {
+            acc[attr.trait_type] = attr.value;
+            return acc;
+          },
+          {} as Record<string, string>,
+        ) ||
+        {};
+
+      Object.keys(traitsOrAttributes).forEach((trait) => {
+        if (!extractedFilters[trait])
+          extractedFilters[trait] = new Set<string>();
+        extractedFilters[trait].add(traitsOrAttributes[trait]);
+      });
+    });
 
     const filterArray: { [key: string]: string[] } = {};
-    for (const key in extractedFilters) {
+    Object.keys(extractedFilters).forEach((key) => {
       filterArray[key] = Array.from(extractedFilters[key]);
-    }
+    });
 
     setFilters(filterArray);
   }, [initialData]);
 
-  // Apply filters to data
   const applyFilters = useCallback(() => {
-    let filteredData = initialData.filter((item) => {
+    let filteredData = initialData.filter((token) => {
+      const traitsOrAttributes =
+        token.traits ||
+        token.attributes?.reduce(
+          (acc, attr) => {
+            acc[attr.trait_type] = attr.value;
+            return acc;
+          },
+          {} as Record<string, string>,
+        ) ||
+        {};
+
       return Object.entries(activeFilters).every(([key, valueSet]) => {
-        return valueSet.size === 0 || valueSet.has(item.traits[key]);
+        return valueSet.size === 0 || valueSet.has(traitsOrAttributes[key]);
       });
     });
 
@@ -49,7 +69,6 @@ const useTokenFilter = (initialData: Token[]) => {
     applyFilters();
   }, [applyFilters]);
 
-  // Functions to handle active filters
   const handleFilterChange = useCallback(
     (trait: string, value: string, isActive: boolean) => {
       setActiveFilters((prevFilters) => {
@@ -79,8 +98,7 @@ const useTokenFilter = (initialData: Token[]) => {
     setActiveFilters({});
   }, []);
 
-  // Sorting functionality
-  const sortTokens = useCallback((direction: string) => {
+  const sortTokens = useCallback((direction: "asc" | "desc") => {
     setTokens((prevTokens) => {
       return [...prevTokens].sort((a, b) => {
         return direction === "asc" ? a.id - b.id : b.id - a.id;
@@ -99,4 +117,4 @@ const useTokenFilter = (initialData: Token[]) => {
   };
 };
 
-export default useTokenFilter;
+export default useFilter;
