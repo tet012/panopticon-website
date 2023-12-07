@@ -31,6 +31,8 @@ const TokenName: React.FC<TokenNameProps> = ({ tokenId, collectionId }) => {
   let logValue;
   if (collectionId === "panopticon") {
     logValue = tokenData.id;
+  } else if (collectionId === "raeminiscence" && tokenData.traits) {
+    logValue = tokenData.traits.Name;
   } else {
     logValue = tokenData.name || tokenData.Name || "No Name Available";
   }
@@ -39,10 +41,14 @@ const TokenName: React.FC<TokenNameProps> = ({ tokenId, collectionId }) => {
   if (collectionId === "panopticon" || collectionId === "creepz") {
     displayValue = `${collectionId} #${tokenId}`;
   } else {
-    displayValue = tokenData.name || tokenData.Name || "No Name Available";
+    displayValue = logValue;
   }
 
-  return <h1 className="font-sans capitalize">{displayValue}</h1>;
+  return (
+    <h1 className="font-sans font-semibold capitalize text-neutral-600">
+      {displayValue}
+    </h1>
+  );
 };
 
 export default TokenName;

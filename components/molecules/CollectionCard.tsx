@@ -40,7 +40,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collectionId }) => {
             <div className="h-fit">
               <CollectionYear collectionId={collectionId} />
             </div>
-            <h2 className="text-7xl">{name}</h2>
+            <h2 className="text-7xl max-md:text-5xl">{name}</h2>
             <CollectionDescription collectionId={collectionId} />
           </div>
           <p className="self-end">Explore Collection</p>

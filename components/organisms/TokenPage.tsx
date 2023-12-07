@@ -49,7 +49,7 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
             className="flex w-full gap-2 justify-between max-md:flex-col max-md:gap-4 "
           >
             <div className="flex justify-center items-center align-center gap-2 ">
-              <div className="flex items-center align-center gap-2 max-md:w-full max-md:justify-center">
+              <div className="flex items-center  align-center gap-2 max-md:w-full max-md:justify-center">
                 <TokenName
                   tokenId={Number(tokenId)}
                   collectionId={collectionId}
