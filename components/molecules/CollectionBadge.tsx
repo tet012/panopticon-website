@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import CollectionInfo from "../atoms/CollectionInfo";
-import CollectionImage from "../atoms/CollectionImage";
+import CollectionInfo from "../atoms/collection/CollectionInfo";
+import CollectionImage from "../atoms/collection/CollectionImage";
 
 interface CollectionBadgeProps {
   collectionId: string;

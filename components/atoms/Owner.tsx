@@ -3,6 +3,7 @@ import { useContractRead, useEnsName, useEnsAvatar } from "wagmi";
 import { panopticonAbi } from "../../web3/panopticon/panopticon-abi";
 import { creepzAbi } from "../../web3/creepz/creepz-abi";
 import Link from "next/link";
+import Image from "next/image";
 
 interface OwnerProps {
   tokenId: bigint;
@@ -55,10 +56,12 @@ export const Owner: React.FC<OwnerProps> = ({
         {ownerAddress ? (
           <div className="flex gap-1 rounded-xl p-1 cursor-pointer transition align-center items-center">
             {ensAvatar ? (
-              <img
+              <Image
                 src={ensAvatar}
                 alt="ENS Avatar"
-                style={{ width: "16px", height: "16px", borderRadius: "50%" }}
+                width={16}
+                height={16}
+                style={{ borderRadius: "50%" }}
               />
             ) : (
               <div className="placeholder-avatar shadow-lg" />

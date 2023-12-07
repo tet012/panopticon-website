@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import CollectionInfo from "../atoms/CollectionInfo";
-import CollectionDescription from "../atoms/CollectionDescription";
-import CollectionYear from "../atoms/CollectionYear";
-import CollectionImage from "../atoms/CollectionImage";
+import CollectionInfo from "../atoms/collection/CollectionInfo";
+import CollectionDescription from "../atoms/collection/CollectionDescription";
+import CollectionYear from "../atoms/collection/CollectionYear";
+import CollectionImage from "../atoms/collection/CollectionImage";
 
 interface CollectionCardProps {
   collectionId: string;

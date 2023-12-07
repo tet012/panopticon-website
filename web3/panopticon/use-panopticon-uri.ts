@@ -20,12 +20,7 @@ const usePanopticonUri = (tokenId: bigint) => {
 
       // Parse the JSON string into an object
       tokenData = JSON.parse(json);
-
-      // Log the token data to the console
-      console.log("Token Data:", tokenData);
     } catch (e) {
-      // Handle any errors in decoding or parsing
-      console.error("Error decoding or parsing token URI:", e);
       tokenData = undefined;
     }
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import CollectionUrls from "./CollectionUrls";
+import CollectionUrls from "../collection/CollectionUrls";
+import Image from "next/image";
 
 interface TokenLinksProps {
   tokenId: bigint;
@@ -50,7 +51,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({ href, imgSrc, alt }) => (
     className="w-fit flex align-center items-middle justify-center p-4 transition hover:shadow-lg border border-neutral-300 hover:border hover:border-neutral-900 rounded-xl"
     href={href}
   >
-    <img src={imgSrc} width="20px" height="20px" alt={alt} />
+    <Image src={imgSrc} width={20} height={20} alt={alt} />
   </Link>
 );
 

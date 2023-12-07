@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TokenThumbnail from "../atoms/TokenThumbnail";
+import TokenThumbnail from "../atoms/token/TokenThumbnail";
 import { panopticonTokens } from "../../pages/api/panopticonTokens";
 import { creepzTokens } from "../../pages/api/creepzTokens";
 import { raeminiscenceTokens } from "../../pages/api/raeminiscenceTokens";
@@ -23,9 +23,7 @@ const RelatedTokens = ({
 
   useEffect(() => {
     const tokens = fetchTokensForCollection(collectionId);
-    console.log(`Fetched tokens for ${collectionId}:`, tokens); // Debugging log
     const selectedTokens = getRandomTokens([...tokens], 4, tokenId);
-    console.log(`Random tokens for ${collectionId}:`, selectedTokens); // Debugging log
     setRandomTokens(selectedTokens);
   }, [collectionId, tokenId]);
 

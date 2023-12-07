@@ -15,6 +15,12 @@ const Token: NextPage = () => {
     tokenIdBigInt = BigInt(tokenId);
   }
 
+  const toTitleCase = (str: string) => {
+    return str.replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  };
+
   const formattedTitle = collectionId
     ? toTitleCase((collectionId as string).replace(/-/g, " "))
     : "";
@@ -45,7 +51,10 @@ const Token: NextPage = () => {
           <NavBar />
         </div>
 
-        <div id="tokeninfo" className="">
+        <div
+          id="tokeninfo"
+          className="flex items-center justify-center align-center"
+        >
           {tokenIdBigInt !== undefined && (
             <TokenPage
               tokenId={tokenIdBigInt}
@@ -62,9 +71,3 @@ const Token: NextPage = () => {
 };
 
 export default Token;
-
-const toTitleCase = (str: string) => {
-  return str.replace(/\w\S*/g, (txt) => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};

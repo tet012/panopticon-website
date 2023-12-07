@@ -77,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`sidebar ${
         isSidebarVisible ? "w-full" : "w-full "
-      } flex flex-col sticky top-0 `}
+      } flex flex-col sticky top-0  z-40 `}
     >
       <div
         className={`justify-between  align-center ${
@@ -105,7 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {isSelectorVisible && (
             <div
               ref={popupRef}
-              className="popup-class backdrop-blur-sm max-md:left-[-250%]  left-2 absolute bg-neutral-50/50 shadow-2xl top-full mt-1 p-4 rounded-lg"
+              className="popup-class backdrop-blur-sm max-md:left-[-250%] left-2 absolute bg-neutral-50/50 shadow-2xl top-full mt-1 p-4 rounded-lg "
             >
               <div className="whitespace-nowrap px-4 ">
                 Columns: {columnCount}

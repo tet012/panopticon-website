@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGetHtml } from "../../web3/panopticon/use-get-html";
+import { useGetHtml } from "../../../web3/panopticon/use-get-html";
 
 interface TokenDisplayProps {
   tokenId: bigint;
@@ -12,7 +12,6 @@ const TokenHtml: React.FC<TokenDisplayProps> = ({ tokenId, collectionId }) => {
 
   useEffect(() => {
     if (html) {
-      console.log("HTML content:", html); // Debugging log
       setSrcDoc(html);
     }
   }, [html]);

@@ -1,5 +1,6 @@
 import React from "react";
-import CollectionInfo from "../atoms/CollectionInfo";
+import CollectionInfo from "./CollectionInfo";
+import Image from "next/image";
 
 interface CollectionImageProps {
   collectionId: string;
@@ -16,8 +17,10 @@ const CollectionImage: React.FC<CollectionImageProps> = ({
   const imageUrl = collection?.images[size] || "/default-image.jpg"; // Fallback to a default image
 
   return (
-    <img
+    <Image
       src={imageUrl}
+      width={size === "small" ? 100 : size === "medium" ? 200 : 300}
+      height={size === "small" ? 100 : size === "medium" ? 200 : 300}
       alt={collection?.name || "Collection Image"}
       className={`collection-image-${size} h-full object-cover max-md:w-full`}
     />

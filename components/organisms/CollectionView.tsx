@@ -88,10 +88,8 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
       return [];
     });
 
-    // Define the initial type for counts
     const initialCounts: CountType = {};
 
-    // Calculate the token counts
     const counts = standardizedTraits
       .flat()
       .reduce((acc: CountType, { trait_type, value }) => {
@@ -125,7 +123,7 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
   return (
     <div className="max-md:flex-col flex border-b border-t">
       {shouldDisplaySidebar && (
-        <div className="h-content border-r sticky top-0 bg-neutral-50">
+        <div className="h-content border-r sticky top-0 bg-neutral-50 z-50">
           <Sidebar
             filters={filters}
             toggleAttributeVisibility={toggleAttributeVisibility}
