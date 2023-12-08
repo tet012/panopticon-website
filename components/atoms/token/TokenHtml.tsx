@@ -17,13 +17,15 @@ const TokenHtml: React.FC<TokenDisplayProps> = ({ tokenId, collectionId }) => {
   }, [html]);
 
   if (!srcDoc) {
-    return <div className="w-[600px] h-[800px] bg-neutral-200">Loading...</div>; // Display this if no HTML content is available
+    return (
+      <div className="w-[600px] max-md:max-w-xs aspect-[3/4]">Loading...</div>
+    ); // Display this if no HTML content is available
   }
 
   return (
     <div className="w-full flex justify-center items-center">
       <iframe
-        className="w-[600px] h-[800px]"
+        className="w-[600px] max-md:max-w-xs aspect-[3/4]"
         srcDoc={srcDoc}
         title={`${collectionId} ${tokenId}`}
       />

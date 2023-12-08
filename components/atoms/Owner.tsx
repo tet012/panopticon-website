@@ -46,7 +46,7 @@ export const Owner: React.FC<OwnerProps> = ({
   const truncateAddress = (address: string) => `${address.substring(0, 6)}...`;
 
   return (
-    <div className="flex align-center justify-center gap-2 items-center max-md:w-full ">
+    <div className="flex align-center max-md:justify-between justify-center gap-2 items-center max-md:w-full ">
       <p className="text-neutral-400/50 ">Owned by</p>
       <Link
         className="group flex items-center justify-between gap-4 align-center w-fit self-center border border-neutral-200 hover:border hover:border-neutral-900 transition rounded-xl pr-1"

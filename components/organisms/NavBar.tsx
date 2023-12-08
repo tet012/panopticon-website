@@ -17,8 +17,11 @@ const NavBar = () => {
   }
 
   return (
-    <div id="header" className="flex items-center justify-between p-4 w-full">
-      <div className="align-center flex items-center justify-center gap-4">
+    <div
+      id="header"
+      className="flex items-center justify-between p-4 max-md:px-2 w-full "
+    >
+      <div className="align-center flex items-center gap-4">
         <Link href="/">
           <h4 style={{ fontWeight: 400, letterSpacing: 1.2 }}>teto</h4>
         </Link>
@@ -27,14 +30,17 @@ const NavBar = () => {
           <Link href="/collection">
             <p>Collections</p>
           </Link>
+          <Link href="/about">
+            <p>About</p>
+          </Link>
         </div>
       </div>
 
-      <div className="align-center flex items-center justify-center gap-16">
+      {/* <div className="align-center flex items-center justify-center gap-16">
         {process.env.NEXT_PUBLIC_STARTED === "true" && (
           <ConnectButton accountStatus="avatar" showBalance={false} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

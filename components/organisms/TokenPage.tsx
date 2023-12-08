@@ -37,19 +37,19 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
   };
 
   const shouldDisplayAttributes = ["panopticon", "creepz"].includes(
-    collectionId.toLowerCase(),
+    collectionId,
   );
 
   return (
     <div>
-      <div className="flex flex-col justify-center align-center self-center items-center p-16 max-md:p-2 gap-4 max-md:w-full ">
+      <div className="flex flex-col justify-center align-center self-center items-center px-16 max-md:p-2 gap-4 max-md:w-full ">
         <div className="max-w-4xl flex flex-col gap-2 max-md:p-0 p-4 align-center justify-center gap-8 items-center">
           <div
             id="info"
             className="flex w-full gap-2 justify-between max-md:flex-col max-md:gap-4 "
           >
             <div className="flex justify-center items-center align-center gap-2 ">
-              <div className="flex items-center  align-center gap-2 max-md:w-full max-md:justify-center">
+              <div className="flex items-center align-center gap-2 max-md:w-full max-md:justify-between">
                 <TokenName
                   tokenId={Number(tokenId)}
                   collectionId={collectionId}

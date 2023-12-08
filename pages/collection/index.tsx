@@ -27,15 +27,31 @@ const Token: NextPage = () => {
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
       <NavBar />
-      <div className="flex flex-col p-4 gap-8 max-w-5xl align-center items-center justify-center m-auto">
+      <div className="flex flex-col p-4 py-16 gap-8 max-w-5xl align-center items-center justify-center m-auto">
+        <div className="flex flex-col gap-4 self-start px-4">
+          <h1 className="font-sans text-xl">Collections</h1>
+          <div className="flex flex-col gap-1 font-sans">
+            <p>
+              Some of my work from 2021 to nowadays, all published on the
+              Ethereum blockchain.
+            </p>
+            <p>
+              Exploring various themes with recurring colors and obviously,
+              <span className="ml-1 font-semibold ">
+                <a href="https://www.youtube.com/watch?v=M62sZC7ozPY">
+                  the eyes chico.
+                </a>
+              </span>
+            </p>
+          </div>
+        </div>
+
         <CollectionCard collectionId={"panopticon"} />
         <CollectionCard collectionId={"raeminiscence"} />
         <CollectionCard collectionId={"presence"} />
         <CollectionCard collectionId={"creepz"} />
         <CollectionCard collectionId={"founders"} />
       </div>
-
-      <Footer />
     </div>
   );
 };

@@ -47,9 +47,7 @@ const Token: NextPage = () => {
         id="body"
         className="flex w-full flex-col bg-neutral-100 min-h-screen"
       >
-        <div className="w-full px-4">
-          <NavBar />
-        </div>
+        <NavBar />
 
         <div
           id="tokeninfo"

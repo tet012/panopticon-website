@@ -2,54 +2,42 @@ import React from "react";
 import { creepzTokens } from "../../../pages/api/creepzTokens";
 import { panopticonTokens } from "../../../pages/api/panopticonTokens";
 
-const TokenAttributes = ({
-  tokenId,
-  collectionId,
-  onAttributeClick,
-}: {
+interface TokenAttributesProps {
   tokenId: number;
   collectionId: string;
   onAttributeClick: any;
+}
+
+const TokenAttributes: React.FC<TokenAttributesProps> = ({
+  tokenId,
+  collectionId,
+  onAttributeClick,
 }) => {
-  // Spread the imported data into new arrays to create mutable copies
   const datasets: { [key: string]: any[] } = {
     creepz: [...creepzTokens],
     panopticon: [...panopticonTokens],
   };
 
   const tokenData = datasets[collectionId]?.find(
-    (token) => token.id === tokenId,
+    (token) => token.id || token.tokenId === tokenId,
   );
-
-  if (!tokenData) {
-    console.log("Token data not found for tokenId:", tokenId);
-    return <div>Token data not found</div>;
-  }
 
   let attributes;
   if (collectionId === "panopticon") {
-    attributes = tokenData.traits
+    attributes = tokenData?.traits
       ? Object.entries(tokenData.traits).map(([trait_type, value]) => ({
           trait_type,
           value,
         }))
-      : null;
+      : [];
   } else {
-    attributes = tokenData.attributes;
-  }
-
-  if (!attributes) {
-    console.log("Attributes not found for tokenId:", tokenId);
-    return <div>Loading attributes...</div>;
+    attributes = tokenData?.attributes || [];
   }
 
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2">
       {attributes.map(
-        (
-          { trait_type, value }: { trait_type: string; value: any },
-          index: number,
-        ) => (
+        ({ trait_type, value }: any, index: React.Key | null | undefined) => (
           <div
             className="attribute flex flex-col p-4 text-center transition hover:shadow-lg border border-neutral-300 hover:border hover:border-neutral-900 rounded-xl cursor-pointer"
             key={index}

@@ -23,26 +23,20 @@ const TokenName: React.FC<TokenNameProps> = ({ tokenId, collectionId }) => {
     (token) => token.id === tokenId,
   );
 
-  if (!tokenData) {
-    console.log("Token data not found for tokenId:", tokenId);
-    return <div>Token data not found</div>;
-  }
-
   let logValue;
-  if (collectionId === "panopticon") {
-    logValue = tokenData.id;
+  if (
+    collectionId === "panopticon" ||
+    collectionId === "creepz" ||
+    collectionId === "founders"
+  ) {
+    logValue = `${collectionId} #${tokenId}`;
   } else if (collectionId === "raeminiscence" && tokenData.traits) {
-    logValue = tokenData.traits.Name;
+    logValue = tokenData.traits.Name || "No Name Available";
   } else {
     logValue = tokenData.name || tokenData.Name || "No Name Available";
   }
 
-  let displayValue;
-  if (collectionId === "panopticon" || collectionId === "creepz") {
-    displayValue = `${collectionId} #${tokenId}`;
-  } else {
-    displayValue = logValue;
-  }
+  let displayValue = logValue;
 
   return (
     <h1 className="font-sans font-semibold capitalize text-neutral-600">

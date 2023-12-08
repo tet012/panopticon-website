@@ -16,7 +16,7 @@ const TokenThumbnail: React.FC<TokenProps> = ({ id, collectionId }) => {
 
   return (
     <Link href={`/collection/${collectionId}/${id}`}>
-      <div className="group token-thumbnail overflow-hidden cursor-pointer flex border-8 border-neutral-50 bg-neutral-50  max-md:p-1 max-md:rounded-lg h-full w-fit shadow-xl hover:shadow-2xl rounded-xl justify-center align-center items-middle self-center transition hover:translate-y-[-8px]">
+      <div className="group token-thumbnail overflow-hidden cursor-pointer flex border-8 border-neutral-50 bg-neutral-50 max-md:border max-md:p-1 max-md:rounded-lg h-full w-fit shadow-xl hover:shadow-2xl rounded-xl justify-center align-center items-middle self-center transition hover:translate-y-[-8px]">
         {tokenData.image &&
         tokenData.image.startsWith("data:image/svg+xml;base64,") ? (
           <img

@@ -52,16 +52,9 @@ const useTokenData = (
     if (currentData.error) {
       setLoading(false);
     } else if (!currentData.loading && currentData.tokenData) {
-      console.log(
-        `Data fetched successfully for ${collectionId}:`,
-        currentData.tokenData,
-      );
       setData(currentData.tokenData);
       setLoading(false);
     } else {
-      console.log(
-        `Waiting for data... (loading state: ${currentData.loading})`,
-      );
     }
   }, [tokenId, collectionId]);
 
