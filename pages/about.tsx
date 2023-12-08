@@ -20,32 +20,32 @@ const About: NextPage = () => {
         <div className="w-1/2 self-center flex flex-col gap-8 max-md:mt-0 max-md:w-full max-md:p-8 mt-[-10rem]">
           <p className="text-xl">
             {
-              "I really should create an engaging and charming page where I can share more about myself, my artistic journey, and my origins. Perhaps I'll even include a charming photo of my less-than-perfect face, right?"
+              "I really should put a nice and cute page together where I tell you more about me, my journey as an artist, and how I got there. Maybe even throw a nice picture of my ugly face, huh?"
             }
           </p>
           <p className="text-xl">
             {
-              "I'll get around to doing that. But for the moment, I'm content knowing my art can stand on its own. There's ample time for us to become acquainted."
+              "I'll eventually do that. But for now, I'm very happy that my art speaks for itself; we have plenty of time to get to know each other."
             }
           </p>
           <p className="text-xl">
             {
-              "In case you're curious about some fundamental details: I have a fondness for pasta, adore my mother, and occasionally indulge in a bit too much drinking."
+              "If you really need some basic information: I love pasta, my mom, and sometimes drinking a little too much."
             }
           </p>
           <p className="text-xl">
             {
-              "I'm fascinated by how the perceptions of others shape us and the powerful impact they can have on our lives. I've witnessed its effects repeatedly."
+              "I'm obsessed with the idea of other people's sight defining us and how it can make or break individuals. I've seen it many times."
             }
           </p>
           <p className="text-xl">
             {
-              "My artistic endeavors are a tribute to myself and a remembrance of my loved ones who departed too early, their potential unfulfilled."
+              "I do this art stuff to honor myself and the memory of my people, a lot of whom passed away too soon, unfulfilled."
             }
           </p>
           <p className="text-xl">
             {
-              "This is the most genuine expression I've ever shared. Thank you for taking the time to read it."
+              "This is the realest shit I've ever written. Thank you for reading."
             }
           </p>
         </div>
