@@ -4,6 +4,7 @@ import CollectionInfo from "../atoms/collection/CollectionInfo";
 import CollectionDescription from "../atoms/collection/CollectionDescription";
 import CollectionYear from "../atoms/collection/CollectionYear";
 import CollectionImage from "../atoms/collection/CollectionImage";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 interface CollectionCardProps {
   collectionId: string;
@@ -30,7 +31,7 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collectionId }) => {
     >
       <div className="transition flex border max-md:flex-col rounded-lg overflow-hidden group-hover:shadow-2xl shadow-xl w-full group-hover:translate-y-[-4px]">
         <div className="w-1/3 max-md:w-full overflow-hidden">
-          <div className="group-hover:scale-105 transition ease-in-out">
+          <div className="group-hover:scale-105 transition ease-in-out h-full">
             <CollectionImage collectionId={collectionId} size="large" />
           </div>
         </div>
@@ -43,7 +44,9 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collectionId }) => {
             <h2 className="text-7xl max-md:text-5xl">{name}</h2>
             <CollectionDescription collectionId={collectionId} />
           </div>
-          <p className="self-end">Explore Collection</p>
+          <div className="flex transition group-hover:border-neutral-500 group-hover:bg-neutral-200 self-end border px-4 py-2 rounded-full align-center items-center justify-center gap-2">
+            <p className="">Explore Collection</p>
+          </div>
         </div>
       </div>
     </Link>

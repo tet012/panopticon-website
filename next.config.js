@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['thumbnails.teto.io', 'arweave.net', 'ipfs.io'],
+    domains: ['thumbnails.teto.io', 'arweave.net', 'ipfs.io', 'euc.li'],
     formats: ['image/avif', 'image/webp'],
   },
   webpack: (config) => {

@@ -43,7 +43,6 @@ const Gallery: React.FC<GalleryProps> = ({
     }
   }, [visibleCount, isLoading, columnCount, tokens.length, rowsPerPage]);
 
-  // Memoize the handleScroll function
   const handleScroll = useCallback(() => {
     if (
       window.innerHeight +
@@ -61,8 +60,8 @@ const Gallery: React.FC<GalleryProps> = ({
   }, [handleScroll]);
 
   return (
-    <div className="flex w-full flex-col">
-      <div className="sticky top-0 z-10 p-16 max-md:p-6 flex max-md:flex-col max-md:gap-8 w-full justify-between bg-neutral-100 ">
+    <div className="flex w-full flex-col p-2 gap-2">
+      <div className="p-8 max-md:p-6 flex max-md:flex-col max-md:gap-8 w-full justify-between bg-neutral-100 rounded-xl">
         <div className="flex flex-col w-1/2 max-md:w-full gap-4 ">
           <CollectionYear collectionId={collectionId} />
           <h1 className="capitalize text-7xl max-md:text-4xl">
@@ -75,7 +74,7 @@ const Gallery: React.FC<GalleryProps> = ({
         </div>
       </div>
       <div
-        className="gallery grid gap-2 auto-cols-fr p-4 bg-neutral-50 z-20 border-t border-neutral-200"
+        className="gallery grid gap-2 auto-cols-fr"
         style={{
           gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
         }}

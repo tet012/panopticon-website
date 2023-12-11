@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useContractRead, useEnsName, useEnsAvatar } from "wagmi";
 import { panopticonAbi } from "../../web3/panopticon/panopticon-abi";
 import { creepzAbi } from "../../web3/creepz/creepz-abi";
+import { foundersAbi } from "../../web3/founders/foundersAbi";
+import { raeminiscenceAbi } from "../../web3/raeminiscence/abi";
+import { presenceAbi } from "../../web3/presence/presenceAbi";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -47,9 +51,9 @@ export const Owner: React.FC<OwnerProps> = ({
 
   return (
     <div className="flex align-center max-md:justify-between justify-center gap-2 items-center max-md:w-full ">
-      <p className="text-neutral-400/50 ">Owned by</p>
+      <p className="text-neutral-400 ">Owned by</p>
       <Link
-        className="group flex items-center justify-between gap-4 align-center w-fit self-center border border-neutral-200 hover:border hover:border-neutral-900 transition rounded-xl pr-1"
+        className="group flex h-full gap-2 items-center justify-center align-center group px-1 transition hover:shadow-lg border border-neutral-400 hover:border hover:border-neutral-900 rounded-xl pr-2 hover:bg-neutral-900 hover:text-neutral-50"
         href={`https://etherscan.io/address/${ownerAddress}`}
         passHref
       >
@@ -66,7 +70,7 @@ export const Owner: React.FC<OwnerProps> = ({
             ) : (
               <div className="placeholder-avatar shadow-lg" />
             )}
-            <p className="transition tracking-wider text-neutral-500">
+            <p className="transition tracking-wider text-neutral-500 group-hover:text-neutral-50">
               {ensName || truncateAddress(ownerAddress)}
             </p>
           </div>
@@ -83,8 +87,26 @@ const useGetOwnerOf = (
   contractAddress: `0x${string}`,
   collectionId: string,
 ) => {
-  const abi = collectionId === "panopticon" ? panopticonAbi : creepzAbi; // Use the correct ABI based on collectionId
-
+  let abi;
+  switch (collectionId) {
+    case "panopticon":
+      abi = panopticonAbi;
+      break;
+    case "creepz":
+      abi = creepzAbi;
+      break;
+    case "founders":
+      abi = foundersAbi;
+      break;
+    case "raeminiscence":
+      abi = raeminiscenceAbi;
+      break;
+    case "presence":
+      abi = presenceAbi;
+      break;
+    default:
+      throw new Error("Invalid collection ID");
+  }
   const { data, isError, isLoading } = useContractRead({
     address: contractAddress,
     abi: abi as any, // Change the type to unknown[]

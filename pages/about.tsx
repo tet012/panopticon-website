@@ -30,7 +30,7 @@ const About: NextPage = () => {
           </p>
           <p className="text-xl">
             {
-              "If you really need some basic information: I love pasta, my mom, and sometimes drinking a little too much."
+              "If you really need some basic information: I love pasta, my mom, and sometimes drinking a couple of beers with my friends."
             }
           </p>
           <p className="text-xl">
@@ -40,7 +40,7 @@ const About: NextPage = () => {
           </p>
           <p className="text-xl">
             {
-              "I do this art stuff to honor myself and the memory of my people, a lot of whom passed away too soon, unfulfilled."
+              "I do this art stuff to honor the memory of my people, a lot of whom passed away too soon, unfulfilled."
             }
           </p>
           <p className="text-xl">

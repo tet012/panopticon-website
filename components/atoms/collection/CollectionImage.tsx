@@ -14,7 +14,7 @@ const CollectionImage: React.FC<CollectionImageProps> = ({
   const collection = CollectionInfo.find(
     (c) => c.link === `/collection/${collectionId}`,
   );
-  const imageUrl = collection?.images[size] || "/default-image.jpg"; // Fallback to a default image
+  const imageUrl = collection?.images[size] || "/default-image.jpg";
 
   return (
     <Image

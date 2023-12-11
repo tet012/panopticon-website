@@ -25,7 +25,7 @@ const TokenHtml: React.FC<TokenDisplayProps> = ({ tokenId, collectionId }) => {
   return (
     <div className="w-full flex justify-center items-center">
       <iframe
-        className="w-[600px] max-md:max-w-xs aspect-[3/4]"
+        className="w-full max-w-2xl max-md:max-w-full aspect-[3/4] rounded-xl shadow-2xl"
         srcDoc={srcDoc}
         title={`${collectionId} ${tokenId}`}
       />

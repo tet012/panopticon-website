@@ -75,20 +75,22 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`sidebar ${
+      className={`sidebar rounded-lg 
+      ${
         isSidebarVisible ? "w-full" : "w-full "
-      } flex flex-col sticky top-0  z-40 `}
+      } flex flex-col sticky top-0 z-40 `}
     >
       <div
-        className={`justify-between  align-center ${
+        className={`justify-between rounded-t-lg align-center ${
           isSidebarVisible
-            ? "flex"
-            : "flex md:flex-col justify-center align-center items-middle"
+            ? "flex border-b border-neutral-300"
+            : "flex md:flex-col justify-center align-center items-middle "
         } `}
       >
         <button
           onClick={toggleSidebarVisibility}
-          className="p-4 text-lg font-semibold self-center"
+          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
+          ${isSidebarVisible ? "" : "border-b border-neutral-300"} `}
         >
           {isSidebarVisible ? (
             <ArrowLeftCircleIcon className="h-5 w-5" />
@@ -97,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           )}
         </button>
 
-        <div className="relative hover:bg-neutral-200">
+        <div className="relative hover:bg-neutral-200 transition rounded-b-lg">
           <button onClick={toggleDisplaySelector} className="p-4 ">
             <AdjustmentsHorizontalIcon className="h-5 w-5" />
           </button>
@@ -105,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {isSelectorVisible && (
             <div
               ref={popupRef}
-              className="popup-class backdrop-blur-sm max-md:left-[-250%] left-2 absolute bg-neutral-50/50 shadow-2xl top-full mt-1 p-4 rounded-lg "
+              className="popup-class backdrop-blur-sm max-md:left-[-250%] left-2 absolute  shadow-2xl top-full mt-1 p-4 rounded-lg "
             >
               <div className="whitespace-nowrap px-4 ">
                 Columns: {columnCount}
@@ -128,10 +130,10 @@ const Sidebar: React.FC<SidebarProps> = ({
           {Object.keys(filters).map((trait) => (
             <div className="flex flex-col" key={trait}>
               <div
-                className="flex whitespace-nowrap cursor-pointer items-center justify-between gap-32 hover:bg-neutral-200 hover:transition p-4"
+                className="flex whitespace-nowrap cursor-pointer border-b border-neutral-200  items-center justify-between gap-32 hover:bg-neutral-200 hover:transition p-4"
                 onClick={() => toggleAttributeVisibility(trait)}
               >
-                <label className="font-semibold capitalize">{trait}</label>
+                <label className="font-semibold capitalize ">{trait}</label>
                 {visibleAttributes[trait] ? (
                   <ChevronDownIcon className="h-5 w-5" />
                 ) : (

@@ -43,16 +43,8 @@ const Token: NextPage = () => {
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
 
-      <div
-        id="body"
-        className="flex w-full flex-col bg-neutral-100 min-h-screen"
-      >
-        <NavBar />
-
-        <div
-          id="tokeninfo"
-          className="flex items-center justify-center align-center"
-        >
+      <div id="body" className="flex w-full flex-col bg-neutral-100">
+        <div id="tokeninfo" className="">
           {tokenIdBigInt !== undefined && (
             <TokenPage
               tokenId={tokenIdBigInt}
@@ -60,9 +52,9 @@ const Token: NextPage = () => {
             />
           )}
         </div>
-        <div className="w-full">
+        {/* <div className="w-full">
           <Footer />
-        </div>
+        </div> */}
       </div>
     </div>
   );

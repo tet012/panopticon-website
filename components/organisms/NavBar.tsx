@@ -19,7 +19,7 @@ const NavBar = () => {
   return (
     <div
       id="header"
-      className="flex items-center justify-between p-4 max-md:px-2 w-full "
+      className="flex items-center justify-start p-4 max-md:px-2 w-full "
     >
       <div className="align-center flex items-center gap-4">
         <Link href="/">

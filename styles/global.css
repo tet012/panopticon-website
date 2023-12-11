@@ -204,11 +204,6 @@ p {
   border: 1px white solid;
 }
 
-/* Style for the attribute div */
-.sidebar > div {
-  border-bottom: 1px solid #ddd;
-}
-
 .palette-colors {
   display: inline-flex;
   gap: 2px;

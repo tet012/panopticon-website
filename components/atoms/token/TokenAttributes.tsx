@@ -19,8 +19,10 @@ const TokenAttributes: React.FC<TokenAttributesProps> = ({
   };
 
   const tokenData = datasets[collectionId]?.find(
-    (token) => token.id || token.tokenId === tokenId,
+    (token) => token.id === tokenId || token.tokenId === tokenId,
   );
+
+  console.log(tokenData);
 
   let attributes;
   if (collectionId === "panopticon") {
@@ -33,13 +35,12 @@ const TokenAttributes: React.FC<TokenAttributesProps> = ({
   } else {
     attributes = tokenData?.attributes || [];
   }
-
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-2">
+    <div className="grid grid-flow-row gap-2 md:grid-cols-4 lg:grid-cols-4">
       {attributes.map(
         ({ trait_type, value }: any, index: React.Key | null | undefined) => (
           <div
-            className="attribute flex flex-col p-4 text-center transition hover:shadow-lg border border-neutral-300 hover:border hover:border-neutral-900 rounded-xl cursor-pointer"
+            className="bg-neutral-100 attribute flex flex-col p-4 text-center transition hover:shadow-lg border border-neutral-300 hover:border hover:border-neutral-900 rounded-xl cursor-pointer"
             key={index}
             onClick={() => onAttributeClick(trait_type, value)}
           >

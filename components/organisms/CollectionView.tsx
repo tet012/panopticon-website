@@ -4,7 +4,6 @@ import { panopticonTokens } from "../../pages/api/panopticonTokens";
 import { creepzTokens } from "../../pages/api/creepzTokens";
 import { raeminiscenceTokens } from "../../pages/api/raeminiscenceTokens";
 import { presenceTokens } from "../../pages/api/presenceTokens";
-import { loopzTokens } from "../../pages/api/loopzTokens";
 import useTokenFilter from "../../hooks/useFilter";
 import palettes from "../atoms/palettes";
 import Sidebar from "./Sidebar";
@@ -34,8 +33,6 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
         return creepzTokens;
       case "raeminiscence":
         return raeminiscenceTokens;
-      case "loopz":
-        return loopzTokens;
       case "presence":
         const presenceTokenIds = new Set([
           1, 7, 8, 10, 11, 12, 15, 17, 19, 20, 21, 22, 23, 24, 25, 26, 32, 33,
@@ -74,6 +71,18 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
     activeFilters,
     handleFilterChange,
   } = useTokenFilter(mutableTokenData as unknown as Token[]); // Using the updated hook
+
+  useEffect(() => {
+    const query = router.query;
+
+    // Convert query parameters to string if they are not
+    const filter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
+    const value = Array.isArray(query.value) ? query.value[0] : query.value;
+
+    if (filter && value) {
+      handleFilterChange(filter, value, true);
+    }
+  }, [router.query]);
 
   useEffect(() => {
     const standardizedTraits = tokenData.map((token) => {
@@ -123,7 +132,7 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
   return (
     <div className="max-md:flex-col flex border-b border-t">
       {shouldDisplaySidebar && (
-        <div className="h-content border-r sticky top-0 bg-neutral-50 z-50">
+        <div className="h-fit ml-2 mt-2 rounded-lg sticky top-2 bg-neutral-100 z-40">
           <Sidebar
             filters={filters}
             toggleAttributeVisibility={toggleAttributeVisibility}

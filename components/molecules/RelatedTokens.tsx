@@ -28,17 +28,18 @@ const RelatedTokens = ({
   }, [collectionId, tokenId]);
 
   return (
-    <div className="related-tokens flex gap-8 max-md:grid max-md:grid-cols-2 max-md:gap-2">
+    <div className="flex gap-8 max-md:grid max-md:grid-cols-2 max-md:gap-2">
       {randomTokens.map((token, index) => {
         const uniqueTokenId =
           collectionId === "creepz" ? token.tokenId : token.id;
         const key = `${collectionId}-${uniqueTokenId}-${index}`;
         return (
-          <TokenThumbnail
+          <div
             key={key}
-            id={uniqueTokenId}
-            collectionId={collectionId}
-          />
+            className="transition border-4 border-neutral-100 shadow rounded-2xl hover:border-neutral-900 hover:translate-y-2 hover:shadow-lg"
+          >
+            <TokenThumbnail id={uniqueTokenId} collectionId={collectionId} />
+          </div>
         );
       })}
     </div>

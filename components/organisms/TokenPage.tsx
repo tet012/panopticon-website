@@ -10,6 +10,8 @@ import TokenHtml from "../atoms/token/TokenHtml";
 import useTokenData from "../../web3/use-token-data2";
 import Divider from "../atoms/Divider";
 import TokenName from "../atoms/token/TokenName";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 interface TokenPageProps {
   tokenId: bigint;
@@ -41,58 +43,55 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
   );
 
   return (
-    <div>
-      <div className="flex flex-col justify-center align-center self-center items-center px-16 max-md:p-2 gap-4 max-md:w-full ">
-        <div className="max-w-4xl flex flex-col gap-2 max-md:p-0 p-4 align-center justify-center gap-8 items-center">
-          <div
-            id="info"
-            className="flex w-full gap-2 justify-between max-md:flex-col max-md:gap-4 "
-          >
-            <div className="flex justify-center items-center align-center gap-2 ">
-              <div className="flex items-center align-center gap-2 max-md:w-full max-md:justify-between">
-                <TokenName
-                  tokenId={Number(tokenId)}
-                  collectionId={collectionId}
-                />
-              </div>
-              <p className="text-neutral-400/50">from</p>
-              <CollectionBadge collectionId={collectionId} />
-            </div>
+    <div className="max-md:p-2 p-4 flex flex-col gap-2">
+      <div
+        id="cont"
+        className="bg-neutral-50 max-md:min-h-fit flex flex-col max-md:p-0 align-center gap-2"
+      >
+        <NavBar />
+        <div
+          id="img"
+          className="flex border items-center justify-center align-center grow w-full rounded-2xl self-center overflow-hidden bg-neutral-200 max-md:p-2 py-32"
+        >
+          {collectionId.toLowerCase() === "panopticon" ? (
+            <TokenHtml tokenId={tokenId} collectionId={collectionId} />
+          ) : (
+            <TokenThumbnail id={Number(tokenId)} collectionId={collectionId} />
+          )}
+        </div>
+        <div
+          id="info"
+          className="flex w-full gap-2 justify-stretch max-md:flex-col "
+        >
+          <div className="flex grow bg-neutral-200 rounded-xl items-center gap-2 p-2 pl-4 max-md:justify-between">
+            <TokenName tokenId={Number(tokenId)} collectionId={collectionId} />
+            <p className="text-neutral-400">from</p>
+            <CollectionBadge collectionId={collectionId} />
+          </div>
+
+          <div className="flex bg-neutral-200 rounded-xl items-center gap-2 p-2">
             <Owner collectionId={collectionId} tokenId={tokenId} />
           </div>
 
-          <Divider />
-
-          <div className="border border-neutral-200 rounded-xl self-center w-fit overflow-hidden">
-            {collectionId.toLowerCase() === "panopticon" ? (
-              <TokenHtml tokenId={tokenId} collectionId={collectionId} />
-            ) : (
-              <TokenThumbnail
-                id={Number(tokenId)}
-                collectionId={collectionId}
-              />
-            )}
-          </div>
-
-          <Divider />
-
-          <div className="w-full max-w-2xl flex flex-col gap-8">
-            {shouldDisplayAttributes && (
-              <TokenAttributes
-                collectionId={collectionId}
-                tokenId={Number(tokenId)}
-                onAttributeClick={handleAttributeClick}
-              />
-            )}
-            <div className="self-center">
-              <TokenLinks tokenId={tokenId} collectionId={collectionId} />
-            </div>
+          <div className="flex bg-neutral-200 rounded-xl items-center gap-2 p-2 max-md:justify-end">
+            <TokenLinks tokenId={tokenId} collectionId={collectionId} />
           </div>
         </div>
       </div>
-
-      <div className="bg-neutral-200/50 p-8 max-md:p-2 rounded-xl w-full">
-        <RelatedTokens collectionId={collectionId} tokenId={tokenId} />
+      {shouldDisplayAttributes && (
+        <div className="bg-neutral-200 p-4 max-md:p-2 rounded-xl">
+          <TokenAttributes
+            collectionId={collectionId}
+            tokenId={Number(tokenId)}
+            onAttributeClick={handleAttributeClick}
+          />
+        </div>
+      )}
+      <div className="rounded-xl">
+        <div className="shadow-xl bg-gradient-to-t from-neutral-100 to-neutral-200 p-4 max-md:p-2 rounded-xl ">
+          <RelatedTokens collectionId={collectionId} tokenId={tokenId} />
+        </div>
+        <Footer />
       </div>
     </div>
   );
