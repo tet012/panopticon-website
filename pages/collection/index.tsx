@@ -27,7 +27,7 @@ const Token: NextPage = () => {
         />
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-7xl m-auto">
         <div className="flex flex-col gap-4 bg-neutral-100 w-full p-4 rounded-lg">
           <div className="flex flex-col gap-1 font-sans">
             <p>
