@@ -14,6 +14,7 @@ import { mainnet, goerli } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { infuraProvider } from "wagmi/providers/infura";
 import NavBar from "../components/organisms/NavBar";
+import Footer from "../components/organisms/Footer";
 
 const infuraId = process.env.INFURA_ID || "01ce58772c21421d833971a8ccf7f111";
 
@@ -64,9 +65,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <link rel="icon" href="img/favicon.ico" sizes="any" />
         </Head>
-        <div className="p-4 bg-neutral-50">
+        <div className="p-4 bg-neutral-50 max-md:p-2">
           <NavBar />
           <Component {...pageProps} />
+          <Footer />
         </div>
       </RainbowKitProvider>
     </WagmiConfig>

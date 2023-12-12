@@ -3,9 +3,10 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import NavBar from "../../components/organisms/NavBar";
-import Footer from "../../components/organisms/Footer";
+import Link from "next/link";
 import CollectionCard from "../../components/molecules/CollectionCard";
+import RandomGallery from "../../components/organisms/RandomGallery";
+import Divider from "../../components/atoms/Divider";
 
 const Token: NextPage = () => {
   const router = useRouter();
@@ -26,9 +27,8 @@ const Token: NextPage = () => {
         />
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
-      <div className="flex flex-col max-md:p-2 max-md:py-32 p-4 py-16 gap-8 max-w-5xl align-center items-center justify-center m-auto">
-        <div className="flex flex-col gap-4 self-start px-4">
-          <h1 className="font-sans text-xl">Collections</h1>
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4 bg-neutral-100 w-full p-4 rounded-lg">
           <div className="flex flex-col gap-1 font-sans">
             <p>
               Some of my work from 2021 to nowadays, all published on the
@@ -37,21 +37,26 @@ const Token: NextPage = () => {
             <p>
               Exploring various themes with recurring colors and obviously,
               <span className="ml-1 font-semibold ">
-                <a href="https://www.youtube.com/watch?v=M62sZC7ozPY">
+                <Link href="https://www.youtube.com/watch?v=M62sZC7ozPY">
                   the eyes chico.
-                </a>
+                </Link>
               </span>
             </p>
           </div>
         </div>
 
-        <CollectionCard collectionId={"panopticon"} />
-        <CollectionCard collectionId={"raeminiscence"} />
-        <CollectionCard collectionId={"presence"} />
-        <CollectionCard collectionId={"creepz"} />
-        <CollectionCard collectionId={"founders"} />
+        <div className="bg-neutral-100 p-4 rounded-lg flex flex-col gap-2">
+          <p>This is a random selection of pieces.</p>
+          <RandomGallery columnCount={4} />
+        </div>
+        <div className="bg-neutral-100 p-4 rounded-lg flex flex-col gap-2">
+          <CollectionCard collectionId={"panopticon"} />
+          <CollectionCard collectionId={"raeminiscence"} />
+          <CollectionCard collectionId={"presence"} />
+          <CollectionCard collectionId={"creepz"} />
+          <CollectionCard collectionId={"founders"} />
+        </div>
       </div>
-      <Footer />
     </div>
   );
 };

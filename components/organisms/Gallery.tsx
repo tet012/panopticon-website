@@ -106,11 +106,14 @@ const Gallery: React.FC<GalleryProps> = ({
           <h1 className="capitalize text-7xl max-md:text-4xl">
             {collectionId}
           </h1>
-          <CollectionDescription collectionId={collectionId} />
         </div>
+
         <div className="">
           <CollectionLinks collectionId={collectionId} />
         </div>
+      </div>
+      <div className="p-8 bg-neutral-100 rounded-xl">
+        <CollectionDescription collectionId={collectionId} />
       </div>
       <div
         className="gallery grid gap-2 auto-cols-fr"

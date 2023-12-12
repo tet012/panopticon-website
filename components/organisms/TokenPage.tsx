@@ -43,7 +43,7 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
   );
 
   return (
-    <div className="max-md:p-2 flex flex-col gap-2">
+    <div className="max-md:p-2  flex flex-col gap-2">
       <div
         id="cont"
         className="max-md:min-h-fit flex flex-col max-md:p-0 align-center gap-2"
@@ -90,7 +90,6 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
         <div className="shadow-xl bg-gradient-to-t from-neutral-100 to-neutral-200 p-4 max-md:p-2 rounded-xl ">
           <RelatedTokens collectionId={collectionId} tokenId={tokenId} />
         </div>
-        <Footer />
       </div>
     </div>
   );

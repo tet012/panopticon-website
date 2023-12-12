@@ -104,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       >
         <button
           onClick={toggleSidebarVisibility}
-          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
+          className={`group p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
           ${
             isSidebarVisible
               ? ""
@@ -112,18 +112,18 @@ const Sidebar: React.FC<SidebarProps> = ({
           } `}
         >
           {isSidebarVisible ? (
-            <ArrowLeftCircleIcon className="h-5 w-5" />
+            <ArrowLeftCircleIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
           ) : (
-            <ArrowRightCircleIcon className="h-5 w-5" />
+            <ArrowRightCircleIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
           )}
         </button>
         <div className="hover:bg-neutral-200 transition rounded-b-lg">
           <button
             ref={toggleButtonRef}
             onClick={toggleDisplaySelector}
-            className="p-4 "
+            className="group p-4 "
           >
-            <AdjustmentsHorizontalIcon className="h-5 w-5" />
+            <AdjustmentsHorizontalIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
           </button>
 
           {isSelectorVisible && (
@@ -156,31 +156,31 @@ const Sidebar: React.FC<SidebarProps> = ({
       >
         <button
           onClick={() => setSortOrder("ascending")}
-          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
+          className={`group p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
           ${
             isSidebarVisible
               ? ""
               : "max-md:border-0 border-b border-neutral-300"
           } `}
         >
-          <BarsArrowUpIcon className="h-5 w-5" />
+          <BarsArrowUpIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
         </button>
         <button
           onClick={() => setSortOrder("descending")}
-          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition 
+          className={`group p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition 
           ${
             isSidebarVisible
               ? ""
               : "max-md:border-0 border-b border-neutral-300"
           } `}
         >
-          <BarsArrowDownIcon className="h-5 w-5" />
+          <BarsArrowDownIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
         </button>
         <button
           onClick={toggleRandomization}
-          className="hover:bg-neutral-200 transition p-4"
+          className="group hover:bg-neutral-200 transition p-4"
         >
-          <ArrowPathRoundedSquareIcon className="h-5 w-5" />
+          <ArrowPathRoundedSquareIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
         </button>
       </div>
 

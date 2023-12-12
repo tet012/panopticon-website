@@ -19,12 +19,13 @@ const TokenThumbnail: React.FC<TokenProps> = ({ id, collectionId }) => {
       <div className="group overflow-hidden cursor-pointer flex max-md:border max-md:p-0 max-md:rounded-lg h-full rounded-xl justify-center align-center items-middle self-center transition ">
         {tokenData.image &&
         tokenData.image.startsWith("data:image/svg+xml;base64,") ? (
-          <img
-            src={tokenData.image as string}
-            alt={`Token ${id}`}
-            width={600}
-            className="max-md:rounded-lg rounded-lg"
-          />
+          <div className="h-full w-full">
+            <img
+              src={tokenData.image as string}
+              alt={`Token ${id}`}
+              className="h-full w-full object-cover rounded-lg"
+            />
+          </div>
         ) : (
           <Image
             src={tokenData.image as string}

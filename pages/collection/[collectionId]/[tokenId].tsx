@@ -52,9 +52,6 @@ const Token: NextPage = () => {
             />
           )}
         </div>
-        {/* <div className="w-full">
-          <Footer />
-        </div> */}
       </div>
     </div>
   );
