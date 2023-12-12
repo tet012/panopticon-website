@@ -48,7 +48,7 @@ interface LinkButtonProps {
 
 const LinkButton: React.FC<LinkButtonProps> = ({ href, imgSrc, alt }) => (
   <Link
-    className="w-fit flex align-center items-middle justify-center p-2 transition hover:shadow-lg border border-neutral-300 hover:border hover:border-neutral-900 hover:bg-neutral-900 rounded-lg hover:rounded-xl"
+    className="w-full bg-neutral-200 flex align-center items-middle justify-center p-4 transition hover:shadow-lg hover:bg-neutral-900 rounded-xl"
     href={href}
   >
     <Image src={imgSrc} width={20} height={20} alt={alt} />

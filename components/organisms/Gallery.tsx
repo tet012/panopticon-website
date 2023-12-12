@@ -15,12 +15,32 @@ interface GalleryProps {
   handleTokenClick: (tokenId: number) => void;
   columnCount: number;
   collectionId: string;
+  sortOrder: string;
+  isRandomized: boolean;
 }
+
+const shuffleArray = (array: any[]) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
 
 const Gallery: React.FC<GalleryProps> = ({
   tokens,
   columnCount,
   collectionId,
+  sortOrder,
+  isRandomized,
 }) => {
   const [visibleCount, setVisibleCount] = useState(columnCount * 3);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,9 +55,12 @@ const Gallery: React.FC<GalleryProps> = ({
     if (visibleCount < tokens.length && !isLoading) {
       setIsLoading(true);
       setTimeout(() => {
-        setVisibleCount((prevCount) =>
-          Math.min(prevCount + columnCount * rowsPerPage, tokens.length),
+        const newCount = Math.min(
+          visibleCount + columnCount * rowsPerPage,
+          tokens.length,
         );
+        setVisibleCount(newCount);
+        console.log(`Loaded tokens: ${newCount}/${tokens.length}`);
         setIsLoading(false);
       }, 500);
     }
@@ -59,8 +82,24 @@ const Gallery: React.FC<GalleryProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  let sortedAndRandomizedTokens: Token[] = [...tokens];
+
+  if (sortOrder === "ascending") {
+    sortedAndRandomizedTokens.sort((a, b) => Number(a.id) - Number(b.id));
+  } else if (sortOrder === "descending") {
+    sortedAndRandomizedTokens.sort((a, b) => Number(b.id) - Number(a.id));
+  }
+
+  if (isRandomized) {
+    sortedAndRandomizedTokens = shuffleArray(
+      sortedAndRandomizedTokens,
+    ) as Token[];
+  }
+
+  const displayedTokens = sortedAndRandomizedTokens.slice(0, visibleCount);
+
   return (
-    <div className="flex w-full flex-col p-2 gap-2">
+    <div className="flex w-full flex-col gap-2">
       <div className="p-8 max-md:p-6 flex max-md:flex-col max-md:gap-8 w-full justify-between bg-neutral-100 rounded-xl">
         <div className="flex flex-col w-1/2 max-md:w-full gap-4 ">
           <CollectionYear collectionId={collectionId} />
@@ -79,10 +118,9 @@ const Gallery: React.FC<GalleryProps> = ({
           gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
         }}
       >
-        {tokens.slice(0, visibleCount).map((token) => {
+        {displayedTokens.slice(0, visibleCount).map((token) => {
           const tokenId = collectionId === "creepz" ? token.tokenId : token.id;
           if (tokenId === undefined) {
-            console.warn("Undefined token ID", token);
             return null;
           }
 

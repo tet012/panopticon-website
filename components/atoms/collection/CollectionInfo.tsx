@@ -49,7 +49,7 @@ const CollectionInfo = [
     },
     link: "/collection/presence",
     description:
-      "In an attempt to understand the world of perception and dreams, Teto draw those pieces blending  surrealism and abstract genre to bring thoughts provoking artworks that reflects the conflictuality in ego, life and love.",
+      "In an attempt to understand the world of perception and dreams, Teto draw those pieces blending  surrealism and abstract genre to bring thoughts provoking artworks that reflects the conflictuality in ego, life and death.",
     year: "2021",
   },
 

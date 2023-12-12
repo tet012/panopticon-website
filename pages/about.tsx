@@ -1,7 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import NavBar from "../components/organisms/NavBar";
 import Footer from "../components/organisms/Footer";
 
 const About: NextPage = () => {
@@ -15,7 +14,6 @@ const About: NextPage = () => {
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
 
-      <NavBar />
       <div className="w-full flex flex-col min-h-screen justify-center align-center items-center">
         <div className="w-1/2 self-center flex flex-col gap-8 max-md:mt-0 max-md:w-full max-md:p-8 mt-[-10rem]">
           <p className="text-xl">

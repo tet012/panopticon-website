@@ -26,7 +26,6 @@ const Token: NextPage = () => {
         />
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
-      <NavBar />
       <div className="flex flex-col max-md:p-2 max-md:py-32 p-4 py-16 gap-8 max-w-5xl align-center items-center justify-center m-auto">
         <div className="flex flex-col gap-4 self-start px-4">
           <h1 className="font-sans text-xl">Collections</h1>

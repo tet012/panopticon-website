@@ -4,7 +4,10 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
+  ArrowPathRoundedSquareIcon,
   AdjustmentsHorizontalIcon,
+  BarsArrowDownIcon,
+  BarsArrowUpIcon,
 } from "@heroicons/react/24/outline";
 
 interface Traits {
@@ -25,6 +28,8 @@ interface SidebarProps {
   paletteColors: { [key: string]: string[] };
   columnCount: number;
   setColumnCount: React.Dispatch<React.SetStateAction<number>>;
+  setSortOrder: React.Dispatch<React.SetStateAction<string>>;
+  toggleRandomization: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -37,6 +42,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   tokenCounts,
   columnCount,
   setColumnCount,
+  setSortOrder,
+  toggleRandomization,
 }) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
@@ -50,7 +57,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const [isSelectorVisible, setIsSelectorVisible] = useState(false);
 
-  const toggleDisplaySelector = () => {
+  const toggleDisplaySelector = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevents the event from propagating up to the document
     setIsSelectorVisible((prev) => !prev);
   };
 
@@ -61,10 +69,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   const popupRef = useRef<HTMLDivElement>(null); // Specifying the type as HTMLDivElement
 
   const closePopup = (event: MouseEvent) => {
-    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+    if (
+      popupRef.current &&
+      !popupRef.current.contains(event.target as Node) &&
+      event.target !== toggleButtonRef.current // Add this line
+    ) {
       setIsSelectorVisible(false);
     }
   };
+
+  // Add a ref for the toggle button
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     document.addEventListener("mousedown", closePopup);
@@ -78,19 +93,23 @@ const Sidebar: React.FC<SidebarProps> = ({
       className={`sidebar rounded-lg 
       ${
         isSidebarVisible ? "w-full" : "w-full "
-      } flex flex-col sticky top-0 z-40 `}
+      } flex flex-col gap-2 sticky top-0 z-40 `}
     >
       <div
-        className={`justify-between rounded-t-lg align-center ${
+        className={`justify-between bg-neutral-100 rounded-lg align-center ${
           isSidebarVisible
-            ? "flex border-b border-neutral-300"
+            ? "flex"
             : "flex md:flex-col justify-center align-center items-middle "
         } `}
       >
         <button
           onClick={toggleSidebarVisibility}
           className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
-          ${isSidebarVisible ? "" : "border-b border-neutral-300"} `}
+          ${
+            isSidebarVisible
+              ? ""
+              : "max-md:border-0 border-b border-neutral-300"
+          } `}
         >
           {isSidebarVisible ? (
             <ArrowLeftCircleIcon className="h-5 w-5" />
@@ -98,9 +117,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             <ArrowRightCircleIcon className="h-5 w-5" />
           )}
         </button>
-
-        <div className="relative hover:bg-neutral-200 transition rounded-b-lg">
-          <button onClick={toggleDisplaySelector} className="p-4 ">
+        <div className="hover:bg-neutral-200 transition rounded-b-lg">
+          <button
+            ref={toggleButtonRef}
+            onClick={toggleDisplaySelector}
+            className="p-4 "
+          >
             <AdjustmentsHorizontalIcon className="h-5 w-5" />
           </button>
 
@@ -125,12 +147,52 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
+      <div
+        className={`justify-between bg-neutral-100 rounded-lg align-center overflow-hidden ${
+          isSidebarVisible
+            ? "flex "
+            : "flex md:flex-col justify-center align-center items-middle "
+        } `}
+      >
+        <button
+          onClick={() => setSortOrder("ascending")}
+          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition rounded-t-lg 
+          ${
+            isSidebarVisible
+              ? ""
+              : "max-md:border-0 border-b border-neutral-300"
+          } `}
+        >
+          <BarsArrowUpIcon className="h-5 w-5" />
+        </button>
+        <button
+          onClick={() => setSortOrder("descending")}
+          className={`p-4 text-lg font-semibold self-center hover:bg-neutral-200 transition 
+          ${
+            isSidebarVisible
+              ? ""
+              : "max-md:border-0 border-b border-neutral-300"
+          } `}
+        >
+          <BarsArrowDownIcon className="h-5 w-5" />
+        </button>
+        <button
+          onClick={toggleRandomization}
+          className="hover:bg-neutral-200 transition p-4"
+        >
+          <ArrowPathRoundedSquareIcon className="h-5 w-5" />
+        </button>
+      </div>
+
       {isSidebarVisible && (
         <>
           {Object.keys(filters).map((trait) => (
-            <div className="flex flex-col" key={trait}>
+            <div
+              className="flex rounded-lg overflow-hidden flex-col"
+              key={trait}
+            >
               <div
-                className="flex whitespace-nowrap cursor-pointer border-b border-neutral-200  items-center justify-between gap-32 hover:bg-neutral-200 hover:transition p-4"
+                className="group flex whitespace-nowrap cursor-pointer bg-neutral-100 items-center justify-between gap-32 hover:bg-neutral-200 transition p-4"
                 onClick={() => toggleAttributeVisibility(trait)}
               >
                 <label className="font-semibold capitalize ">{trait}</label>
@@ -141,10 +203,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 )}
               </div>
               {visibleAttributes[trait] && (
-                <div className="flex flex-col gap-2 border-t bg-neutral-200 p-2 ">
+                <div className="flex flex-col gap-2 bg-neutral-200 p-2 ">
                   {filters[trait].map((value) => (
                     <div
-                      className={`rounded-xl bg-neutral-100 px-2 py-4 shadow cursor-pointer border-2 border-neutral-50 hover:transition hover:bg-neutral-300 ${
+                      className={`group rounded-xl bg-neutral-100 px-2 py-4 shadow cursor-pointer border-2 border-neutral-50 hover:transition hover:bg-neutral-300 ${
                         activeFilters[trait]?.has(value)
                           ? "border-2 border-neutral-900 shadow border-l-8 hover:transition"
                           : "border-2 border-neutral-50 hover:transition"

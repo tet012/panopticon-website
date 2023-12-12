@@ -8,6 +8,8 @@ import useTokenFilter from "../../hooks/useFilter";
 import palettes from "../atoms/palettes";
 import Sidebar from "./Sidebar";
 import Gallery from "./Gallery";
+import { foundersTokens } from "../../pages/api/foundersTokens";
+import NavBar from "./NavBar";
 
 type Token = {
   tokenId: number;
@@ -24,6 +26,9 @@ interface CollectionProps {
 type CountType = Record<string, Record<string, number>>;
 
 const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
+  const [sortOrder, setSortOrder] = useState("ascending");
+  const [isRandomized, setIsRandomized] = useState(false);
+
   const router = useRouter();
   const tokenData = useMemo(() => {
     switch (collectionId) {
@@ -34,22 +39,9 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
       case "raeminiscence":
         return raeminiscenceTokens;
       case "presence":
-        const presenceTokenIds = new Set([
-          1, 7, 8, 10, 11, 12, 15, 17, 19, 20, 21, 22, 23, 24, 25, 26, 32, 33,
-          34, 35, 36, 46, 47, 48, 49, 50, 51, 52,
-        ]);
-        return presenceTokens.filter((token) => presenceTokenIds.has(token.id));
+        return presenceTokens;
       case "founders":
-        const foundersTokenIds = new Set([
-          3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 10025,
-          10026, 10027, 10028, 10029, 10030, 10031, 10032, 10033, 10034, 10035,
-          10036, 10037, 10038, 10039, 10040, 10043, 10044, 10045, 10046, 10047,
-          10048, 10049, 10050, 10051, 10052, 10053, 10054, 10055, 10056, 10067,
-          10054, 10055, 10056, 10067, 10068, 10069, 10060, 10061, 10062, 10063,
-          10064, 10065, 10066, 10067, 10068, 10069, 10070, 10071, 10072, 10073,
-          10074, 10075, 10076, 10077,
-        ]);
-        return presenceTokens.filter((token) => foundersTokenIds.has(token.id));
+        return foundersTokens;
       default:
         return [];
     }
@@ -75,7 +67,6 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
   useEffect(() => {
     const query = router.query;
 
-    // Convert query parameters to string if they are not
     const filter = Array.isArray(query.filter) ? query.filter[0] : query.filter;
     const value = Array.isArray(query.value) ? query.value[0] : query.value;
 
@@ -129,10 +120,14 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
     [collectionId],
   );
 
+  const toggleRandomization = () => {
+    setIsRandomized(!isRandomized);
+  };
+
   return (
-    <div className="max-md:flex-col flex border-b border-t">
+    <div className="max-md:flex-col flex gap-2">
       {shouldDisplaySidebar && (
-        <div className="h-fit ml-2 mt-2 rounded-lg sticky top-2 bg-neutral-100 z-40">
+        <div className="h-fit rounded-lg sticky top-2 z-40">
           <Sidebar
             filters={filters}
             toggleAttributeVisibility={toggleAttributeVisibility}
@@ -143,14 +138,18 @@ const CollectionView: React.FC<CollectionProps> = ({ collectionId }) => {
             tokenCounts={tokenCounts}
             columnCount={columnCount}
             setColumnCount={setColumnCount}
+            setSortOrder={setSortOrder}
+            toggleRandomization={toggleRandomization}
           />
         </div>
       )}
       <Gallery
-        tokens={filteredTokens as Token[]} // Cast filteredTokens to Token[]
+        tokens={filteredTokens as Token[]}
         handleTokenClick={handleTokenClick}
         columnCount={columnCount}
         collectionId={collectionId}
+        sortOrder={sortOrder}
+        isRandomized={isRandomized}
       />
     </div>
   );

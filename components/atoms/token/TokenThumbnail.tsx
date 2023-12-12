@@ -16,14 +16,14 @@ const TokenThumbnail: React.FC<TokenProps> = ({ id, collectionId }) => {
 
   return (
     <Link href={`/collection/${collectionId}/${id}`}>
-      <div className="group bg-cover overflow-hidden cursor-pointer flex max-md:border max-md:p-1 max-md:rounded-lg h-full rounded-xl justify-center align-center items-middle self-center transition ">
+      <div className="group overflow-hidden cursor-pointer flex max-md:border max-md:p-0 max-md:rounded-lg h-full rounded-xl justify-center align-center items-middle self-center transition ">
         {tokenData.image &&
         tokenData.image.startsWith("data:image/svg+xml;base64,") ? (
           <img
             src={tokenData.image as string}
             alt={`Token ${id}`}
             width={600}
-            className="aspect-[3/4] bg-cover max-md:rounded-lg rounded-lg"
+            className="max-md:rounded-lg rounded-lg"
           />
         ) : (
           <Image
@@ -32,7 +32,7 @@ const TokenThumbnail: React.FC<TokenProps> = ({ id, collectionId }) => {
             width={600}
             height={400}
             loading="lazy"
-            className="max-md:rounded-lg aspect-[3/4] bg-cover rounded-lg"
+            className="max-md:rounded-lg bg-cover rounded-lg"
           />
         )}
       </div>

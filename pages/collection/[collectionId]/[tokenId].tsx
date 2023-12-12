@@ -43,7 +43,7 @@ const Token: NextPage = () => {
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
 
-      <div id="body" className="flex w-full flex-col bg-neutral-100">
+      <div id="body" className="flex w-full flex-col bg-neutral-50 ">
         <div id="tokeninfo" className="">
           {tokenIdBigInt !== undefined && (
             <TokenPage

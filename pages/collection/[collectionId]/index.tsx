@@ -2,8 +2,6 @@ import React from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-
-import NavBar from "../../../components/organisms/NavBar";
 import CollectionView from "../../../components/organisms/CollectionView";
 
 const Token: NextPage = () => {
@@ -29,8 +27,7 @@ const Token: NextPage = () => {
         />
         <meta property="og:image" content="/img/web-img.jpg" />
       </Head>
-      <NavBar />
-      <div className="min-h-screen ">
+      <div>
         <CollectionView collectionId={collectionId as string} />
       </div>
     </div>

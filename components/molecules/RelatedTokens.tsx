@@ -36,7 +36,7 @@ const RelatedTokens = ({
         return (
           <div
             key={key}
-            className="transition border-4 border-neutral-100 shadow rounded-2xl hover:border-neutral-900 hover:translate-y-2 hover:shadow-lg"
+            className="transition border-4 max-md:border-0 border-neutral-100 shadow rounded-2xl hover:border-neutral-900 hover:shadow-lg"
           >
             <TokenThumbnail id={uniqueTokenId} collectionId={collectionId} />
           </div>

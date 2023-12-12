@@ -43,12 +43,11 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
   );
 
   return (
-    <div className="max-md:p-2 p-4 flex flex-col gap-2">
+    <div className="max-md:p-2 flex flex-col gap-2">
       <div
         id="cont"
-        className="bg-neutral-50 max-md:min-h-fit flex flex-col max-md:p-0 align-center gap-2"
+        className="max-md:min-h-fit flex flex-col max-md:p-0 align-center gap-2"
       >
-        <NavBar />
         <div
           id="img"
           className="flex border items-center justify-center align-center grow w-full rounded-2xl self-center overflow-hidden bg-neutral-200 max-md:p-2 py-32"
@@ -73,7 +72,7 @@ const TokenPage: React.FC<TokenPageProps> = ({ tokenId, collectionId }) => {
             <Owner collectionId={collectionId} tokenId={tokenId} />
           </div>
 
-          <div className="flex bg-neutral-200 rounded-xl items-center gap-2 p-2 max-md:justify-end">
+          <div className="flexitems-center gap-2 max-md:justify-end">
             <TokenLinks tokenId={tokenId} collectionId={collectionId} />
           </div>
         </div>
