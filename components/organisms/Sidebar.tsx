@@ -111,11 +111,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               : "max-md:border-0 border-b border-neutral-300"
           } `}
         >
-          {isSidebarVisible ? (
-            <ArrowLeftCircleIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
-          ) : (
-            <ArrowRightCircleIcon className="h-5 w-5 group-hover:text-neutral-800 text-neutral-500" />
-          )}
+          <ArrowRightCircleIcon
+            className={`h-5 w-5 group-hover:text-neutral-800 text-neutral-500 transition ${
+              isSidebarVisible ? "rotate-180" : ""
+            } `}
+          />
         </button>
         <div className="hover:bg-neutral-200 transition rounded-b-lg">
           <button

@@ -29,15 +29,15 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ collectionId }) => {
       className="group bg-neutral-50 rounded-xl border p-2 text-neutral-500 hover:text-neutral-900 hover:bg-neutral-800 transition "
       href={link}
     >
-      <div className="transition flex max-md:flex-col rounded-lg overflow-hidden group-hover:shadow-2xl shadow-xl w-full bg-neutral-50">
-        <div className="w-1/3 max-md:w-full overflow-hidden">
+      <div className="transition flex max-md:flex-col rounded-lg overflow-hidden group-hover:shadow-2xl shadow-xl bg-neutral-50">
+        <div className=" max-md:w-full overflow-hidden">
           <div className="group-hover:scale-105 transition ease-in-out h-full">
             <CollectionImage collectionId={collectionId} size="large" />
           </div>
         </div>
 
         <div className="flex flex-col justify-between gap-8 p-4 w-2/3 max-md:w-full">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             <div className="h-fit">
               <CollectionYear collectionId={collectionId} />
             </div>
